@@ -18,7 +18,7 @@ const LoginForm = ({ history }) => {
   const checkValid = () => {
     setErrors({
       login: !login ? ['Это поле не может быть пустым'] : [],
-      password: !password ? ['Это поле не может быть пустым'] : []
+      password: !password ? ['Это поле не может быть пустым'] : [],
     });
     return login && password;
   };

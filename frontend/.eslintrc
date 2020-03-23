@@ -3,7 +3,7 @@
   "parser": "babel-eslint",
   "plugins": ["prettier"],
   "rules": {
-      "arrow-parens": ["error", "as-needed"],
+      "arrow-parens": ["error", "always"],
 
       "prettier/prettier": ["error"],
 
