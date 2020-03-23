@@ -5,10 +5,11 @@ import 'semantic-ui-css/semantic.min.css';
 import 'normalize.css';
 
 import App from './App';
+import history from './assets/functions/history';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <Router>
+  <Router history={history}>
     <App />
   </Router>,
   document.getElementById('root')

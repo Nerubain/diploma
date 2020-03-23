@@ -18,14 +18,14 @@ const ErrorWrapper = styled.div`
 `;
 
 export default function CustomInput({
-  label,
   type = 'text',
+  label,
   value,
   onChange,
   onErrors,
-  errors,
+  placeholder,
   name,
-  placeholder
+  errors,
 }) {
   return (
     <InputWrapper>
@@ -36,8 +36,9 @@ export default function CustomInput({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
+        name={name}
       />
-      <ErrorWrapper>{errors && errors.map(error => <div key={error}>{error}</div>)}</ErrorWrapper>
+      <ErrorWrapper>{errors && errors.map((error) => <div key={error}>{error}</div>)}</ErrorWrapper>
     </InputWrapper>
   );
 }
