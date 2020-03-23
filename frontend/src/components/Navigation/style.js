@@ -1,5 +1,17 @@
 import styled from 'styled-components';
-import { Input } from 'semantic-ui-react';
+import { Input, Dropdown, Button, MenuItem } from 'semantic-ui-react';
+
+export const StyledItem = styled(MenuItem)`
+  @media (max-width: 550px) {
+    display: ${(props) => (props.type ? 'none!important' : '')};
+  }
+`;
+export const MobileItem = styled(MenuItem)`
+  display: none !important;
+  @media (max-width: 550px) {
+    display: block !important;
+  }
+`;
 
 export const SearchInput = styled(Input)`
   & > input {
@@ -11,4 +23,20 @@ export const SearchInput = styled(Input)`
   }
   transition-delay: none;
   transition: width 0.15s !important;
+  @media (max-width: 550px) {
+    display: none !important;
+  }
+`;
+
+export const WideDropDown = styled(Dropdown)`
+  @media (max-width: 550px) {
+    display: none !important;
+  }
+`;
+
+export const MobileButton = styled(Button)`
+  display: none !important;
+  @media (max-width: 550px) {
+    display: block !important;
+  }
 `;

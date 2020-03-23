@@ -1,17 +1,19 @@
-import React from 'react';
-import { Menu, Button } from 'semantic-ui-react';
+import React, { useContext } from 'react';
+import { Menu, Button, Icon } from 'semantic-ui-react';
 import { useHistory } from 'react-router-dom';
 
 import navigation from '../../assets/objects/navigation';
 import UserDropDown from './UserDropDown';
-import { SearchInput } from './style';
+import { SearchInput, StyledItem, MobileItem } from './style';
+import { SidebarContext } from '../../context/sidebar.context';
 
 const Navigation = () => {
   const history = useHistory();
-
+  const { setVisible, visible } = useContext(SidebarContext);
   const activeItem = (href) => history.location.pathname === href;
 
   const clickHandler = (href) => history.push(href);
+  const sidebarHandler = () => setVisible(!visible);
 
   const content = {
     search: <SearchInput icon="search" inverted />,
@@ -19,23 +21,30 @@ const Navigation = () => {
   };
 
   return (
-    <Menu color="teal" inverted size="small">
+    <Menu color="teal" inverted size="small" icon>
       {navigation.map(({ icon, name, href, type, position }) => (
-        <Menu.Item
+        <StyledItem
           key={`${href}-${name}`}
           icon={icon}
           name={name}
           position={position}
           active={activeItem(href)}
           content={type ? content[type] : null}
+          type={type}
           onClick={!type ? () => clickHandler(href) : null}
         />
       ))}
+      <MobileItem onClick={sidebarHandler}>
+        <Icon name="search" size="large" />
+      </MobileItem>
       <Menu.Menu position="right">
         <Menu.Item>
-          <Button color="white" icon="plus" inverted size="mini" />
+          <Icon name="plus" size="large" />
         </Menu.Item>
         <UserDropDown />
+        <MobileItem onClick={sidebarHandler}>
+          <Icon name="bars" size="large" />
+        </MobileItem>
       </Menu.Menu>
     </Menu>
   );

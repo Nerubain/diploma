@@ -2,13 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Navigation from './Navigation/Navigation';
+import Sidebar from './Sidebar/Sidebar';
 
 export default function Layout({ children }) {
   return (
-    <Container>
-      <Navigation />
-      {children}
-    </Container>
+    <Sidebar>
+      <Container>
+        <Navigation />
+        {children}
+      </Container>
+    </Sidebar>
   );
 }
 
