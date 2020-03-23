@@ -1,5 +1,7 @@
 import React from 'react';
-import { Dropdown, Image } from 'semantic-ui-react';
+import { Image } from 'semantic-ui-react';
+
+import { WideDropDown } from './style';
 
 const options = [
   { key: 'user', text: 'Account', icon: 'user' },
@@ -14,5 +16,5 @@ const trigger = (
 );
 
 export default function UserDropDown() {
-  return <Dropdown text="Filter" icon={null} trigger={trigger} options={options} item />;
+  return <WideDropDown icon={null} trigger={trigger} options={options} item />;
 }
