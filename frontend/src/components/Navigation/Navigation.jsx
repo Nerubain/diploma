@@ -21,7 +21,7 @@ const Navigation = () => {
   };
 
   return (
-    <Menu color="teal" inverted size="small" icon>
+    <Menu color="teal" inverted size="mini" icon fixed="top">
       {navigation.map(({ icon, name, href, type, position }) => (
         <StyledItem
           key={`${href}-${name}`}
@@ -42,10 +42,10 @@ const Navigation = () => {
           <Icon name="plus" size="large" />
         </Menu.Item>
         <UserDropDown />
-        <MobileItem onClick={sidebarHandler}>
-          <Icon name="bars" size="large" />
-        </MobileItem>
       </Menu.Menu>
+      <MobileItem onClick={sidebarHandler}>
+        <Icon name="bars" size="large" />
+      </MobileItem>
     </Menu>
   );
 };
