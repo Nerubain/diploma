@@ -10,9 +10,9 @@ function App() {
       <Route exact path="/">
         <Auth />
       </Route>
-      {/* <Route path="/:user/boards"> */}
-      <Boards />
-      {/* </Route> */}
+      <Route path={['/:user/boards', '/:team/board']}>
+        <Boards />
+      </Route>
     </div>
   );
 }

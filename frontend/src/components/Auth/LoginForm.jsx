@@ -26,7 +26,7 @@ const LoginForm = ({ history }) => {
   const logIn = async () => {
     if (checkValid()) {
       try {
-        history.push('/home/user');
+        history.push('/nerub/boards');
       } catch (error) {
         setErrors(error);
       }
