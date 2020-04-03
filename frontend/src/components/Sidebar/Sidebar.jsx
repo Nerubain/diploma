@@ -1,25 +1,18 @@
 import React, { useContext } from 'react';
 import { Sidebar, Segment } from 'semantic-ui-react';
 
-import { SidebarProvider, SidebarContext } from '../../context/sidebar.context';
-import MenuItems from './Menu';
+import { SidebarContext } from '../../context/sidebar.context';
+import UserMenu from './Right/UserMenu';
+import BoardsMenu from './Left/BoardsMenu';
 
 const SidebarMenu = ({ children }) => {
-  const { visible } = useContext(SidebarContext);
+  const { right } = useContext(SidebarContext);
   return (
     <Sidebar.Pushable as={Segment} style={{ border: '0' }}>
-      <MenuItems />
-      <Sidebar.Pusher dimmed={visible}>{children}</Sidebar.Pusher>
+      <UserMenu />
+      <Sidebar.Pusher dimmed={right}>{children}</Sidebar.Pusher>
     </Sidebar.Pushable>
   );
 };
 
-const SidebarWrapper = ({ children }) => {
-  return (
-    <SidebarProvider>
-      <SidebarMenu children={children} />
-    </SidebarProvider>
-  );
-};
-
-export default SidebarWrapper;
+export default SidebarMenu;

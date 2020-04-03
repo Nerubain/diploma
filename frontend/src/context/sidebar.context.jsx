@@ -3,8 +3,11 @@ import React, { createContext, useState } from 'react';
 export const SidebarContext = createContext({});
 
 export const SidebarProvider = ({ children }) => {
-  const [visible, setVisible] = useState(false);
+  const [right, setRight] = useState(false);
+
+  const sidebarHandler = () => setRight(!right);
+
   return (
-    <SidebarContext.Provider value={{ visible, setVisible }}>{children}</SidebarContext.Provider>
+    <SidebarContext.Provider value={{ right, sidebarHandler }}>{children}</SidebarContext.Provider>
   );
 };
