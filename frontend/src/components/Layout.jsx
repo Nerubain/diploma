@@ -1,24 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 import { SidebarProvider } from '../context/sidebar.context';
+import { SegmentProvider } from '../context/segment.context';
 import Navigation from './Navigation/Navigation';
 import Sidebar from './Sidebar/Sidebar';
-import BoardsSegment from './Segment/Boards/BoardsSegment';
+import Segments from './Segment/Segments';
 
 export default function Layout({ children }) {
-  const [segment, setSegment] = useState({ boards: false, user: false });
-
-  const segmentHandler = (name) => setSegment({ ...segment, [name]: !segment[name] });
-  console.log(segment);
   return (
     <SidebarProvider>
       <Sidebar>
-        <Container>
-          <BoardsSegment segment={segment.boards} segmentHandler={segmentHandler} />
-          <Navigation segmentHandler={segmentHandler} />
-          {children}
-        </Container>
+        <SegmentProvider>
+          <Container>
+            <Segments />
+            <Navigation />
+            {children}
+          </Container>
+        </SegmentProvider>
       </Sidebar>
     </SidebarProvider>
   );

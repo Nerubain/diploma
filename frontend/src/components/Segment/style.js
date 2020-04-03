@@ -19,10 +19,10 @@ export const ContainerSegment = styled.div`
 
 export const ContextSegment = styled.div`
   position: absolute;
-  display: flex;
+  display: ${({ show }) => (show ? 'flex' : 'none')};
   width: 280px;
-  max-height: calc(100% - 56px);
-  top: 50px;
+  max-height: calc(100% - 53px);
+  top: 47px;
   background-color: #fff;
   box-shadow: 0 12px 24px -6px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08);
   border-radius: 3px;
