@@ -15,7 +15,7 @@ export const MobileItem = styled(MenuItem)`
 
 export const SearchInput = styled(Input)`
   & > input {
-    width: 180px;
+    width: 200px;
     transition: width 0.3s ease, box-shadow 0.1s ease, border-color 0.1s ease !important;
   }
   & > input:focus {
