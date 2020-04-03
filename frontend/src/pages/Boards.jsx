@@ -6,7 +6,7 @@ import LeftBarMenu from '../components/Boards/LeftBarMenu';
 import BoardsPreviewList from '../components/Boards/Prview/BoardsPreviewList';
 
 const img =
-  'https://trello-backgrounds.s3.amazonaws.com/SharedBackground/640x960/339535d43a2ebf70cf7a4d16fe476b5d/photo-1582450080665-d9cacb253531.jpg';
+  'https://trello-backgrounds.s3.amazonaws.com/SharedBackground/480x294/64da2a2ec6a7dd4080b7c800b2593b87/photo-1577800929753-bb4723761a0d.jpg';
 
 const list = [
   {
@@ -58,22 +58,18 @@ export default function Boards() {
 
 const Container = styled.div`
   display: flex;
-  margin: 75px auto 0 auto;
-  padding: 0 25px;
+  justify-content: center;
   width: 100%;
-  max-width: 1125px;
-  @media (max-width: 780px) {
-    padding: 0 15px;
-  }
-  @media (max-width: 550px) {
-    padding: 0 8px;
-    margin-top: 50px;
-  }
+  overflow: auto;
 `;
 
 const RightContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  margin: 40px 16px 0;
   max-width: 825px;
+  @media (max-width: 600px) {
+    margin-top: 20px;
+  }
 `;
