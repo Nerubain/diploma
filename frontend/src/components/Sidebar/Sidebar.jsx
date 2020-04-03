@@ -3,7 +3,6 @@ import { Sidebar, Segment } from 'semantic-ui-react';
 
 import { SidebarContext } from '../../context/sidebar.context';
 import UserMenu from './Right/UserMenu';
-import BoardsMenu from './Left/BoardsMenu';
 
 const SidebarMenu = ({ children }) => {
   const { right } = useContext(SidebarContext);
