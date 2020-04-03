@@ -1,40 +1,26 @@
 import React, { useContext } from 'react';
-import { Menu, Button, Icon } from 'semantic-ui-react';
+import { Menu, Icon } from 'semantic-ui-react';
 import { useHistory } from 'react-router-dom';
 
-import navigation from '../../assets/objects/navigation';
 import UserDropDown from './UserDropDown';
-import { SearchInput, StyledItem, MobileItem } from './style';
+import { SearchInput, MobileItem, StyledItem } from './style';
 import { SidebarContext } from '../../context/sidebar.context';
 
-const Navigation = () => {
+const Navigation = ({ segmentHandler }) => {
   const history = useHistory();
-  const { setVisible, visible } = useContext(SidebarContext);
-  const activeItem = (href) => history.location.pathname === href;
+  const { sidebarHandler } = useContext(SidebarContext);
 
-  const clickHandler = (href) => history.push(href);
-  const sidebarHandler = () => setVisible(!visible);
+  const boardsHandler = () => segmentHandler('boards');
+  const rightHandler = () => sidebarHandler('right');
 
-  const content = {
-    search: <SearchInput icon="search" inverted />,
-    add: <Button icon="plus" inverted size="mini" />,
-  };
+  const goHome = () => history.push('/home/profile');
 
   return (
-    <Menu color="teal" inverted size="mini" icon fixed="top">
-      {navigation.map(({ icon, name, href, type, position }) => (
-        <StyledItem
-          key={`${href}-${name}`}
-          icon={icon}
-          name={name}
-          position={position}
-          active={activeItem(href)}
-          content={type ? content[type] : null}
-          type={type}
-          onClick={!type ? () => clickHandler(href) : null}
-        />
-      ))}
-      <MobileItem onClick={sidebarHandler}>
+    <Menu color="teal" inverted size="small" icon style={{ margin: 0, height: 45, minHeight: 45 }}>
+      <StyledItem icon="home" onClick={goHome} />
+      <StyledItem icon="table" name="Доски" onClick={boardsHandler} />
+      <StyledItem content={<SearchInput icon="search" inverted />} type={'search'} />
+      <MobileItem>
         <Icon name="search" size="large" />
       </MobileItem>
       <Menu.Menu position="right">
@@ -43,7 +29,7 @@ const Navigation = () => {
         </Menu.Item>
         <UserDropDown />
       </Menu.Menu>
-      <MobileItem onClick={sidebarHandler}>
+      <MobileItem onClick={rightHandler}>
         <Icon name="bars" size="large" />
       </MobileItem>
     </Menu>
