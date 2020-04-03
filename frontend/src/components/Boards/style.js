@@ -2,14 +2,20 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Button } from 'semantic-ui-react';
 
-export const SideBarContainer = styled.div`
+export const LeftBarWrapper = styled.div`
+  position: sticky;
+  top: 0;
+  height: max-content;
+`;
+
+export const LeftBarContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 240px;
+  width: 272px;
   height: max-content;
   position: sticky;
-  top: 75px;
+  margin-top: 45px;
   padding: 0 16px;
 
   @media (max-width: 600px) {
