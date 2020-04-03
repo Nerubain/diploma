@@ -8,6 +8,7 @@ export default [
     name: 'Boards',
     href: '/nerub/boards',
     icon: 'table',
+    type: 'boards',
   },
   {
     type: 'search',
