@@ -6,8 +6,8 @@ import { FormWrapper } from './style';
 import CustomInput from '../CustomInput';
 
 const LoginForm = ({ history }) => {
-  const [login, setLogin] = useState('');
-  const [password, setPassword] = useState('');
+  const [login, setLogin] = useState('1');
+  const [password, setPassword] = useState('1');
   const [errors, setErrors] = useState({});
 
   const hanlder = (value, func, field) => {
