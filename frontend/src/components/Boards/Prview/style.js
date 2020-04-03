@@ -22,7 +22,7 @@ export const BoardListLabel = styled.div`
   white-space: nowrap;
 `;
 export const BoardLabelTitle = styled.div`
-  margin-left: 10px;
+  margin-left: 5px;
 `;
 
 export const ContentContainer = styled.div`
