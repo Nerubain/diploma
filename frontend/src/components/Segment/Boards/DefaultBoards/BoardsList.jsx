@@ -1,28 +1,28 @@
 import React, { useState } from 'react';
 import { Icon, Button } from 'semantic-ui-react';
 
-import { ListContainer, ListLabelWrapper, ListLabelText, ListWrapper } from '../style';
+import { ListContainer, ListLabelWrapper, ListLabelText, ListWrapper } from '../../style';
 import BoardsItem from './BoardsItem';
 
-export default function BoardsList({ data }) {
+export default function BoardsList({ column, boards }) {
   const [show, setShow] = useState(true);
 
   const showHandler = () => setShow(!show);
 
-  const display = !!data.list.length;
+  const display = !!column.boardIds.length;
 
   const statusIcon = show ? 'minus' : 'plus';
 
   return (
     <ListContainer>
       <ListLabelWrapper>
-        <Icon name={data.icon} size="small" />
-        <ListLabelText>{data.label}</ListLabelText>
+        <Icon name={column.icon} size="small" />
+        <ListLabelText>{column.label}</ListLabelText>
         <Button icon={statusIcon} size="tiny" onClick={showHandler} />
       </ListLabelWrapper>
       <ListWrapper show={display && show}>
-        {data.list.map(({ id, img, title }) => (
-          <BoardsItem key={id} image={img} title={title} favourite={data.favourite} />
+        {boards.map((board) => (
+          <BoardsItem key={board.id} content={board.content} />
         ))}
       </ListWrapper>
     </ListContainer>

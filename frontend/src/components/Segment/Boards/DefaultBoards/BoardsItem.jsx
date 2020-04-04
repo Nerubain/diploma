@@ -10,27 +10,23 @@ import {
   Title,
   IconContainer,
   IconButton,
-} from '../style';
+} from '../../style';
 
-export default function BoardsItem({ image, title, favourite }) {
-  const stop = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
+export default function BoardsItem({ content }) {
+  const stop = (e) => e.preventDefault();
+
   return (
     <ItemContainer>
       <ItemLink to="/nerub/board">
-        <ItemBackground image={image} />
-        <SmallImage image={image} />
+        <ItemBackground image={content.img} />
+        <SmallImage image={content.img} />
         <BoardTitle>
-          <Title>{title}</Title>
+          <Title>{content.title}</Title>
         </BoardTitle>
-        <IconContainer favourite={favourite}>
-          {!favourite && (
-            <IconButton onClick={stop}>
-              <Icon name="close" siz="small" />
-            </IconButton>
-          )}
+        <IconContainer>
+          <IconButton onClick={stop}>
+            <Icon name="close" siz="small" />
+          </IconButton>
           <IconButton onClick={stop}>
             <Icon name="star outline" />
           </IconButton>
