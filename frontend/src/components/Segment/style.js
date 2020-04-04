@@ -11,7 +11,7 @@ export const SegmnetWrapper = styled.div`
 export const ContainerSegment = styled.div`
   background-color: #fff;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
-  overflow: hidden;
+  /* overflow: hidden; */
   display: flex;
   flex: 1;
   border-radius: 5px;
@@ -32,7 +32,7 @@ export const ContextSegment = styled.div`
 export const ContextContainer = styled.div`
   width: 100%;
   padding: 8px 4px 8px 8px;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   overflow-y: auto;
 
   & > * {
