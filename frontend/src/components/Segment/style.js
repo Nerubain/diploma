@@ -31,8 +31,8 @@ export const ContextSegment = styled.div`
 
 export const ContextContainer = styled.div`
   width: 100%;
-  padding: 8px 4px 8px 8px;
-  /* overflow-x: hidden; */
+  margin: 8px 4px 8px 8px;
+  overflow-x: hidden;
   overflow-y: auto;
 
   & > * {
@@ -76,6 +76,8 @@ export const ItemContainer = styled.div`
   position: relative;
   margin: 0 4px 4px 0;
   min-width: 0;
+  -webkit-user-drag: none;
+  user-select: none;
 `;
 
 export const SmallImage = styled.div`
@@ -96,8 +98,8 @@ export const IconWrapper = styled.div`
 export const IconContainer = styled.div`
   display: flex;
   align-items: center;
-  width: ${({ favourite }) => (favourite ? '26px!important' : '0')};
-  max-width: ${({ favourite }) => (favourite ? '26px!important' : '52px')};
+  width: ${({ favourite }) => (favourite ? '26px' : '0')};
+  max-width: ${({ favourite }) => (favourite ? '26px' : '52px')};
   z-index: 10;
   color: ${({ favourite }) => (favourite ? '#f2d600' : 'black')};
   transition-duration: 100ms;
@@ -142,7 +144,7 @@ export const ItemLink = styled(Link)`
     opacity: 0.9;
   }
   &:hover > ${IconContainer}, ${IconWrapper} {
-    width: 52px;
+    width: 26px;
   }
   &:hover > ${ItemBackground} {
     opacity: 0.68;
@@ -183,4 +185,33 @@ export const IconSpan = styled.span`
   line-height: 20px;
   width: 20px;
   font-size: 14px;
+`;
+
+export const ButtonsContainer = styled.div`
+  width: 100%;
+  display: flex;
+`;
+
+export const AddBoardButton = styled.button`
+  width: 100%;
+  text-align: left;
+  border: 0;
+  border-radius: 3px;
+  margin: 2px 4px 2px 2px;
+  padding: 6px 10px;
+  text-decoration: underline;
+  line-height: 20px;
+  font-weight: 400;
+  background-color: white;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(9, 30, 66, 0.08);
+  }
+`;
+
+export const EmptyListContainer = styled.div`
+  color: #7a869a;
+  margin: 10px 30px 10px 31px;
+  position: relative;
 `;

@@ -4,7 +4,7 @@ import { Icon, Button } from 'semantic-ui-react';
 import { ListContainer, ListLabelWrapper, ListLabelText, ListWrapper } from '../../style';
 import BoardsItem from './BoardsItem';
 
-export default function BoardsList({ column, boards }) {
+export default function BoardsList({ column, list }) {
   const [show, setShow] = useState(true);
 
   const showHandler = () => setShow(!show);
@@ -21,8 +21,13 @@ export default function BoardsList({ column, boards }) {
         <Button icon={statusIcon} size="tiny" onClick={showHandler} />
       </ListLabelWrapper>
       <ListWrapper show={display && show}>
-        {boards.map((board) => (
-          <BoardsItem key={board.id} content={board.content} />
+        {list.map((board) => (
+          <BoardsItem
+            key={board.id}
+            board={board.id}
+            content={board.content}
+            favourite={board.favourite}
+          />
         ))}
       </ListWrapper>
     </ListContainer>

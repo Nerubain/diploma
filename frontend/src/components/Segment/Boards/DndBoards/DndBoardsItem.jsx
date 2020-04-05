@@ -1,4 +1,5 @@
 import React from 'react';
+import { useStoreon } from 'storeon/react';
 import { Icon } from 'semantic-ui-react';
 import { Draggable } from 'react-beautiful-dnd';
 
@@ -14,7 +15,9 @@ import {
 } from '../../style';
 
 export default function BoardsItem({ content, id, index }) {
-  const stop = (e) => e.stopPropagation();
+  const { dispatch } = useStoreon('boards');
+
+  const removeHandler = () => dispatch('boards/removeFavourite', id);
 
   return (
     <Draggable draggableId={id} index={index}>
@@ -31,7 +34,7 @@ export default function BoardsItem({ content, id, index }) {
               <Title>{content.title}</Title>
             </BoardTitle>
             <IconContainer favourite>
-              <IconButton onClick={stop}>
+              <IconButton onClick={removeHandler}>
                 <Icon name="star outline" />
               </IconButton>
             </IconContainer>

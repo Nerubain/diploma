@@ -1,4 +1,5 @@
 import React from 'react';
+import { useStoreon } from 'storeon/react';
 import { Icon } from 'semantic-ui-react';
 
 import {
@@ -12,22 +13,25 @@ import {
   IconButton,
 } from '../../style';
 
-export default function BoardsItem({ content }) {
-  const stop = (e) => e.preventDefault();
+export default function BoardsItem({ content, board, favourite }) {
+  const { dispatch } = useStoreon('boards');
+  const disebleDrag = (e) => e.preventDefault();
+
+  const addHandler = () => dispatch('boards/toFavourite', board);
+  const removeHandler = () => dispatch('boards/removeFavourite', board);
+
+  const actionHandler = () => (favourite ? removeHandler() : addHandler());
 
   return (
-    <ItemContainer>
+    <ItemContainer onDragStart={disebleDrag}>
       <ItemLink to="/nerub/board">
         <ItemBackground image={content.img} />
         <SmallImage image={content.img} />
         <BoardTitle>
           <Title>{content.title}</Title>
         </BoardTitle>
-        <IconContainer>
-          <IconButton onClick={stop}>
-            <Icon name="close" siz="small" />
-          </IconButton>
-          <IconButton onClick={stop}>
+        <IconContainer favourite={favourite}>
+          <IconButton onClick={actionHandler}>
             <Icon name="star outline" />
           </IconButton>
         </IconContainer>
