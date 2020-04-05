@@ -54,9 +54,11 @@ export const StyledLink = styled(Link)`
   background-position: 50%;
   margin: 0 2% 2% 0;
   padding: 8px;
+  cursor: pointer !important;
   &:hover > ${Fade} {
     background-color: rgba(0, 0, 0, 0.25);
   }
+
   &:hover i {
     right: 0px;
     opacity: 1;
@@ -112,8 +114,9 @@ export const IconWrapper = styled.div`
   & > i {
     position: relative;
     height: initial !important;
-    right: -25px;
-    opacity: 0;
+    right: ${({ favourite }) => (favourite ? '0px' : '-25px')};
+    opacity: ${({ favourite }) => (favourite ? '1' : '0')};
+    color: ${({ favourite }) => (favourite ? '#f2d600' : 'white')};
     transition: all 0.15s ease;
   }
 `;
