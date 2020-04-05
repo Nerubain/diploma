@@ -1,19 +1,20 @@
 import React from 'react';
+
 import { Icon } from 'semantic-ui-react';
 
-import { ListContainer, BoardListLabel, BoardLabelTitle, ContentContainer } from './style';
+import { ListContainer, BoardListLabel, BoardLabelTitle, ContentContainer } from '../boards-style';
 import PreviewItem from './BoardsPreviewItem';
 
-export default function BoardsPreviewList({ type, label, list }) {
+export default function BoardsPreviewList({ category, list }) {
   return (
     <ListContainer>
       <BoardListLabel>
-        <Icon name={type} />
-        <BoardLabelTitle>{label}</BoardLabelTitle>
+        <Icon name={category.icon} />
+        <BoardLabelTitle>{category.label}</BoardLabelTitle>
       </BoardListLabel>
       <ContentContainer>
-        {list.map(({ id, title, link, img }) => (
-          <PreviewItem key={id} link={link} title={title} img={img} />
+        {list.map((item) => (
+          <PreviewItem key={item.id} id={item.id} item={item.content} favourite={item.favourite} />
         ))}
       </ContentContainer>
     </ListContainer>
