@@ -1,13 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const SegmnetWrapper = styled.div`
-  display: ${({ show }) => (show ? 'block' : 'none')};
-  position: absolute;
-  width: 100%;
-  height: 100vh;
-`;
-
 export const ContainerSegment = styled.div`
   background-color: #fff;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
@@ -15,6 +8,95 @@ export const ContainerSegment = styled.div`
   display: flex;
   flex: 1;
   border-radius: 5px;
+`;
+
+export const SegmentMenu = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const SegmentMenuList = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 10px;
+`;
+
+export const SegmentListItem = styled.button`
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  color: #172b4d;
+  font-weight: 400;
+  text-align: left;
+  vertical-align: middle;
+  padding: 6px 12px;
+  border: 0;
+  background-color: white;
+  &:hover {
+    background-color: rgba(9, 30, 66, 0.04);
+    color: #172b4d;
+  }
+  &:active {
+    background-color: #e4f0f6;
+  }
+`;
+export const SegmentItemHeader = styled.div`
+  width: 100%;
+  display: flex;
+`;
+
+export const SegmentItemIcon = styled.div`
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+`;
+export const SegmentItemTitle = styled.div`
+  width: 100%;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+`;
+export const SegmentItemDescription = styled.div`
+  width: 100%;
+  color: #5e6c84;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  margin: 4px 0 0;
+  padding: 0;
+`;
+
+export const SegmentHeader = styled.div`
+  position: relative;
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 0 12px;
+  position: relative;
+  text-align: center;
+`;
+
+export const SegmentTitle = styled.div`
+  width: 100%;
+  padding: 0 32px;
+  border-bottom: 1px solid rgba(9, 30, 66, 0.13);
+  line-height: 40px;
+  height: 40px;
+`;
+
+export const CloseButton = styled.button`
+  position: absolute;
+  right: 0px;
+  top: 0;
+  background-color: transparent;
+  line-height: 40px;
+  border: 0;
+  cursor: pointer;
+  &:hover {
+    color: #172b4d !important;
+  }
 `;
 
 export const ContextSegment = styled.div`
@@ -52,6 +134,7 @@ export const ListLabelWrapper = styled.div`
   width: 100%;
   color: #5e6c84;
   margin-bottom: 5px;
+  padding-left: 10px;
 `;
 
 export const ListLabelText = styled.div`
@@ -63,6 +146,19 @@ export const ListLabelText = styled.div`
   text-transform: uppercase;
   line-height: 19px;
   margin-left: 8px;
+`;
+
+export const ListLabelLink = styled(Link)`
+  width: 100%;
+  font-size: 12px;
+  font-weight: 500;
+  color: #5e6c84;
+  letter-spacing: 0.04em;
+  line-height: 16px;
+  text-transform: uppercase;
+  line-height: 19px;
+  margin-left: 8px;
+  text-decoration: underline;
 `;
 
 export const ListWrapper = styled.div`
@@ -153,6 +249,7 @@ export const ItemLink = styled(Link)`
 
 export const BoardTitle = styled.div`
   display: flex;
+  flex-direction: column;
   position: relative;
   flex: 1;
   width: 100%;
@@ -169,6 +266,17 @@ export const Title = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+`;
+
+export const TeamTitle = styled.div`
+  font-size: 12px;
+  padding-right: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: rgba(0, 0, 0, 0.4);
+  font-weight: 400;
+  line-height: 12px;
 `;
 
 export const IconButton = styled.div`
@@ -190,8 +298,16 @@ export const IconSpan = styled.span`
 export const ButtonsContainer = styled.div`
   width: 100%;
   display: flex;
+  flex-direction: column;
 `;
 
+export const EmptyListContainer = styled.div`
+  color: #7a869a;
+  margin: 10px 30px 10px 31px;
+  position: relative;
+  cursor: text;
+  user-select: none;
+`;
 export const AddBoardButton = styled.button`
   width: 100%;
   text-align: left;
@@ -208,10 +324,4 @@ export const AddBoardButton = styled.button`
   &:hover {
     background-color: rgba(9, 30, 66, 0.08);
   }
-`;
-
-export const EmptyListContainer = styled.div`
-  color: #7a869a;
-  margin: 10px 30px 10px 31px;
-  position: relative;
 `;

@@ -32,8 +32,28 @@ export default {
     },
     {
       id: 'board-4',
+      favourite: false,
       content: {
         title: 'Доска №4',
+        url: '/b/bId/bName',
+        img,
+      },
+    },
+    {
+      id: 'board-5',
+      favourite: false,
+      content: {
+        title: 'Доска №5',
+        url: '/b/bId/bName',
+        img,
+      },
+    },
+    {
+      id: 'board-6',
+      favourite: false,
+      content: {
+        title: 'Доска №6',
+        url: '/b/bId/bName',
         img,
       },
     },
@@ -52,6 +72,20 @@ export default {
       icon: 'user',
       boardIds: ['board-1', 'board-2', 'board-3'],
     },
+    {
+      id: 'diploma',
+      label: 'Дипломная работа',
+      url: '/diploma',
+      icon: 'group',
+      boardIds: ['board-4', 'board-5', 'board-6'],
+    },
+    {
+      id: 'timur-front',
+      label: 'Фронтенд Тимура',
+      url: '/diploma',
+      icon: 'group',
+      boardIds: [],
+    },
   ],
-  categoriesOrder: ['favourite', 'personal'],
+  categoriesOrder: ['favourite', 'personal', 'diploma', 'timur-front'],
 };

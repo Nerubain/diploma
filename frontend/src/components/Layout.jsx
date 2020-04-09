@@ -1,25 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { SidebarProvider } from '../context/sidebar.context';
 import { SegmentProvider } from '../context/segment.context';
+import { ModalProvider } from '../context/modal.context';
+
 import Navigation from './Navigation/Navigation';
-import Sidebar from './Sidebar/Sidebar';
 import Segments from './Segment/Segments';
+import Modals from './Modals/Modals';
 
 export default function Layout({ children }) {
   return (
-    <SidebarProvider>
-      <Sidebar>
+    <Container>
+      <ModalProvider>
         <SegmentProvider>
-          <Container>
-            <Segments />
-            <Navigation />
-            {children}
-          </Container>
+          <Segments />
+          <Navigation />
+          <Modals />
         </SegmentProvider>
-      </Sidebar>
-    </SidebarProvider>
+        {children}
+      </ModalProvider>
+    </Container>
   );
 }
 
@@ -29,5 +29,5 @@ const Container = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  background-color: #f4f5f7;
+  background-color: #f4f f5f7;
 `;

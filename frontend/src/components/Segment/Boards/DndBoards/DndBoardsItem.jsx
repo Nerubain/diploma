@@ -10,6 +10,7 @@ import {
   SmallImage,
   BoardTitle,
   Title,
+  TeamTitle,
   IconContainer,
   IconButton,
 } from '../../style';
@@ -32,6 +33,7 @@ export default function BoardsItem({ content, id, index }) {
             <SmallImage image={content.img} />
             <BoardTitle>
               <Title>{content.title}</Title>
+              <TeamTitle>{content.title}</TeamTitle>
             </BoardTitle>
             <IconContainer favourite>
               <IconButton onClick={removeHandler}>

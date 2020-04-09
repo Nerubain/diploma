@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useStoreon } from 'storeon/react';
 import { Icon, Button } from 'semantic-ui-react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
@@ -7,15 +7,14 @@ import { ListContainer, ListLabelWrapper, ListLabelText, ListWrapper } from '../
 import EmptyList from './EmptyList';
 import BoardsItem from './DndBoardsItem';
 
-export default function BoardsList({ column, list }) {
-  const [show, setShow] = useState(true);
+export default function BoardsList({ column, list, add, remove, status }) {
   const { dispatch } = useStoreon('boards');
 
   const display = !!column.boardIds.length;
-  const statusIcon = show ? 'minus' : 'plus';
+  const statusIcon = status ? 'minus' : 'plus';
 
   const dragHandler = (result) => dispatch('boards/drag', result);
-  const showHandler = () => setShow(!show);
+  const showHandler = () => (status ? remove(column.id) : add(column.id));
 
   return (
     <DragDropContext onDragEnd={dragHandler}>
@@ -27,7 +26,7 @@ export default function BoardsList({ column, list }) {
         </ListLabelWrapper>
         <Droppable droppableId={column.id}>
           {(provided) => (
-            <ListWrapper show={show} {...provided.droppableProps} ref={provided.innerRef}>
+            <ListWrapper show={status} {...provided.droppableProps} ref={provided.innerRef}>
               {display ? (
                 list.map((board, index) => (
                   <BoardsItem key={board.id} content={board.content} id={board.id} index={index} />

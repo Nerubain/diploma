@@ -1,7 +1,7 @@
 /* eslint-disable no-shadow */
 import initialdata from './initialdata';
 
-export const boards = (store) => {
+export default (store) => {
   store.on('@init', () => ({ boards: initialdata }));
 
   store.on('boards/drag', ({ boards }, result) => {
