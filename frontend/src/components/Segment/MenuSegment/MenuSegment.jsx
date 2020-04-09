@@ -1,18 +1,31 @@
-import React, { useContext } from 'react';
+import React, { useContext, useCallback } from 'react';
+import { Icon } from 'semantic-ui-react';
 
-import { ContainerSegment, ContextSegment, ContextContainer } from '../style';
+import {
+  ContainerSegment,
+  ContextSegment,
+  SegmentHeader,
+  SegmentTitle,
+  SegmentMenu,
+  CloseButton,
+} from '../style';
 import { SegmentContext } from '../../../context/segment.context';
 
-export default function Segment({ position, name }) {
-  const { stopPropagation, segment } = useContext(SegmentContext);
+export default function Segment({ children, name, label, customRef }) {
+  const { segment, close } = useContext(SegmentContext);
+
   return (
-    <ContextSegment
-      onClick={stopPropagation}
-      style={{ width: position, right: 3 }}
-      show={name === segment}
-    >
+    <ContextSegment style={{ right: 3 }} show={segment.type === name} ref={customRef}>
       <ContainerSegment>
-        <ContextContainer onClick={stopPropagation}>{name}</ContextContainer>
+        <SegmentMenu>
+          <SegmentHeader>
+            <SegmentTitle>{label}</SegmentTitle>
+            <CloseButton onClick={close}>
+              <Icon name="close" />
+            </CloseButton>
+          </SegmentHeader>
+          {children}
+        </SegmentMenu>
       </ContainerSegment>
     </ContextSegment>
   );

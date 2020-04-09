@@ -1,24 +1,19 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useStoreon } from 'storeon/react';
 import { Icon } from 'semantic-ui-react';
 
 import { StyledLink, PreviewBlock, PreviewTitle, Fade, IconWrapper } from '../boards-style';
-import { SegmentContext } from '../../../context/segment.context';
 
 export default function BoardsPreviewItem({ item, favourite, id }) {
   const { dispatch } = useStoreon('boards');
-  const { blur } = useContext(SegmentContext);
 
   const addHandler = () => dispatch('boards/toFavourite', id);
   const removeHandler = () => dispatch('boards/removeFavourite', id);
-  const actionHandler = () => {
-    blur();
-    return favourite ? removeHandler() : addHandler();
-  };
+  const actionHandler = () => (favourite ? removeHandler() : addHandler());
 
-  const stopAction = (e) => e.preventDefault() && e.stopPropagation();
+  const stopAction = (e) => e.preventDefault();
   return (
-    <StyledLink to={item.url} image={item.img}>
+    <StyledLink to={item.url} image={item.img} onDragStart={stopAction}>
       <Fade />
       <PreviewBlock>
         <PreviewTitle>{item.title}</PreviewTitle>

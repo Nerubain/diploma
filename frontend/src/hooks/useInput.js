@@ -12,12 +12,9 @@ export default (initialVal = false) => {
     }
   };
 
-  const handleSetValue = data => {
-    setValue(data);
-  };
-  const reset = () => {
-    setValue('');
-  };
+  const handleSetValue = (data) => setValue(data);
+
+  const reset = () => setValue('');
 
   return [value, handleChange, reset, handleSetValue];
 };

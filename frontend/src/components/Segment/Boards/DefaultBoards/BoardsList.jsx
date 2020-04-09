@@ -1,26 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Icon, Button } from 'semantic-ui-react';
 
-import { ListContainer, ListLabelWrapper, ListLabelText, ListWrapper } from '../../style';
+import {
+  ListContainer,
+  ListLabelWrapper,
+  ListLabelText,
+  ListWrapper,
+  ListLabelLink,
+} from '../../style';
 import BoardsItem from './BoardsItem';
 
-export default function BoardsList({ column, list }) {
-  const [show, setShow] = useState(true);
-
-  const showHandler = () => setShow(!show);
+export default function BoardsList({ column, list, add, remove, status }) {
+  const showHandler = () => (status ? remove(column.id) : add(column.id));
 
   const display = !!column.boardIds.length;
 
-  const statusIcon = show ? 'minus' : 'plus';
+  const statusIcon = status ? 'minus' : 'plus';
 
   return (
     <ListContainer>
       <ListLabelWrapper>
         <Icon name={column.icon} size="small" />
-        <ListLabelText>{column.label}</ListLabelText>
+        {column.url ? (
+          <ListLabelLink to={column.url}>{column.label} </ListLabelLink>
+        ) : (
+          <ListLabelText>{column.label}</ListLabelText>
+        )}
+
         <Button icon={statusIcon} size="tiny" onClick={showHandler} />
       </ListLabelWrapper>
-      <ListWrapper show={display && show}>
+      <ListWrapper show={display && status}>
         {list.map((board) => (
           <BoardsItem
             key={board.id}
