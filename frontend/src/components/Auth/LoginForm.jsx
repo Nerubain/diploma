@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Segment, Form, Header } from 'semantic-ui-react';
 import { withRouter } from 'react-router-dom';
 
@@ -10,10 +10,10 @@ const LoginForm = ({ history }) => {
   const [password, setPassword] = useState('1');
   const [errors, setErrors] = useState({});
 
-  const hanlder = (value, func, field) => {
-    setErrors({ ...errors, [field]: [] });
+  const hanlder = useCallback((value, func, field) => {
+    setErrors((prevState) => ({ ...prevState, [field]: [] }));
     func(value);
-  };
+  }, []);
 
   const checkValid = () => {
     setErrors({
