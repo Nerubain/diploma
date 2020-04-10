@@ -5,24 +5,31 @@ export const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding-bottom: 15px;
+  padding-bottom: 20px;
 `;
 
 export const BoardListLabel = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   width: 100%;
-  line-height: 24px;
   margin: 4px 0 0;
   padding-bottom: 8px;
   font-size: 16px;
   font-weight: 700;
+
+  & > i {
+    margin-top: 5px !important;
+  }
+`;
+export const BoardLabelTitle = styled.div`
   flex: 1;
+  margin-left: 5px;
+  margin-top: 6px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-`;
-export const BoardLabelTitle = styled.div`
-  margin-left: 5px;
+  line-height: 28px;
 `;
 
 export const ContentContainer = styled.div`
@@ -154,5 +161,56 @@ export const AddButton = styled.div`
   }
   @media (max-width: 730px) {
     max-width: calc(49% - 4px);
+  }
+`;
+
+export const LabelLinks = styled.div`
+  display: flex;
+  @media (max-width: 730px) {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+`;
+
+export const LabelLink = styled(Link)`
+  border-radius: 3px;
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 14px;
+  padding: 4px 12px 4px 6px;
+  background-color: rgba(9, 30, 66, 0.04);
+  color: #091e42;
+
+  & > i {
+    margin-right: 8px;
+  }
+
+  &:hover {
+    background-color: rgba(9, 30, 66, 0.08);
+    color: #091e42;
+    box-shadow: none;
+    border: none;
+    outline: 0;
+  }
+  &:focus {
+    background-color: #e4f0f6;
+    box-shadow: none;
+    border: none;
+    color: #0079bf;
+  }
+
+  @media (max-width: 730px) {
+    margin: 0 8px 8px 0;
+    width: calc(50% - 8px);
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      width: 100%;
+      text-align: center;
+      margin-left: 0;
+    }
   }
 `;

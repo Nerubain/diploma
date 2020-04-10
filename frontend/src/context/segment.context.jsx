@@ -1,5 +1,7 @@
 import React, { createContext, useState, useCallback, useEffect, useRef } from 'react';
 
+import initial from '../store/boards/initialdata';
+
 export const SegmentContext = createContext({});
 
 export const SegmentProvider = ({ children }) => {
@@ -15,6 +17,9 @@ export const SegmentProvider = ({ children }) => {
   const closeOutSide = useCallback(
     (e) => {
       if (!e.target.slot && segment.ref && !segment.ref.current.contains(e.target)) {
+        console.log('slot', !e.target.slot);
+        console.log(segment.ref);
+        console.log(!segment.ref.current.contains(e.target));
         close();
       }
     },

@@ -3,7 +3,6 @@ import { useStoreon } from 'storeon/react';
 import { Icon } from 'semantic-ui-react';
 
 import {
-  ItemContainer,
   ItemLink,
   ItemBackground,
   SmallImage,
@@ -19,23 +18,21 @@ export default function BoardsItem({ content, board, favourite }) {
 
   const addHandler = () => dispatch('boards/toFavourite', board);
   const removeHandler = () => dispatch('boards/removeFavourite', board);
-
+  const preventDefault = (e) => e.preventDefault();
   const actionHandler = () => (favourite ? removeHandler() : addHandler());
 
   return (
-    <ItemContainer onDragStart={disebleDrag}>
-      <ItemLink to="/nerub/board">
-        <ItemBackground image={content.img} />
-        <SmallImage image={content.img} />
-        <BoardTitle>
-          <Title>{content.title}</Title>
-        </BoardTitle>
-        <IconContainer favourite={favourite}>
-          <IconButton onClick={actionHandler}>
-            <Icon name="star outline" />
-          </IconButton>
-        </IconContainer>
-      </ItemLink>
-    </ItemContainer>
+    <ItemLink to="/nerub/asdsada" onDragStart={disebleDrag}>
+      <ItemBackground image={content.img} />
+      <SmallImage image={content.img} />
+      <BoardTitle>
+        <Title>{content.title}</Title>
+      </BoardTitle>
+      <IconContainer favourite={favourite} onClick={preventDefault}>
+        <IconButton onClick={actionHandler}>
+          <Icon name="star outline" />
+        </IconButton>
+      </IconContainer>
+    </ItemLink>
   );
 }
