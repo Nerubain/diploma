@@ -42,6 +42,11 @@ export const SegmentListItem = styled.button`
   &:active {
     background-color: #e4f0f6;
   }
+
+  &:nth-child(4) {
+    border-top: 1px solid rgba(9, 30, 66, 0.13);
+    margin-top: 5px;
+  }
 `;
 export const SegmentItemHeader = styled.div`
   width: 100%;
@@ -166,16 +171,6 @@ export const ListWrapper = styled.div`
   display: ${({ show }) => (show ? 'block' : 'none')};
 `;
 
-export const ItemContainer = styled.div`
-  box-sizing: border-box;
-  border-radius: 3px;
-  position: relative;
-  margin: 0 4px 4px 0;
-  min-width: 0;
-  -webkit-user-drag: none;
-  user-select: none;
-`;
-
 export const SmallImage = styled.div`
   width: 36px;
   height: 36px;
@@ -233,6 +228,15 @@ export const ItemLink = styled(Link)`
   overflow: hidden;
   padding: 0;
   color: black;
+  box-sizing: border-box;
+  border-radius: 3px;
+  position: relative;
+  margin: 0 4px 4px 0;
+  min-width: 0;
+  -webkit-user-drag: none;
+  user-select: none;
+  cursor: pointer !important;
+
   &:hover {
     color: black;
   }

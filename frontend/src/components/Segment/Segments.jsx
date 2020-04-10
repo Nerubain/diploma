@@ -1,22 +1,78 @@
-import React, { useContext, useCallback } from 'react';
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useStoreon } from 'storeon/react';
 
 import BoadardsSegment from './Boards/BoardsSegment';
 import MenuSegment from './MenuSegment/MenuSegment';
-import AddSegment from './MenuSegment/AddSegment';
+import SegmentList from './MenuSegment/SegmentList';
+import { ModalContext } from '../../context/modal.context';
 import { SegmentContext } from '../../context/segment.context';
 
 export default function Segments() {
   const { user } = useStoreon('user');
-  const { addRef, userMenuRef } = useContext(SegmentContext);
+  const history = useHistory();
+  const { selectModal } = useContext(ModalContext);
+  const { addRef, userMenuRef, close } = useContext(SegmentContext);
+
+  const modalHandler = (name) => {
+    close();
+    selectModal(name);
+  };
+
+  const toLinkHanlder = (link) => {
+    close();
+    history.push(link);
+  };
+
+  const actionMenu = [
+    {
+      label: 'Создать доску',
+      icon: 'table',
+      text:
+        'Доска представляет собой совокупность карточек, упорядоченных в списках. Используйте её для управления проектом, отслеживания или организации чего угодно',
+      handler: () => modalHandler('create_board'),
+    },
+    {
+      label: 'Создание команды',
+      icon: 'group',
+      text:
+        'Команда представляет собой группу досок и людей. Используйте ее для организации работы вашей компании, вашей подработки, семейных дел или отдыха с друзьями.',
+      handler: null,
+    },
+  ];
+
+  const userMenu = [
+    {
+      label: 'Профиль',
+      icon: 'user',
+      handler: () => toLinkHanlder(`/${user.name}/profile`),
+    },
+    {
+      label: 'Настройки',
+      icon: 'cog',
+      handler: () => toLinkHanlder(`/${user.name}/settings`),
+    },
+    {
+      label: 'Чат ',
+      icon: 'chat',
+      handler: () => toLinkHanlder(`/chat`),
+    },
+    {
+      label: 'Выход ',
+      icon: 'log out',
+      handler: null,
+    },
+  ];
 
   return (
     <>
       <BoadardsSegment />
       <MenuSegment name="add" label="Создать" customRef={addRef}>
-        <AddSegment />
+        <SegmentList menu={actionMenu} />
       </MenuSegment>
-      <MenuSegment name="user" label={user.name} customRef={userMenuRef} />
+      <MenuSegment name="user" label={user.name} customRef={userMenuRef}>
+        <SegmentList menu={userMenu} />
+      </MenuSegment>
     </>
   );
 }
