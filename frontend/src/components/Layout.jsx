@@ -13,9 +13,9 @@ export default function Layout({ children }) {
     <Container>
       <ModalProvider>
         <SegmentProvider>
+          <Modals />
           <Segments />
           <Navigation />
-          <Modals />
         </SegmentProvider>
         {children}
       </ModalProvider>
@@ -29,5 +29,5 @@ const Container = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  background-color: #f4f f5f7;
+  /* background-color: #f4ff5f7; */
 `;

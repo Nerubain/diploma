@@ -10,10 +10,10 @@ import {
   Title,
   IconContainer,
   IconButton,
-} from '../../style';
+} from '../style';
 
-export default function BoardsItem({ content, board, favourite }) {
-  const { dispatch } = useStoreon('boards');
+export default function BoardsItem({ content, board, favourite, forwardRef, opacity, dragStatus }) {
+  const { dispatch } = useStoreon();
   const disebleDrag = (e) => e.preventDefault();
 
   const addHandler = () => dispatch('boards/toFavourite', board);
@@ -22,7 +22,12 @@ export default function BoardsItem({ content, board, favourite }) {
   const actionHandler = () => (favourite ? removeHandler() : addHandler());
 
   return (
-    <ItemLink to="/nerub/asdsada" onDragStart={disebleDrag}>
+    <ItemLink
+      to="/nerub/asdsada"
+      ref={forwardRef}
+      style={{ opacity }}
+      onDragStart={!dragStatus ? disebleDrag : null}
+    >
       <ItemBackground image={content.img} />
       <SmallImage image={content.img} />
       <BoardTitle>

@@ -16,7 +16,7 @@ const Navigation = () => {
   const userHandler = () => show('user', userMenuRef);
   const searchHanlder = () => show('search');
 
-  const goHome = () => history.push('/home/profile');
+  const goHome = () => history.push('/Nerubain/boards');
 
   return (
     <Menu color="teal" inverted size="small" icon style={style}>
