@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { EmptyListContainer } from '../../style';
+import { EmptyListContainer } from '../style';
 
 export default function EmptyList() {
   return (

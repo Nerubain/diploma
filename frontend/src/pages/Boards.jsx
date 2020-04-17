@@ -1,31 +1,60 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useStoreon } from 'storeon/react';
+import { useRouteMatch } from 'react-router-dom';
 
 import Layout from '../components/Layout';
 import LeftBarMenu from '../components/Boards/LeftBarMenu';
-import BoardsPreviewList from '../components/Boards/Prview/BoardsPreviewList';
-import DndPreviewList from '../components/Boards/DragDropPreview/DndPreviewList';
+import BoardsPreviewList from '../components/Boards/BoardsPreviewList';
+import BoardsListWrapper from '../components/Dnd/BoardsListWrapper';
 
 export default function Boards() {
   const { boards } = useStoreon('boards');
+  const [selectedTeam, setTeam] = useState({});
+  const [show, setShow] = useState(null);
+  const match = useRouteMatch();
+
+  useEffect(() => {
+    const urlParams = Object.keys(match.params);
+    if (urlParams[0] === 'team') {
+      const newState = {
+        ...boards,
+        categories: boards.categories.filter((ctg) => ctg.id === match.params.team),
+      };
+      setTeam(newState);
+      setShow(false);
+    } else {
+      setTeam(boards);
+      setShow(true);
+    }
+  }, [match, boards]);
+
   return (
     <Layout>
       <Container>
         <LeftBarMenu />
         <RightContainer>
-          {boards.categoriesOrder.map((categoryId) => {
-            const category = boards.categories.find((ctg) => ctg.id === categoryId);
-            const list = category.boardIds.map((boardId) =>
-              boards.list.find((board) => board.id === boardId)
-            );
-            if (category.favourite) {
-              return list.length ? (
-                <DndPreviewList key={category.id} category={category} list={list} />
-              ) : null;
-            }
-            return <BoardsPreviewList key={category.id} category={category} list={list} />;
-          })}
+          {selectedTeam.categories &&
+            selectedTeam.categories.map((category) => {
+              const boardsList = category.boardsIds.map((id) =>
+                selectedTeam.boards.find((board) => board.id === id)
+              );
+              if (category.type === 'favourite') {
+                return category.boardsIds.length ? (
+                  <BoardsListWrapper key={category.id}>
+                    <BoardsPreviewList category={category} boards={boardsList} />
+                  </BoardsListWrapper>
+                ) : null;
+              }
+              return (
+                <BoardsPreviewList
+                  key={category.id}
+                  category={category}
+                  boards={boardsList}
+                  showNavigation={!category.type && show}
+                />
+              );
+            })}
         </RightContainer>
       </Container>
     </Layout>

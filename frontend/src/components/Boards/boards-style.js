@@ -21,6 +21,9 @@ export const BoardListLabel = styled.div`
   & > i {
     margin-top: 5px !important;
   }
+  @media (max-width: 730px) {
+    padding-bottom: 0;
+  }
 `;
 export const BoardLabelTitle = styled.div`
   flex: 1;
@@ -165,7 +168,7 @@ export const AddButton = styled.div`
 `;
 
 export const LabelLinks = styled.div`
-  display: flex;
+  display: ${({ show }) => (show ? 'flex' : 'none')};
   @media (max-width: 730px) {
     flex-wrap: wrap;
     width: 100%;

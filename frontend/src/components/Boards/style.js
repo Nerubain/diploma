@@ -30,6 +30,7 @@ export const ListItem = styled(Link)`
   line-height: 20px;
   font-weight: 700;
   padding: 6px 8px 6px 0;
+  margin-bottom: 5px;
   border-radius: 4px;
   color: ${({ active }) => (active ? '#1e70bf' : 'black')};
   background-color: ${({ active }) => (active ? '#e4f0f6' : 'transparent')};

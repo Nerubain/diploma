@@ -4,6 +4,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { StoreContext } from 'storeon/react';
 import 'semantic-ui-css/semantic.min.css';
 import 'normalize.css';
+import { DndProvider } from 'react-dnd';
+import back from 'react-dnd-html5-backend';
 
 import App from './App';
 import store from './store/index';
@@ -11,9 +13,11 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <StoreContext.Provider value={store}>
-    <Router>
-      <App />
-    </Router>
+    <DndProvider backend={back}>
+      <Router>
+        <App />
+      </Router>
+    </DndProvider>
   </StoreContext.Provider>,
   document.getElementById('root')
 );

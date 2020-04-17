@@ -9,8 +9,8 @@ import {
   ButtonsContainer,
   AddBoardButton,
 } from '../style';
-import BoardsList from './DefaultBoards/BoardsList';
-import DndBoardsList from './DndBoards/DndBoardsList';
+import BoardsList from './BoardsList';
+import BoardsListWrapper from '../../Dnd/BoardsListWrapper';
 import { SegmentContext } from '../../../context/segment.context';
 import { ModalContext } from '../../../context/modal.context';
 
@@ -57,30 +57,18 @@ export default function BoardsSegment() {
       <ContainerSegment>
         <ContextContainer>
           <Input icon="search" placeholder="Поиск по названию.." ref={input} />
-          {boards.categoriesOrder.map((categoryId) => {
-            const category = boards.categories.find((ctg) => ctg.id === categoryId);
-            const list = category.boardIds.map((boardId) =>
-              boards.list.find((board) => board.id === boardId)
+          {boards.categories.map((category) => {
+            const boardsList = category.boardsIds.map((id) =>
+              boards.boards.find((board) => board.id === id)
             );
-            const activeStatus = activeList.find((item) => item === categoryId);
+            const activeStatus = activeList.find((item) => item === category.id);
 
-            if (category.favourite)
-              return (
-                <DndBoardsList
-                  key={category.id}
-                  column={category}
-                  list={list}
-                  add={addToActive}
-                  remove={removeFromActive}
-                  status={!!activeStatus}
-                />
-              );
             return (
-              !!list.length && (
+              !!category.boardsIds.length && (
                 <BoardsList
                   key={category.id}
-                  column={category}
-                  list={list}
+                  category={category}
+                  boards={boardsList}
                   add={addToActive}
                   remove={removeFromActive}
                   status={!!activeStatus}
@@ -90,8 +78,6 @@ export default function BoardsSegment() {
           })}
           <ButtonsContainer>
             <AddBoardButton onClick={modalHandler}>Создать доску..</AddBoardButton>
-
-            {/* <AddBoardButton>Создать команду...</AddBoardButton> */}
           </ButtonsContainer>
         </ContextContainer>
       </ContainerSegment>
