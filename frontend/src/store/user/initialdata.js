@@ -3,12 +3,12 @@ export default {
   avatar: '',
   teams: [
     {
-      id: 1,
+      id: 'diploma',
       label: 'Дипломная работа',
       url: '/team/diploma/boards',
     },
     {
-      id: 2,
+      id: 'timurFront',
       label: 'Фронтенд тимура',
       url: '/team/timurFront/boards',
     },

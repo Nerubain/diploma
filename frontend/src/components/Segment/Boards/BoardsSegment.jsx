@@ -10,7 +10,6 @@ import {
   AddBoardButton,
 } from '../style';
 import BoardsList from './BoardsList';
-import BoardsListWrapper from '../../Dnd/BoardsListWrapper';
 import { SegmentContext } from '../../../context/segment.context';
 import { ModalContext } from '../../../context/modal.context';
 

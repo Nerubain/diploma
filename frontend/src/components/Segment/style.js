@@ -262,6 +262,7 @@ export const BoardTitle = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
   font-weight: 700;
+  z-index: 1000;
 `;
 
 export const Title = styled.div`
