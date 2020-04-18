@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+export const asd = '';
 export const AddBoardButton = styled.button`
   width: 100%;
   text-align: left;

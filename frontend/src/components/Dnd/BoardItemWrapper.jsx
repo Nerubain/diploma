@@ -1,10 +1,19 @@
-import { useRef, cloneElement } from 'react';
+import { useState, useRef, cloneElement } from 'react';
 import { useStoreon } from 'storeon/react';
 import { useDrag, useDrop } from 'react-dnd';
 
 export default function BoardItemWrapper({ children, id, index, type }) {
+  const [position, setPosition] = useState(index);
   const { dispatch } = useStoreon();
   const ref = useRef();
+
+  const onDragEnd = (nextPosition) => {
+    if (position === nextPosition) {
+      return console.log('nothing');
+    }
+    console.log('yes');
+    setPosition(nextPosition);
+  };
 
   const [{ isDragging }, connectDrag] = useDrag({
     item: { type, id, index },
@@ -29,5 +38,5 @@ export default function BoardItemWrapper({ children, id, index, type }) {
   connectDrag(ref);
   connectDrop(ref);
 
-  return cloneElement(children, { forwardRef: ref, opacity }, null);
+  return cloneElement(children, { forwardRef: ref, opacity, onDragEnd }, null);
 }

@@ -27,7 +27,7 @@ export default function BoardsPreviewList({ category, boards, showNavigation }) 
         {boards.map((item, index) =>
           category.favourite ? (
             <BoardItemWrapper key={item.id} id={item.id} index={index} type="preview">
-              <PreviewItem item={item} dragStatus />
+              <PreviewItem item={item} index={index} dragStatus />
             </BoardItemWrapper>
           ) : (
             <PreviewItem key={item.id} item={item} />

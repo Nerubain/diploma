@@ -37,7 +37,7 @@ export default function Segments() {
       icon: 'group',
       text:
         'Команда представляет собой группу досок и людей. Используйте ее для организации работы вашей компании, вашей подработки, семейных дел или отдыха с друзьями.',
-      handler: null,
+      handler: () => modalHandler('create_team'),
     },
   ];
 

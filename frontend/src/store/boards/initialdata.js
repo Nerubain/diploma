@@ -1,4 +1,4 @@
-const img =
+const image =
   'https://trello-backgrounds.s3.amazonaws.com/SharedBackground/480x294/64da2a2ec6a7dd4080b7c800b2593b87/photo-1577800929753-bb4723761a0d.jpg';
 
 export default {
@@ -7,54 +7,54 @@ export default {
       id: 'board-1',
       favourite: true,
       content: {
-        title: 'Доска №1',
+        name: 'Доска №1',
         url: '/b/bId/bName',
-        img,
+        image,
       },
     },
     {
       id: 'board-2',
       favourite: true,
       content: {
-        title: 'Доска №2',
+        name: 'Доска №2',
         url: '/b/bId/bName',
-        img,
+        image,
       },
     },
     {
       id: 'board-3',
       favourite: true,
       content: {
-        title: 'Доска №3',
+        name: 'Доска №3',
         url: '/b/bId/bName',
-        img,
+        image,
       },
     },
     {
       id: 'board-4',
       favourite: false,
       content: {
-        title: 'Доска №4',
+        name: 'Доска №4',
         url: '/b/bId/bName',
-        img,
+        image,
       },
     },
     {
       id: 'board-5',
       favourite: false,
       content: {
-        title: 'Доска №5',
+        name: 'Доска №5',
         url: '/b/bId/bName',
-        img,
+        image,
       },
     },
     {
       id: 'board-6',
       favourite: false,
       content: {
-        title: 'Доска №6',
+        name: 'Доска №6',
         url: '/b/bId/bName',
-        img,
+        image,
       },
     },
   ],

@@ -28,10 +28,10 @@ export default function BoardsItem({ content, board, favourite, forwardRef, opac
       style={{ opacity }}
       onDragStart={!dragStatus ? disebleDrag : null}
     >
-      <ItemBackground image={content.img} />
-      <SmallImage image={content.img} />
+      <ItemBackground image={content.image} color={content.color} />
+      <SmallImage image={content.image} />
       <BoardTitle>
-        <Title>{content.title}</Title>
+        <Title>{content.name}</Title>
       </BoardTitle>
       <IconContainer favourite={favourite} onClick={preventDefault}>
         <IconButton onClick={actionHandler}>

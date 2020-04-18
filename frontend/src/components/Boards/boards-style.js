@@ -59,7 +59,7 @@ export const StyledLink = styled(Link)`
   max-width: 23.5%;
   background-image: url(${({ image }) => image});
   background-repeat: no-repeat;
-  background-color: #97a0af;
+  background-color: ${({ color }) => color || '#97a0af'};
   background-size: cover;
   background-position: 50%;
   margin: 0 2% 2% 0;
@@ -114,6 +114,7 @@ export const PreviewTitle = styled.div`
   text-overflow: ellipsis;
   color: white;
   user-select: none;
+  z-index: 1000;
 `;
 
 export const IconWrapper = styled.div`

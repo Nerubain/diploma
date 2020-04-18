@@ -57,5 +57,21 @@ export default (store) => {
     return { boards: newState };
   });
 
-  store.on('boards/create', ({ boards }, board) => {});
+  store.on('boards/create', ({ boards }, board) => {
+    const category = boards.categories.find((ctg) => ctg.id === board.team);
+    const newBoard = {
+      id: `board-${boards.boards.length + 1}`,
+      favourite: false,
+      content: { ...board },
+    };
+    const newCategory = { ...category, boardsIds: [...category.boardsIds, newBoard.id] };
+
+    const newState = {
+      ...boards,
+      boards: [...boards.boards, newBoard],
+      categories: boards.categories.map((ctg) => (ctg.id === board.team ? newCategory : ctg)),
+    };
+
+    return { boards: newState };
+  });
 };
