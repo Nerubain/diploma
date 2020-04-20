@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
-import React, { createContext, useState, useCallback, useEffect, useRef } from 'react';
+import React, { createContext, useState, useCallback, useEffect, useContext } from 'react';
 import { useStoreon } from 'storeon/react';
 
-import useImageSearch from '../hooks/useImageSearch';
+import { BackgroundsContext } from './backgrounds.context';
 
 export const AddBoardContext = createContext({});
 
@@ -18,37 +18,22 @@ const colors = [
   'rgb(131, 140, 145)',
 ];
 
-export const AddBoardProvider = ({ children }) => {
+export const AddBoardProvider = ({ children, closeModal, team }) => {
   const { user, dispatch } = useStoreon('user');
-  const [page, setPage] = useState(5);
-  const { images, loading, hasMore } = useImageSearch(page);
+  const { images } = useContext(BackgroundsContext);
+
   const [teamList, setList] = useState([]);
   const [newBoard, setBoard] = useState({ name: '', team: '', image: '', color: '' });
-  const observer = useRef(null);
-
-  const lastImageElementRef = useCallback(
-    (node) => {
-      if (loading) return null;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasMore) {
-          setPage((prev) => prev + 1);
-        }
-      });
-      if (node) observer.current.observe(node);
-    },
-    [loading, hasMore]
-  );
 
   const listHandler = useCallback(() => {
-    const noTeam = { key: 12312, text: 'Без команды', value: 'personal' };
+    const noTeam = { key: 'pesonal', text: 'Без команды', value: 'personal' };
     const teams = [
       noTeam,
       ...user.teams.map(({ id, label }) => ({ key: id, text: label, value: id })),
     ];
-    newBoardHandler({ target: { name: 'team', value: teams[0].value } });
+    newBoardHandler({ target: { name: 'team', value: team } });
     setList(teams);
-  }, [user]);
+  }, [user, team]);
 
   const newBoardHandler = ({ target }) =>
     setBoard((prev) => {
@@ -60,12 +45,10 @@ export const AddBoardProvider = ({ children }) => {
     });
   const teamHandler = (e, { value }) => setBoard((prev) => ({ ...prev, team: value }));
 
-  const clear = () =>
-    setBoard((prev) => ({ ...prev, color: '', name: '', team: teamList[0].value }));
-
   const createBoard = useCallback(() => {
     dispatch('boards/create', newBoard);
-  }, [dispatch, newBoard]);
+    closeModal();
+  }, [dispatch, newBoard, closeModal]);
 
   useEffect(() => {
     listHandler();
@@ -75,15 +58,12 @@ export const AddBoardProvider = ({ children }) => {
   return (
     <AddBoardContext.Provider
       value={{
-        clear,
-        images,
         colors,
         teamList,
         newBoard,
         teamHandler,
         createBoard,
         newBoardHandler,
-        lastImageElementRef,
       }}
     >
       {children}

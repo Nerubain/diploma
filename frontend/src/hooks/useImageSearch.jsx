@@ -30,7 +30,7 @@ export default function useImageSearch(page) {
       setLoadError(error);
     }
   }, [page]);
-  console.log(loadError, images);
+
   useEffect(() => {
     getImages();
   }, [getImages, page]);

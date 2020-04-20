@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback, useContext } from 'react';
 
 import { AddBoardContext } from '../../../context/addmodal.context';
+import { BackgroundsContext } from '../../../context/backgrounds.context';
+
 import InitialMenu from './InitialMenu';
 import SubMenu from './SubMenu';
 import { PickerMenuContainer, PickerMenuHeader, PickerMenuTitle, ControllIcon } from './style';
@@ -11,45 +13,55 @@ const titles = {
   images: 'Фотографии',
 };
 
-export default function PickerMenu({ show, close }) {
-  const { colors, images } = useContext(AddBoardContext);
-  const [shift, setShift] = useState(0);
+export default function PickerMenu({ close }) {
+  const { colors } = useContext(AddBoardContext);
+  const { images } = useContext(BackgroundsContext);
+  const [width, setWidth] = useState(window.innerWidth);
   const [menu, setMenu] = useState('initial');
+
+  const shiftValue = useCallback(() => {
+    if (width <= 370) return 0;
+    if (width < 600) return -(370 - width) * 0.6;
+    if (width < 880) return -(445 - width) * 0.7;
+    return 305;
+  }, [width]);
+
+  const [shift, setShift] = useState(shiftValue());
+
   const ref = useRef(null);
 
+  const widthHandler = () => setWidth(window.innerWidth);
   const menuHandler = (e) => setMenu(e.target.name);
 
   const goToMain = () => setMenu('initial');
 
   const resizeHandler = useCallback(() => {
-    const shiftValue = -(880 - window.innerWidth) * 0.7;
-    return window.innerWidth <= 880 ? setShift(shiftValue) : setShift(0);
-  }, []);
+    setShift(shiftValue());
+  }, [shiftValue]);
 
   useEffect(() => {
-    const shiftValue = -(880 - window.innerWidth) * 0.7;
-    if (window.innerWidth <= 880) {
-      setShift(shiftValue);
-    }
-  }, []);
+    resizeHandler();
+  }, [resizeHandler]);
 
   useEffect(() => {
     window.addEventListener('resize', resizeHandler);
+    window.addEventListener('resize', widthHandler);
     return () => {
       window.removeEventListener('resize', resizeHandler);
+      window.removeEventListener('resize', widthHandler);
     };
   }, [resizeHandler, shift]);
 
   return (
-    <PickerMenuContainer show={show} ref={ref} shift={shift}>
+    <PickerMenuContainer ref={ref} shift={shift}>
       <PickerMenuHeader>
         {menu !== 'initial' && <ControllIcon name="chevron left" onClick={goToMain} />}
         <PickerMenuTitle>{titles[menu]}</PickerMenuTitle>
         <ControllIcon name="close" right="right" onClick={close} />
       </PickerMenuHeader>
-      <InitialMenu show={menu === 'initial'} menuHandler={menuHandler} />
-      <SubMenu show={menu === 'colors'} list={colors} type="color" />
-      <SubMenu show={menu === 'images'} list={images} type="image" />
+      {menu === 'initial' && <InitialMenu menuHandler={menuHandler} />}
+      {menu === 'colors' && <SubMenu list={colors} type="color" />}
+      {menu === 'images' && <SubMenu list={images} type="image" menu={menu} />}
     </PickerMenuContainer>
   );
 }

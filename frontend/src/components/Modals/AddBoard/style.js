@@ -4,6 +4,10 @@ import { Icon } from 'semantic-ui-react';
 export const StyledModal = styled.div`
   left: 30% !important;
   width: 296px !important;
+  margin: 5vh auto !important;
+  @media (max-width: 600px) {
+    left: initial !important;
+  }
   & > i {
     padding-top: 0 !important;
     width: max-content !important;
@@ -12,6 +16,8 @@ export const StyledModal = styled.div`
 `;
 export const ModalContent = styled.div`
   padding: 10px 10px 10px 16px !important;
+  margin-bottom: 10px !important;
+  font-size: 1em;
   background-color: ${({ color }) => color || 'transparent'} !important;
   background-image: url(${({ img }) => img || ''}) !important;
   background-size: cover !important;
@@ -22,10 +28,6 @@ export const ModalContent = styled.div`
     display: ${({ image }) => (image ? 'block' : 'none')};
     content: '';
     position: absolute;
-    bottom: 0 !important;
-    top: 0 !important;
-    right: 0 !important;
-    left: 0 !important;
     border-radius: 3px !important;
     background: rgba(0, 0, 0, 0.15) !important;
     background-color: rgba(0, 0, 0, 0.4) !important;
@@ -65,7 +67,9 @@ export const StyledDropDown = styled.div`
     background: hsla(0, 0%, 100%, 0.15) !important;
   }
 `;
-export const ModalForm = styled.form``;
+export const ModalForm = styled.form`
+  padding-top: 5px;
+`;
 
 export const BackGrounds = styled.div`
   position: absolute;
@@ -75,7 +79,13 @@ export const BackGrounds = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   width: 83px;
-  /* height: 76px; */
+
+  @media (max-width: 600px) {
+    position: relative;
+    width: 100%;
+    right: 0;
+    justify-content: center;
+  }
 `;
 
 export const BackgroundButton = styled.button`
@@ -117,10 +127,15 @@ export const BackgroundButton = styled.button`
     background-color: rgba(0, 0, 0, 0.4) !important;
     z-index: 0;
   }
+  @media (max-width: 600px) {
+    width: 48px;
+    height: 48px;
+    margin: 0 4px 8px;
+  }
 `;
 
 export const PickerMenuContainer = styled.div`
-  display: ${({ show }) => (show ? 'block' : 'none')};
+  display: block;
   position: absolute;
   top: 0;
   left: ${({ shift }) => shift}px;
@@ -161,7 +176,7 @@ export const ControllIcon = styled(Icon)`
 
 export const MenuContainer = styled.div`
   width: 100%;
-  display: ${({ show }) => (show ? 'flex' : 'none')};
+  display: flex;
   flex-direction: column;
   padding: 0 12px 12px 12px;
   height: 100%;
@@ -220,18 +235,14 @@ export const MenuItemList = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 `;
 
 export const MenuItem = styled.div`
   height: 56px;
   width: calc(33.3% - 8px);
   margin-bottom: 8px;
-  margin-right: 8px;
   padding-top: 0 !important;
-
-  &:nth-child(3n + 3) {
-    margin-right: 0;
-  }
 `;
 export const MenuItemContent = styled.button`
   background-color: ${({ color }) => color};
