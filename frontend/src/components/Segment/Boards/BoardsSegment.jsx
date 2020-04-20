@@ -29,7 +29,7 @@ export default function BoardsSegment() {
 
   const modalHandler = () => {
     close();
-    selectModal('create_board');
+    selectModal('create_board', 'personal');
   };
 
   const removeFromActive = (id) => {

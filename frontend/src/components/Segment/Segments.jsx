@@ -14,9 +14,9 @@ export default function Segments() {
   const { selectModal } = useContext(ModalContext);
   const { addRef, userMenuRef, close } = useContext(SegmentContext);
 
-  const modalHandler = (name) => {
+  const modalHandler = (name, team) => {
     close();
-    selectModal(name);
+    selectModal(name, team);
   };
 
   const toLinkHanlder = (link) => {
@@ -30,7 +30,7 @@ export default function Segments() {
       icon: 'table',
       text:
         'Доска представляет собой совокупность карточек, упорядоченных в списках. Используйте её для управления проектом, отслеживания или организации чего угодно',
-      handler: () => modalHandler('create_board'),
+      handler: () => modalHandler('create_board', 'personal'),
     },
     {
       label: 'Создание команды',

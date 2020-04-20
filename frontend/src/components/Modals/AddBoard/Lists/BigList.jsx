@@ -1,36 +1,27 @@
 import React, { useContext } from 'react';
 
 import BigItem from './BigItem';
-import { AddBoardContext } from '../../../../context/addmodal.context';
-import { MenuSection, MenuHeader, MenuTitle, HeaderButton, MenuItemList } from '../style';
+import { BackgroundsContext } from '../../../../context/backgrounds.context';
 
-export default function BigList({ list, title, type, crop, menuType, menuHandler }) {
-  const { lastImageElementRef } = useContext(AddBoardContext);
+import { MenuSection, MenuItemList } from '../style';
+import ListHeader from './ListHeader';
+
+export default function BigList({ list, title, type, crop, menuType, menuHandler, isRequest }) {
+  const { imageRef } = useContext(BackgroundsContext);
+
   const newList = crop ? list.slice(0, 6) : [...list];
 
+  const createRef = (index, length) => length === index + 1 && type === 'image' && isRequest;
+
+  const key = (item) => item.replaced || item;
   return (
     <MenuSection>
-      {title && (
-        <MenuHeader>
-          <MenuTitle>{title}</MenuTitle>
-          <HeaderButton name={menuType} onClick={menuHandler}>
-            Подробнее
-          </HeaderButton>
-        </MenuHeader>
-      )}
+      {title && <ListHeader title={title} menuType={menuType} menuHandler={menuHandler} />}
       <MenuItemList>
         {newList.map((item, index) => {
-          if (newList.length === index + 1 && type === 'image')
-            return (
-              <BigItem
-                item={item}
-                type={type}
-                customRef={lastImageElementRef}
-                key={item.replaced || item}
-              />
-            );
-
-          return <BigItem item={item} type={type} key={item.replaced || item} />;
+          if (createRef(index, newList.length))
+            return <BigItem item={item} type={type} customRef={imageRef} key={key(item)} />;
+          return <BigItem item={item} type={type} key={key(item)} />;
         })}
       </MenuItemList>
     </MenuSection>
