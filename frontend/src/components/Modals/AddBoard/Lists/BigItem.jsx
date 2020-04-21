@@ -11,8 +11,8 @@ export default function BigItem({ item, type, customRef }) {
     <MenuItem key={selector} ref={customRef}>
       <MenuItemContent
         image={item.replaced || ''}
-        value={selector}
         color={item.replaced ? '' : item}
+        value={selector}
         key={selector}
         name={type}
         selected={newBoard[type] === selector}

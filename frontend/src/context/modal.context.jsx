@@ -2,11 +2,13 @@ import React, { createContext, useState, useCallback } from 'react';
 
 export const ModalContext = createContext({});
 
-export const ModalProvider = ({ children }) => {
-  const [modal, setModal] = useState({ name: '', team: '' });
+const initialState = { name: '', team: '', param: '' };
 
-  const selectModal = useCallback((name, team) => setModal({ name, team }), []);
-  const closeModal = useCallback(() => setModal({ name: '', team: '' }), []);
+export const ModalProvider = ({ children }) => {
+  const [modal, setModal] = useState(initialState);
+
+  const selectModal = useCallback((name, team, param) => setModal({ name, team, param }), []);
+  const closeModal = useCallback(() => setModal(initialState), []);
 
   return (
     <ModalContext.Provider value={{ modal, selectModal, closeModal }}>

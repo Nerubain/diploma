@@ -15,10 +15,16 @@ import { ModalContext } from '../../../context/modal.context';
 
 export default function BoardsSegment() {
   const [activeList, setActive] = useState([]);
-  const input = useRef();
   const { boards } = useStoreon('boards');
-  const { segment, boardsRef, close } = useContext(SegmentContext);
+  const { segment, boardsRef, close, searchHandler, search } = useContext(SegmentContext);
   const { selectModal } = useContext(ModalContext);
+  const input = useRef();
+
+  const filteredBoards = boards.boards.filter((board) => {
+    return board.content.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+  });
+
+  const label = search ? `Создать доску с именем "${search}"` : 'Создать доску...';
 
   const addToActive = (id) => {
     const newActive = [...activeList];
@@ -29,7 +35,7 @@ export default function BoardsSegment() {
 
   const modalHandler = () => {
     close();
-    selectModal('create_board', 'personal');
+    selectModal('create_board', 'personal', search);
   };
 
   const removeFromActive = (id) => {
@@ -55,11 +61,17 @@ export default function BoardsSegment() {
     <ContextSegment show={segment.type === 'boards'} ref={boardsRef}>
       <ContainerSegment>
         <ContextContainer>
-          <Input icon="search" placeholder="Поиск по названию.." ref={input} />
+          <Input
+            icon="search"
+            placeholder="Поиск по названию.."
+            ref={input}
+            value={search}
+            onChange={searchHandler}
+          />
           {boards.categories.map((category) => {
-            const boardsList = category.boardsIds.map((id) =>
-              boards.boards.find((board) => board.id === id)
-            );
+            const boardsList = category.boardsIds
+              .map((id) => filteredBoards.find((board) => board.id === id))
+              .filter((id) => id);
             const activeStatus = activeList.find((item) => item === category.id);
 
             return (
@@ -71,12 +83,13 @@ export default function BoardsSegment() {
                   add={addToActive}
                   remove={removeFromActive}
                   status={!!activeStatus}
+                  search={search}
                 />
               )
             );
           })}
           <ButtonsContainer>
-            <AddBoardButton onClick={modalHandler}>Создать доску..</AddBoardButton>
+            <AddBoardButton onClick={modalHandler}>{label}</AddBoardButton>
           </ButtonsContainer>
         </ContextContainer>
       </ContainerSegment>

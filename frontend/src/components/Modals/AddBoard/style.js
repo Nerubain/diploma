@@ -15,19 +15,23 @@ export const StyledModal = styled.div`
   }
 `;
 export const ModalContent = styled.div`
+  position: relative;
   padding: 10px 10px 10px 16px !important;
   margin-bottom: 10px !important;
   font-size: 1em;
-  background-color: ${({ color }) => color || 'transparent'} !important;
-  background-image: url(${({ img }) => img || ''}) !important;
+  background: ${({ color, img }) => color || `url(${img})`};
   background-size: cover !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
 
   &::before {
-    display: ${({ image }) => (image ? 'block' : 'none')};
+    display: ${({ img }) => (img ? 'block' : 'none')};
     content: '';
     position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
     border-radius: 3px !important;
     background: rgba(0, 0, 0, 0.15) !important;
     background-color: rgba(0, 0, 0, 0.4) !important;
@@ -47,9 +51,14 @@ export const ModalInput = styled.input`
   margin-bottom: 5px;
   line-height: 24px;
   font-size: 16px;
+  font-weight: 800;
   color: white;
   background: transparent !important;
   border-radius: 3px;
+  &::selection {
+    color: white;
+    background-color: #22db4cd6;
+  }
   &::placeholder {
     color: hsla(0, 0%, 100%, 0.6);
   }

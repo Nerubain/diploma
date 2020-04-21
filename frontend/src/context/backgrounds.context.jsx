@@ -1,4 +1,4 @@
-import React, { createContext, useState, useCallback, useEffect, useRef } from 'react';
+import React, { createContext, useState, useCallback, useRef } from 'react';
 
 import useImageSearch from '../hooks/useImageSearch';
 
@@ -7,6 +7,7 @@ export const BackgroundsContext = createContext({});
 export const BackgroundsProvider = ({ children }) => {
   const [page, setPage] = useState(5);
   const { images, loading, hasMore } = useImageSearch(page);
+  const initialImage = images.length && images[0].replaced;
   const observer = useRef(null);
 
   const imageRef = useCallback(
@@ -23,7 +24,7 @@ export const BackgroundsProvider = ({ children }) => {
     [loading, hasMore]
   );
   return (
-    <BackgroundsContext.Provider value={{ images, imageRef }}>
+    <BackgroundsContext.Provider value={{ images, initialImage, imageRef, loading }}>
       {children}
     </BackgroundsContext.Provider>
   );

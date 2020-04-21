@@ -18,10 +18,9 @@ const colors = [
   'rgb(131, 140, 145)',
 ];
 
-export const AddBoardProvider = ({ children, closeModal, team }) => {
+export const AddBoardProvider = ({ children, closeModal, team, name }) => {
   const { user, dispatch } = useStoreon('user');
-  const { images } = useContext(BackgroundsContext);
-
+  const { initialImage } = useContext(BackgroundsContext);
   const [teamList, setList] = useState([]);
   const [newBoard, setBoard] = useState({ name: '', team: '', image: '', color: '' });
 
@@ -31,9 +30,9 @@ export const AddBoardProvider = ({ children, closeModal, team }) => {
       noTeam,
       ...user.teams.map(({ id, label }) => ({ key: id, text: label, value: id })),
     ];
-    newBoardHandler({ target: { name: 'team', value: team } });
+    setBoard((prev) => ({ ...prev, team, name }));
     setList(teams);
-  }, [user, team]);
+  }, [user, team, name]);
 
   const newBoardHandler = ({ target }) =>
     setBoard((prev) => {
@@ -50,10 +49,14 @@ export const AddBoardProvider = ({ children, closeModal, team }) => {
     closeModal();
   }, [dispatch, newBoard, closeModal]);
 
+  const setInitialImage = useCallback(() => {
+    setBoard((prev) => (!prev.color ? { ...prev, image: initialImage } : prev));
+  }, [initialImage]);
+
   useEffect(() => {
     listHandler();
-    setBoard((prev) => ({ ...prev, image: images.length && images[0].replaced }));
-  }, [listHandler, images]);
+    setInitialImage();
+  }, [listHandler, setInitialImage]);
 
   return (
     <AddBoardContext.Provider

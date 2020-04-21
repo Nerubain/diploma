@@ -17,12 +17,22 @@ export default function useImageSearch(page) {
     const src = download_url.substring(0, download_url.lastIndexOf(`/${i.id}/`) + position) + size;
     return { initialImage: download_url, replaced: src };
   };
+  const checkImage = ({ replaced }) =>
+    new Promise((res) => {
+      const img = new Image();
+      img.onload = () => res({ path: replaced, status: 'ok' });
+      img.onerror = () => res({ path: replaced, status: 'error' });
+
+      img.src = replaced;
+    });
+
   const getImages = useCallback(async () => {
     setLoadError(false);
     setLoading(true);
     try {
       const response = await photosApi.getPhotos(page);
       const newImages = response.data.map(replaceImage);
+      await Promise.all(newImages.map(checkImage));
       setImages((prev) => [...prev, ...newImages]);
       setLoading(false);
       setHasMore(response.data.length > 0);

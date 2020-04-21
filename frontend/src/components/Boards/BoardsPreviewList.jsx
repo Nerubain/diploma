@@ -15,7 +15,7 @@ import BoardItemWrapper from '../Dnd/BoardItemWrapper';
 
 export default function BoardsPreviewList({ category, boards, showNavigation }) {
   const { selectModal } = useContext(ModalContext);
-  const modalHandler = () => selectModal('create_board', category.id);
+  const modalHandler = () => selectModal('create_board', category.id, '');
   return (
     <ListContainer>
       <BoardListLabel>
