@@ -18,14 +18,12 @@ export default function PickerMenu({ close }) {
   const { images } = useContext(BackgroundsContext);
   const [width, setWidth] = useState(window.innerWidth);
   const [menu, setMenu] = useState('initial');
-
   const shiftValue = useCallback(() => {
     if (width <= 370) return 0;
     if (width < 600) return -(370 - width) * 0.6;
     if (width < 880) return -(445 - width) * 0.7;
     return 305;
   }, [width]);
-
   const [shift, setShift] = useState(shiftValue());
 
   const ref = useRef(null);

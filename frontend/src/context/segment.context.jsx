@@ -4,11 +4,17 @@ export const SegmentContext = createContext({});
 
 export const SegmentProvider = ({ children }) => {
   const [segment, setSegment] = useState({ type: null, ref: null });
+  const [search, setSearch] = useState('');
   const boardsRef = useRef(null);
   const addRef = useRef(null);
   const userMenuRef = useRef(null);
 
-  const close = () => setSegment({ type: null, ref: null });
+  const close = useCallback(() => {
+    setSearch('');
+    return setSegment({ type: null, ref: null });
+  }, []);
+
+  const searchHandler = (e, { value }) => setSearch(value);
 
   const show = (name, ref) =>
     setSegment((prevSt) => (prevSt.ref === ref ? { type: null, ref: null } : { type: name, ref }));
@@ -16,12 +22,15 @@ export const SegmentProvider = ({ children }) => {
   const closeOutSide = useCallback(
     (e) =>
       !e.target.slot && segment.ref && !segment.ref.current.contains(e.target) ? close() : null,
-    [segment]
+    [segment, close]
   );
 
-  const escapeListener = useCallback((e) => {
-    if (e.key === 'Escape') close();
-  }, []);
+  const escapeListener = useCallback(
+    (e) => {
+      if (e.key === 'Escape') close();
+    },
+    [close]
+  );
 
   useEffect(() => {
     document.addEventListener('click', closeOutSide);
@@ -33,7 +42,9 @@ export const SegmentProvider = ({ children }) => {
   }, [escapeListener, closeOutSide]);
 
   return (
-    <SegmentContext.Provider value={{ segment, boardsRef, addRef, userMenuRef, show, close }}>
+    <SegmentContext.Provider
+      value={{ segment, boardsRef, addRef, userMenuRef, show, close, searchHandler, search }}
+    >
       {children}
     </SegmentContext.Provider>
   );

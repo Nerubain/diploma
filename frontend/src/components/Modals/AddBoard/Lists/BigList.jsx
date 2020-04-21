@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { Loader } from 'semantic-ui-react';
 
 import BigItem from './BigItem';
 import { BackgroundsContext } from '../../../../context/backgrounds.context';
@@ -7,7 +8,7 @@ import { MenuSection, MenuItemList } from '../style';
 import ListHeader from './ListHeader';
 
 export default function BigList({ list, title, type, crop, menuType, menuHandler, isRequest }) {
-  const { imageRef } = useContext(BackgroundsContext);
+  const { imageRef, loading } = useContext(BackgroundsContext);
 
   const newList = crop ? list.slice(0, 6) : [...list];
 
@@ -23,6 +24,7 @@ export default function BigList({ list, title, type, crop, menuType, menuHandler
             return <BigItem item={item} type={type} customRef={imageRef} key={key(item)} />;
           return <BigItem item={item} type={type} key={key(item)} />;
         })}
+        {loading && <Loader active inline="centered" inverted style={{ borderColor: 'red' }} />}
       </MenuItemList>
     </MenuSection>
   );

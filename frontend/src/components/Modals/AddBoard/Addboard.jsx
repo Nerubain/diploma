@@ -15,7 +15,10 @@ export default function Addboard({ subMenu, subMenuHandler }) {
 
   const createBoardHandler = (e) => {
     e.preventDefault();
-    createBoard();
+    if (!disabled) {
+      subMenuHandler(false);
+      createBoard();
+    }
   };
 
   useEffect(() => {
@@ -45,7 +48,7 @@ export default function Addboard({ subMenu, subMenuHandler }) {
         </ModalForm>
       </ModalContent>
       <BackgroundPicker background={newBoard.color || newBoard.image} changeShow={subMenuHandler} />
-      {subMenu && <PickerMenu close={subMenuHandler} />}
+      {subMenu && <PickerMenu close={() => subMenuHandler(false)} />}
       <Button
         size="small"
         disabled={disabled}
