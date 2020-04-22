@@ -4,14 +4,8 @@ import { Icon } from 'semantic-ui-react';
 
 import { StyledLink, PreviewBlock, PreviewTitle, Fade, IconWrapper } from './boards-style';
 
-export default function BoardsPreviewItem({
-  item,
-  forwardRef,
-  dragStatus,
-  opacity,
-  onDragEnd,
-  index,
-}) {
+export default function BoardsPreviewItem(props) {
+  const { item, forwardRef, dragStatus, opacity, onDragEnd, index } = props;
   const { dispatch } = useStoreon();
 
   const addHandler = () => dispatch('boards/toFavourite', item.id);
