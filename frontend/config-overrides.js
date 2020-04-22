@@ -2,8 +2,9 @@ const path = require('path');
 
 const resolve = (dir) => path.resolve(__dirname, dir);
 
-module.exports = function (config) {
-  config.resolve.alias = Object.assign(config.resolve.alias, {
+module.exports = (config) => {
+  const conf = { ...config };
+  conf.resolve.alias = Object.assign(config.resolve.alias, {
     '@functions': resolve('src/assets/functions'),
     '@components': resolve('src/components'),
     '@context': resolve('src/context'),
@@ -15,5 +16,5 @@ module.exports = function (config) {
     // etc...
   });
 
-  return config;
+  return conf;
 };
