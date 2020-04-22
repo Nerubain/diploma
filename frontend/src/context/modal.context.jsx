@@ -7,7 +7,10 @@ const initialState = { name: '', team: '', param: '' };
 export const ModalProvider = ({ children }) => {
   const [modal, setModal] = useState(initialState);
 
-  const selectModal = useCallback((name, team, param) => setModal({ name, team, param }), []);
+  const selectModal = useCallback(
+    (name = '', team = '', param = '') => setModal({ name, team, param }),
+    []
+  );
   const closeModal = useCallback(() => setModal(initialState), []);
 
   return (
