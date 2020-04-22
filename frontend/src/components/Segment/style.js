@@ -271,6 +271,7 @@ export const Title = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  max-width: 190px;
 `;
 
 export const TeamTitle = styled.div`
