@@ -90,4 +90,3 @@ export default {
     },
   ],
 };
-// categoriesOrder: ['favourite', 'personal', 'diploma', 'timurFront'],
