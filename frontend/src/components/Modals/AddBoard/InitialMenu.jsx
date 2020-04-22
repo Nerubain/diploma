@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 
-import { AddBoardContext } from '../../../context/addmodal.context';
-import { BackgroundsContext } from '../../../context/backgrounds.context';
+import { AddBoardContext } from '@context/addmodal.context';
+import { BackgroundsContext } from '@context/backgrounds.context';
 
 import BigList from './Lists/BigList';
 import { MenuContainer } from './style';

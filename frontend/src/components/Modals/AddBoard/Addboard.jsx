@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useContext } from 'react';
 import { Dropdown, Button } from 'semantic-ui-react';
 
-import { AddBoardContext } from '../../../context/addmodal.context';
+import { AddBoardContext } from '@context/addmodal.context';
 import BackgroundPicker from './BackgroundPicker';
 import PickerMenu from './PickerMenu';
 import { StyledDropDown, ModalContent, ModalForm, ModalInput } from './style';

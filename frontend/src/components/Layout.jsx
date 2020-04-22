@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { SegmentProvider } from '../context/segment.context';
-import { ModalProvider } from '../context/modal.context';
-
+import { SegmentProvider } from '@context/segment.context';
+import { ModalProvider } from '@context/modal.context';
 import Navigation from './Navigation/Navigation';
 import Segments from './Segment/Segments';
 import Modals from './Modals/Modals';

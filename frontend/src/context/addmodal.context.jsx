@@ -2,7 +2,7 @@
 import React, { createContext, useState, useCallback, useEffect, useContext } from 'react';
 import { useStoreon } from 'storeon/react';
 
-import { BackgroundsContext } from './backgrounds.context';
+import { BackgroundsContext } from '@context/backgrounds.context';
 
 export const AddBoardContext = createContext({});
 

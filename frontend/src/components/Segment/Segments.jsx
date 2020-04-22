@@ -2,11 +2,11 @@ import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useStoreon } from 'storeon/react';
 
+import { ModalContext } from '@context/modal.context';
+import { SegmentContext } from '@context/segment.context';
 import BoadardsSegment from './Boards/BoardsSegment';
 import MenuSegment from './MenuSegment/MenuSegment';
 import SegmentList from './MenuSegment/SegmentList';
-import { ModalContext } from '../../context/modal.context';
-import { SegmentContext } from '../../context/segment.context';
 
 export default function Segments() {
   const { user } = useStoreon('user');

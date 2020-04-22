@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback, useContext } from 'react';
 
-import { AddBoardContext } from '../../../context/addmodal.context';
-import { BackgroundsContext } from '../../../context/backgrounds.context';
-
+import { AddBoardContext } from '@context/addmodal.context';
+import { BackgroundsContext } from '@context/backgrounds.context';
 import InitialMenu from './InitialMenu';
 import SubMenu from './SubMenu';
 import { PickerMenuContainer, PickerMenuHeader, PickerMenuTitle, ControllIcon } from './style';

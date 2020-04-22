@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import Auth from './pages/Auth';
-import Boards from './pages/Boards';
-import Errors from './pages/Error';
+import Auth from '@pages/Auth';
+import Boards from '@pages/Boards';
+import Errors from '@pages/Error';
 
 function App() {
   return (

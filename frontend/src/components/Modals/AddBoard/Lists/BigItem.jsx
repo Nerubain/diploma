@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Icon } from 'semantic-ui-react';
 
-import { AddBoardContext } from '../../../../context/addmodal.context';
+import { AddBoardContext } from '@context/addmodal.context';
 import { MenuItem, MenuItemContent } from '../style';
 
 export default function BigItem({ item, type, customRef }) {

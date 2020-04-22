@@ -2,8 +2,8 @@ import React, { useState, useCallback } from 'react';
 import { Segment, Form, Header } from 'semantic-ui-react';
 import { useHistory } from 'react-router-dom';
 
-import { FormWrapper } from './style';
 import CustomInput from '../CustomInput';
+import { FormWrapper } from './style';
 
 const LoginForm = () => {
   const [login, setLogin] = useState('1');
