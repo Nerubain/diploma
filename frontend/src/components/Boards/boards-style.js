@@ -107,6 +107,7 @@ export const PreviewBlock = styled.div`
 
 export const PreviewTitle = styled.div`
   width: 100%;
+  max-height: 40px;
   font-size: 16px;
   font-weight: 700;
   word-wrap: break-word;
