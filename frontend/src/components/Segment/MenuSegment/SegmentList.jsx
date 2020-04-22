@@ -10,11 +10,11 @@ import {
   SegmentItemDescription,
 } from '../style';
 
-export default function AddSegment({ menu }) {
+export default function AddSegment({ menu, handler }) {
   return (
     <SegmentMenuList>
-      {menu.map(({ label, icon, text, handler }) => (
-        <SegmentListItem onClick={handler} key={`${label}+${text}`}>
+      {menu.map(({ label, icon, text, handlerParams }) => (
+        <SegmentListItem onClick={() => handler(...handlerParams)} key={`${label}+${text}`}>
           <SegmentItemHeader>
             <SegmentItemIcon>
               <Icon name={icon} />

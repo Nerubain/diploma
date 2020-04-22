@@ -30,14 +30,14 @@ export default function Segments() {
       icon: 'table',
       text:
         'Доска представляет собой совокупность карточек, упорядоченных в списках. Используйте её для управления проектом, отслеживания или организации чего угодно',
-      handler: () => modalHandler('create_board', 'personal', ''),
+      handlerParams: ['create_board', 'personal', ''],
     },
     {
       label: 'Создание команды',
       icon: 'group',
       text:
         'Команда представляет собой группу досок и людей. Используйте ее для организации работы вашей компании, вашей подработки, семейных дел или отдыха с друзьями.',
-      handler: () => modalHandler('create_team'),
+      handlerParams: ['create_team', '', ''],
     },
   ];
 
@@ -45,22 +45,22 @@ export default function Segments() {
     {
       label: 'Профиль',
       icon: 'user',
-      handler: () => toLinkHanlder(`/${user.name}/profile`),
+      url: `/${user.name}/profile`,
     },
     {
       label: 'Настройки',
       icon: 'cog',
-      handler: () => toLinkHanlder(`/${user.name}/settings`),
+      url: [`/${user.name}/settings`],
     },
     {
       label: 'Чат ',
       icon: 'chat',
-      handler: () => toLinkHanlder(`/chat`),
+      url: [`/${user.name}/settings`],
     },
     {
       label: 'Выход ',
       icon: 'log out',
-      handler: null,
+      handler: [null],
     },
   ];
 
@@ -68,10 +68,10 @@ export default function Segments() {
     <>
       <BoadardsSegment />
       <MenuSegment name="add" label="Создать" customRef={addRef}>
-        <SegmentList menu={actionMenu} />
+        <SegmentList menu={actionMenu} handler={modalHandler} />
       </MenuSegment>
       <MenuSegment name="user" label={user.name} customRef={userMenuRef}>
-        <SegmentList menu={userMenu} />
+        <SegmentList menu={userMenu} handler={toLinkHanlder} />
       </MenuSegment>
     </>
   );
