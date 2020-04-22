@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useStoreon } from 'storeon/react';
 import { useRouteMatch } from 'react-router-dom';
 import { Icon } from 'semantic-ui-react';
 
+import { ModalContext } from '@context/modal.context';
 import {
   LeftBarWrapper,
   LeftBarContainer,
@@ -16,6 +17,9 @@ import {
 export default function LeftBarMenu() {
   const match = useRouteMatch();
   const { user } = useStoreon('user');
+  const { selectModal } = useContext(ModalContext);
+
+  const modalHandler = () => selectModal('create_team');
   const links = [
     {
       icon: 'table',
@@ -39,7 +43,7 @@ export default function LeftBarMenu() {
           ))}
         </TopMenu>
         <Label>
-          <span>Команды</span> <AddButton icon="plus" size="tiny" />
+          <span>Команды</span> <AddButton icon="plus" size="tiny" onClick={modalHandler} />
         </Label>
         {user.teams.map(({ label, url }) => (
           <ListItem key={`${url}-${label}`} active={checkActive(url)} to={url}>
