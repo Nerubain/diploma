@@ -1,6 +1,6 @@
 import React, { createContext, useState, useCallback, useRef } from 'react';
 
-import useImageSearch from '../hooks/useImageSearch';
+import useImageSearch from '@hooks/useImageSearch';
 
 export const BackgroundsContext = createContext({});
 

@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import { useStoreon } from 'storeon/react';
 import { useRouteMatch } from 'react-router-dom';
 
-import Layout from '../components/Layout';
-import LeftBarMenu from '../components/Boards/LeftBarMenu';
-import BoardsPreviewList from '../components/Boards/BoardsPreviewList';
-import BoardsListWrapper from '../components/Dnd/BoardsListWrapper';
+import Layout from '@components/Layout';
+import LeftBarMenu from '@components/Boards/LeftBarMenu';
+import BoardsPreviewList from '@components/Boards/BoardsPreviewList';
+import BoardsListWrapper from '@components/Dnd/BoardsListWrapper';
 
 export default function Boards() {
   const { boards } = useStoreon('boards');

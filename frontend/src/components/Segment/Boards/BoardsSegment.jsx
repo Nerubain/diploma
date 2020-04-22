@@ -2,6 +2,9 @@ import React, { useRef, useEffect, useContext, useState } from 'react';
 import { useStoreon } from 'storeon/react';
 import { Input } from 'semantic-ui-react';
 
+import { SegmentContext } from '@context/segment.context';
+import { ModalContext } from '@context/modal.context';
+import BoardsList from './BoardsList';
 import {
   ContainerSegment,
   ContextSegment,
@@ -9,9 +12,6 @@ import {
   ButtonsContainer,
   AddBoardButton,
 } from '../style';
-import BoardsList from './BoardsList';
-import { SegmentContext } from '../../../context/segment.context';
-import { ModalContext } from '../../../context/modal.context';
 
 export default function BoardsSegment() {
   const [activeList, setActive] = useState([]);
@@ -21,7 +21,7 @@ export default function BoardsSegment() {
   const input = useRef();
 
   const filteredBoards = boards.boards.filter((board) => {
-    return board.content.name.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+    return board.content.name.toLowerCase().indexOf(search.trim().toLowerCase()) !== -1;
   });
 
   const label = search ? `Создать доску с именем "${search}"` : 'Создать доску...';

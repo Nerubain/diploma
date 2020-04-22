@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { useState, useCallback, useEffect } from 'react';
 
-import photosApi from '../assets/api/images';
+import photosApi from '@assets/api/images';
 
 const size = '/400/500';
 

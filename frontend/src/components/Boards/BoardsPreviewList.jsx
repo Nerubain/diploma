@@ -1,6 +1,10 @@
 import React, { useContext } from 'react';
 import { Icon } from 'semantic-ui-react';
 
+import { ModalContext } from '@context/modal.context';
+import BoardItemWrapper from '@components/Dnd/BoardItemWrapper';
+import PreviewItem from './BoardsPreviewItem';
+import Navigation from './BoardsNavigation';
 import {
   ListContainer,
   BoardListLabel,
@@ -8,10 +12,6 @@ import {
   BoardLabelTitle,
   ContentContainer,
 } from './boards-style';
-import { ModalContext } from '../../context/modal.context';
-import PreviewItem from './BoardsPreviewItem';
-import Navigation from './BoardsNavigation';
-import BoardItemWrapper from '../Dnd/BoardItemWrapper';
 
 export default function BoardsPreviewList({ category, boards, showNavigation }) {
   const { selectModal } = useContext(ModalContext);
