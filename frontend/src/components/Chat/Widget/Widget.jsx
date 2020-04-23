@@ -1,13 +1,22 @@
 import React, { useState, useCallback, useEffect } from 'react';
+import { useStoreon } from 'storeon/react';
 import faker from 'faker';
-import { Icon } from 'semantic-ui-react';
-// import { storeon } from 'storeon/react';
 
-import preloadImages from '@functions/preloadImages';
-import FriendList from './FriendList';
-import { WidgetContainer, ShowChatsButton, ButtonRow, FriendsCount } from './style';
+import preloadImages from '@utils/functions/preloadImages';
+import FriendList from './FriendListWidget';
+import ChatList from './FriendListWindow/FriendListWindow';
+import ActionButton from './ActionButton';
+import { WidgetContainer } from './style';
 
 const list = [
+  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
+  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
+  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
+  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
+  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
+  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
+  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
+  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
   { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
   { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
   { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
@@ -17,8 +26,9 @@ const list = [
 ];
 
 export default function Widget() {
+  const { chat } = useStoreon('chat');
   const [loading, setLoading] = useState(true);
-  console.log(list);
+
   const preloadData = useCallback(async () => {
     setLoading(true);
     try {
@@ -35,14 +45,12 @@ export default function Widget() {
 
   if (loading) return null;
   return (
-    <WidgetContainer>
-      <FriendList list={list} />
-      <ShowChatsButton>
-        <ButtonRow>
-          <FriendsCount>{`${list.length}`}</FriendsCount>
-          <Icon name="user" />
-        </ButtonRow>
-      </ShowChatsButton>
-    </WidgetContainer>
+    <>
+      <WidgetContainer>
+        <FriendList list={list} />
+        <ActionButton onlineCount={list.length} />
+      </WidgetContainer>
+      {chat.showFriends.show && <ChatList list={list} />}
+    </>
   );
 }

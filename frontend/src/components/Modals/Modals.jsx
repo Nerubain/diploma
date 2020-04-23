@@ -23,23 +23,23 @@ export default function Modals() {
   }, [closeModal, subMenu, subMenuHandler]);
 
   return (
-    <Modal
-      as={modals[modal.name]}
-      open={!!modal.name}
-      onClose={closeModalHandler}
-      centered={false}
-      basic
-      closeIcon
-      size="mini"
-    >
-      <BackgroundsProvider>
+    <BackgroundsProvider>
+      <Modal
+        as={modals[modal.name]}
+        open={!!modal.name}
+        onClose={closeModalHandler}
+        centered={false}
+        basic
+        closeIcon
+        size="mini"
+      >
         {modal.name === 'create_board' && (
           <AddBoardProvider team={modal.team} name={modal.param} closeModal={closeModal}>
             <AddBoard subMenu={subMenu} subMenuHandler={subMenuHandler} />
           </AddBoardProvider>
         )}
         {modal.name === 'create_team' && <AddTeam />}
-      </BackgroundsProvider>
-    </Modal>
+      </Modal>
+    </BackgroundsProvider>
   );
 }
