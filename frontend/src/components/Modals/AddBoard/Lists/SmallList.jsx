@@ -7,11 +7,11 @@ export default function SmallList({ list, type, background, onClick }) {
   return (
     <>
       {list.slice(0, 4).map((item) => {
-        const selector = item.replaced || item;
+        const selector = item.image || item;
         return (
           <BackgroundButton
-            image={item.replaced || ''}
-            color={item.replaced ? '' : item}
+            image={item.image || ''}
+            color={item.image ? '' : item}
             key={selector}
             name={type}
             onClick={onClick}

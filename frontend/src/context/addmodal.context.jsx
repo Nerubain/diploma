@@ -22,7 +22,7 @@ export const AddBoardProvider = ({ children, closeModal, team, name }) => {
   const { user, dispatch } = useStoreon('user');
   const { initialImage } = useContext(BackgroundsContext);
   const [teamList, setList] = useState([]);
-  const [newBoard, setBoard] = useState({ name: '', team: '', image: '', color: '' });
+  const [newBoard, setBoard] = useState({ name: '', team: '', image: '', color: colors[0] });
 
   const listHandler = useCallback(() => {
     const noTeam = { key: 'pesonal', text: 'Без команды', value: 'personal' };
@@ -50,14 +50,14 @@ export const AddBoardProvider = ({ children, closeModal, team, name }) => {
   }, [dispatch, newBoard, closeModal]);
 
   const setInitialImage = useCallback(() => {
-    setBoard((prev) => (!prev.color ? { ...prev, image: initialImage } : prev));
+    setBoard((prev) => ({ ...prev, image: initialImage, color: '' }));
   }, [initialImage]);
 
   useEffect(() => {
     listHandler();
     setInitialImage();
   }, [listHandler, setInitialImage]);
-
+  console.log(newBoard);
   return (
     <AddBoardContext.Provider
       value={{
