@@ -6,12 +6,12 @@ import { MenuItem, MenuItemContent } from '../style';
 
 export default function BigItem({ item, type, customRef }) {
   const { newBoard, newBoardHandler } = useContext(AddBoardContext);
-  const selector = item.replaced || item;
+  const selector = item.image || item;
   return (
     <MenuItem key={selector} ref={customRef}>
       <MenuItemContent
-        image={item.replaced || ''}
-        color={item.replaced ? '' : item}
+        image={item.image || ''}
+        color={item.image ? '' : item}
         value={selector}
         key={selector}
         name={type}

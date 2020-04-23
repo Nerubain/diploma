@@ -7,7 +7,7 @@ export const BackgroundsContext = createContext({});
 export const BackgroundsProvider = ({ children }) => {
   const [page, setPage] = useState(5);
   const { images, loading, hasMore } = useImageSearch(page);
-  const initialImage = images.length && images[0].replaced;
+  const initialImage = images[0]?.image;
   const observer = useRef(null);
 
   const imageRef = useCallback(

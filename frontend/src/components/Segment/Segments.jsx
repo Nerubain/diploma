@@ -45,17 +45,17 @@ export default function Segments() {
     {
       label: 'Профиль',
       icon: 'user',
-      url: `/${user.name}/profile`,
+      handlerParams: [`/${user.name}/profile`],
     },
     {
       label: 'Настройки',
       icon: 'cog',
-      url: [`/${user.name}/settings`],
+      handlerParams: [`/${user.name}/settings`],
     },
     {
       label: 'Чат ',
       icon: 'chat',
-      url: [`/${user.name}/settings`],
+      handlerParams: [`/${user.name}/settings`],
     },
     {
       label: 'Выход ',
