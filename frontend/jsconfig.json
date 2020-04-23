@@ -4,7 +4,7 @@
     "module": "commonjs",
     "target": "esnext",
     "jsx": "react",
-    "checkJs":true,
+
     "paths": {
       "@pages/*": ["src/pages/*"],
       "@components/*": ["src/components/*"],
