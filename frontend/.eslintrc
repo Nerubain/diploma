@@ -33,10 +33,10 @@
         "map": [
           ["@components", "./src/components/"],
           ["@pages", "./src/pages/"],
-          ["@assets", "./src/assets/"],
+          ["@utils", "./src/utils/"],
           ["@context", "./src/context/"],
           ["@hooks", "./src/hooks/"],
-          ["@functions", "./src/assets/functions/"]
+          ["@functions", "./src/utils/functions/"]
         ],
         "extensions": [".js", ".jsx"]
       }
