@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
 import { useState, useCallback, useEffect } from 'react';
 
-import photosApi from '@assets/api/images';
-import preloadImages from '@functions/preloadImages';
+import photosApi from '@utils/api/images';
+import preloadImages from '@utils/functions/preloadImages';
 
 const size = '/400/500';
 
