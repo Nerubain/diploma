@@ -5,14 +5,17 @@ import Auth from '@pages/Auth';
 import Boards from '@pages/Boards';
 import Errors from '@pages/Error';
 
+import ChatWidget from '@components/Chat/Widget/Widget';
+
 function App() {
   return (
-    <div className="App">
+    <div className="App" style={{ width: '100%', height: '100vh', position: 'absolute' }}>
       <Switch>
         <Route exact path="/" component={Auth} />
         <Route path={['/:user/boards', '/team/:team/boards']} component={Boards} />
         <Route component={Errors} exact />
       </Switch>
+      <Route path={['/:user/boards', '/team/:team/boards']} component={ChatWidget} />
     </div>
   );
 }

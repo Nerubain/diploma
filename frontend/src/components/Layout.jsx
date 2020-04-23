@@ -6,7 +6,6 @@ import { ModalProvider } from '@context/modal.context';
 import Navigation from './Navigation/Navigation';
 import Segments from './Segment/Segments';
 import Modals from './Modals/Modals';
-import ChatWidget from './Chat/Widget/Widget';
 
 export default function Layout({ children }) {
   return (
@@ -18,7 +17,6 @@ export default function Layout({ children }) {
           <Navigation />
         </SegmentProvider>
         {children}
-        <ChatWidget />
       </ModalProvider>
     </Container>
   );
