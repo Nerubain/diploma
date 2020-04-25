@@ -1,6 +1,7 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { Icon } from 'semantic-ui-react';
 import { useStoreon } from 'storeon/react';
+import { useHistory } from 'react-router-dom';
 
 import FriendListSelector from './FriendListSelector';
 import SelectedChat from './SelectedChat';
@@ -9,7 +10,7 @@ import { DraggableContainer, ChatWrapper, ChatHeader, HeaderIcons, ChatTitle } f
 export default function ChatList({ list }) {
   const { dispatch, chat } = useStoreon('chat');
   const [drag, setDrag] = useState(false);
-
+  const history = useHistory();
   const windowRef = useRef(null);
 
   let shiftX;
@@ -32,11 +33,11 @@ export default function ChatList({ list }) {
     let newY;
     let newX;
     if (pageY < 0) newY = 0;
-    else if (pageY > window.innerHeight - 370) newY = window.innerHeight - 370;
+    else if (pageY > window.innerHeight - 365) newY = window.innerHeight - 373;
     else newY = pageY - shiftY;
 
     if (pageX <= 0) newX = 0;
-    else if (pageX > window.innerWidth - 270) newX = window.innerWidth - 270;
+    else if (pageX > window.innerWidth) newX = window.innerWidth - 270;
     else newX = pageX - shiftX;
 
     windowRef.current.style.left = `${newX}px`;
@@ -49,12 +50,7 @@ export default function ChatList({ list }) {
     setDrag(false);
   };
 
-  useEffect(() => {
-    if (windowRef.current) {
-      windowRef.current.style.left = `${80}px`;
-      windowRef.current.style.top = `${310}px`;
-    }
-  }, []);
+  const toChatHandler = () => history.push(`/chat/${chat.selectedChat.id}`);
 
   return (
     <DraggableContainer drag={drag}>
@@ -62,11 +58,12 @@ export default function ChatList({ list }) {
         <ChatHeader onMouseDown={initialiseDrag} onMouseUp={null}>
           <ChatTitle>{activeCount} активных чатов</ChatTitle>
           <HeaderIcons>
+            {!!chat.selectedChat.id && <Icon name="square outline" onClick={toChatHandler} />}
             <Icon name="close" onClick={widgetHandler} />
           </HeaderIcons>
         </ChatHeader>
-        {!chat.showFriends.id && <FriendListSelector list={list} />}
-        {!!chat.showFriends.id && <SelectedChat id={chat.showFriends.id} />}
+        {!chat.selectedChat.id && <FriendListSelector list={list} />}
+        {!!chat.selectedChat.id && <SelectedChat id={chat.selectedChat.id} />}
       </ChatWrapper>
     </DraggableContainer>
   );

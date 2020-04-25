@@ -3,7 +3,7 @@ import { useStoreon } from 'storeon/react';
 
 import { FriendContainer, FriendAvatar, OnlineStatus } from './style';
 
-export default function FriendBlockWidget({ friend }) {
+export default function ActiveChatBlockWidget({ friend }) {
   const { id, image, name } = friend;
   const { dispatch } = useStoreon();
 
