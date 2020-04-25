@@ -12,10 +12,10 @@ import {
 } from '../style';
 
 export default function Segment({ children, name, label, customRef }) {
-  const { segment, close } = useContext(SegmentContext);
+  const { close } = useContext(SegmentContext);
 
   return (
-    <ContextSegment style={{ right: 3 }} show={segment.type === name} ref={customRef}>
+    <ContextSegment style={{ right: 3 }} ref={customRef}>
       <ContainerSegment>
         <SegmentMenu>
           <SegmentHeader>

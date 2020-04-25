@@ -21,7 +21,7 @@ export default function BoardsPreviewList({ category, boards, showNavigation }) 
       <BoardListLabel>
         <Icon name={category.icon} size="large" />
         <BoardLabelTitle>{category.label}</BoardLabelTitle>
-        <Navigation show={showNavigation} />
+        {showNavigation && <Navigation />}
       </BoardListLabel>
       <ContentContainer>
         {boards.map((item, index) =>

@@ -106,7 +106,7 @@ export const CloseButton = styled.button`
 
 export const ContextSegment = styled.div`
   position: absolute;
-  display: ${({ show }) => (show ? 'flex' : 'none')};
+  display: flex;
   width: 280px;
   max-height: calc(100% - 53px);
   top: 47px;
@@ -221,6 +221,7 @@ export const ItemBackground = styled.div`
 
 export const ItemLink = styled(Link)`
   width: 100%;
+  max-width: 268px;
   height: 36px;
   position: relative;
   display: flex;
@@ -283,6 +284,7 @@ export const TeamTitle = styled.div`
   color: rgba(0, 0, 0, 0.4);
   font-weight: 400;
   line-height: 12px;
+  max-width: 190px;
 `;
 
 export const IconButton = styled.div`
