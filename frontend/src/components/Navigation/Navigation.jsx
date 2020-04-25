@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { SegmentContext } from '@context/segment.context';
 import { SearchInput, MobileItem, StyledItem } from './style';
 
-const style = { margin: 0, height: 45, minHeight: 45, zIndex: 1000 };
+const style = { margin: 0, height: 45, minHeight: 45, zIndex: 100 };
 
 const Navigation = () => {
   const history = useHistory();

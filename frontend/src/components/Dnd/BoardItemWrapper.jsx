@@ -38,7 +38,7 @@ const BoardItemWrapper = memo(({ children, id, index, type }) => {
   connectDrag(ref);
   connectDrop(ref);
 
-  return cloneElement(children, { forwardRef: ref, opacity, onDragEnd }, null);
+  return cloneElement(children, { forwardRef: ref, opacity, onDragEnd, wrapped: true }, null);
 });
 
 export default BoardItemWrapper;

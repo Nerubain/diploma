@@ -36,6 +36,7 @@ export default {
       content: {
         name: 'Доска №4',
         url: '/b/bId/bName',
+        category: 'Дипломная работа',
         image,
       },
     },
@@ -45,6 +46,7 @@ export default {
       content: {
         name: 'Доска №5',
         url: '/b/bId/bName',
+        category: 'Дипломная работа',
         image,
       },
     },
@@ -54,6 +56,7 @@ export default {
       content: {
         name: 'Доска №6',
         url: '/b/bId/bName',
+        category: 'Дипломная работа',
         image,
       },
     },
@@ -77,14 +80,12 @@ export default {
     {
       id: 'diploma',
       label: 'Дипломная работа',
-      // url: '/diploma',
       icon: 'group',
       boardsIds: ['board-4', 'board-5', 'board-6'],
     },
     {
       id: 'timurFront',
       label: 'Фронтенд Тимура',
-      // url: '/diploma',
       icon: 'group',
       boardsIds: [],
     },

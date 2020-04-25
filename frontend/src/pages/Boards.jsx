@@ -49,7 +49,7 @@ export default function Boards() {
       setShow(true);
     }
   }, [match, boards]);
-
+  console.log('render');
   return (
     <Layout>
       {!loading && (

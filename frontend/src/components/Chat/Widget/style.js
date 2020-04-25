@@ -20,7 +20,7 @@ export const WidgetContainer = styled.div`
   height: max-content;
   max-height: 338px;
   overflow: hidden;
-  z-index: 500;
+  z-index: 100;
   border-radius: 3px;
   user-select: none;
 
@@ -52,7 +52,7 @@ export const ButtonRow = styled.div`
   }
 `;
 
-export const FriendListContainer = styled.div`
+export const ActiveChatsListContainer = styled.div`
   width: 100%;
   height: max-content;
   max-height: 260px;

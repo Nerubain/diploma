@@ -62,7 +62,7 @@ export default (store) => {
     const newBoard = {
       id: `board-${boards.boards.length + 1}`,
       favourite: false,
-      content: { ...board },
+      content: { ...board, category: category.label },
     };
     const newCategory = { ...category, boardsIds: [...category.boardsIds, newBoard.id] };
 

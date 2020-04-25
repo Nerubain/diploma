@@ -16,13 +16,14 @@ export const ChatWrapper = styled.div`
   display: block;
   position: ${({ drag }) => (drag ? 'sticky' : 'absolute')};
   left: 80px;
+  top: calc(100vh - 373px);
   background-color: white;
   width: 270px;
   height: 370px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
   border-radius: 3px;
   font-size: 12.5px;
-  z-index: 1000;
+  z-index: 199;
 `;
 
 export const ChatHeader = styled.div`
@@ -54,12 +55,14 @@ export const HeaderIcons = styled.div`
   height: 100%;
   display: flex;
   align-items: flex-start;
-
   & > i {
     color: #b6c8dc;
     cursor: pointer;
     height: 100%;
-    margin: 0!;
+    margin: 0 !important;
+    &:first-child {
+      margin-right: 5px !important;
+    }
     &:hover {
       color: white;
     }

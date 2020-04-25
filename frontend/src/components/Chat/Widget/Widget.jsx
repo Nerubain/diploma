@@ -3,8 +3,8 @@ import { useStoreon } from 'storeon/react';
 import faker from 'faker';
 
 import preloadImages from '@utils/functions/preloadImages';
-import FriendList from './FriendListWidget';
-import ChatList from './FriendListWindow/FriendListWindow';
+import ActiveChatsListWidget from './ActiveChatsListWidget';
+import DragWindow from './FriendListWindow/DragWindow';
 import ActionButton from './ActionButton';
 import { WidgetContainer } from './style';
 
@@ -47,10 +47,10 @@ export default function Widget() {
   return (
     <>
       <WidgetContainer>
-        <FriendList list={list} />
+        <ActiveChatsListWidget list={list} />
         <ActionButton onlineCount={list.length} />
       </WidgetContainer>
-      {chat.showFriends.show && <ChatList list={list} />}
+      {chat.selectedChat.show && <DragWindow list={list} />}
     </>
   );
 }
