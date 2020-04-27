@@ -9,7 +9,7 @@ export default function ActiveChatBlockWidget({ friend }) {
 
   const chatHandler = (e) => {
     e.preventDefault();
-    dispatch('chat_widget/show-friends', { show: true, id: friend.id });
+    dispatch('chat_widget/show-friends', { show: true, user: friend });
   };
 
   return (

@@ -2,10 +2,18 @@ import React from 'react';
 import { useStoreon } from 'storeon/react';
 import { Icon } from 'semantic-ui-react';
 
-import { StyledLink, PreviewBlock, PreviewTitle, Fade, IconWrapper } from './boards-style';
+import {
+  StyledLink,
+  PreviewBlock,
+  PreviewTitle,
+  Fade,
+  PreviewBottom,
+  PreviewTeamTitlte,
+} from './boards-style';
 
 export default function BoardsPreviewItem(props) {
-  const { item, forwardRef, dragStatus, opacity, onDragEnd, index } = props;
+  const { item, forwardRef, dragStatus, opacity, onDragEnd, index, wrapped } = props;
+  const { url, image, color, name, category } = item.content;
   const { dispatch } = useStoreon();
 
   const addHandler = () => dispatch('boards/toFavourite', item.id);
@@ -17,9 +25,9 @@ export default function BoardsPreviewItem(props) {
   const stopAction = (e) => e.preventDefault();
   return (
     <StyledLink
-      to={item.content.url}
-      image={item.content.image}
-      color={item.content.color}
+      to={url}
+      image={image}
+      color={color}
       onDragStart={!dragStatus ? stopAction : null}
       style={{ opacity }}
       ref={forwardRef}
@@ -27,10 +35,11 @@ export default function BoardsPreviewItem(props) {
     >
       <Fade />
       <PreviewBlock>
-        <PreviewTitle>{item.content.name}</PreviewTitle>
-        <IconWrapper favourite={item.favourite} onClick={stopAction}>
+        <PreviewTitle>{name}</PreviewTitle>
+        <PreviewBottom favourite={item.favourite} onClick={stopAction}>
+          <PreviewTeamTitlte>{wrapped && category}</PreviewTeamTitlte>
           <Icon name="star outline" onClick={actionHandler} />
-        </IconWrapper>
+        </PreviewBottom>
       </PreviewBlock>
     </StyledLink>
   );

@@ -16,6 +16,9 @@ export default function ChatList({ list }) {
   let shiftX;
   let shiftY;
   const activeCount = list.length;
+  const windowLabel = chat.selectedChat.user
+    ? chat.selectedChat.user.name
+    : `${activeCount} активных чатов`;
 
   const widgetHandler = useCallback(() => dispatch('chat_widget/show-friends', { show: false }), [
     dispatch,
@@ -50,20 +53,20 @@ export default function ChatList({ list }) {
     setDrag(false);
   };
 
-  const toChatHandler = () => history.push(`/chat/${chat.selectedChat.id}`);
+  const toChatHandler = () => history.push(`/chat/${chat.selectedChat.user.id}`);
 
   return (
     <DraggableContainer drag={drag}>
       <ChatWrapper drag={drag} ref={windowRef}>
         <ChatHeader onMouseDown={initialiseDrag} onMouseUp={null}>
-          <ChatTitle>{activeCount} активных чатов</ChatTitle>
+          <ChatTitle>{windowLabel}</ChatTitle>
           <HeaderIcons>
-            {!!chat.selectedChat.id && <Icon name="square outline" onClick={toChatHandler} />}
+            {!!chat.selectedChat.user && <Icon name="square outline" onClick={toChatHandler} />}
             <Icon name="close" onClick={widgetHandler} />
           </HeaderIcons>
         </ChatHeader>
-        {!chat.selectedChat.id && <FriendListSelector list={list} />}
-        {!!chat.selectedChat.id && <SelectedChat id={chat.selectedChat.id} />}
+        {!chat.selectedChat.user && <FriendListSelector list={list} />}
+        {!!chat.selectedChat.user && <SelectedChat user={chat.selectedChat.user} />}
       </ChatWrapper>
     </DraggableContainer>
   );

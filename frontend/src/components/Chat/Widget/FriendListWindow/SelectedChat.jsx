@@ -1,9 +1,63 @@
-import React from 'react';
+import React, { useState } from 'react';
+import faker from 'faker';
 
-export default function SelectedChat({ id }) {
+import EmojiInput from '@components/EmojiImput';
+import MessagesList from './Messages/MessagesList';
+
+const style = {
+  position: 'absolute',
+  height: 254,
+  top: 70,
+  right: 10,
+};
+
+const messages = [
+  {
+    id: faker.random.number(),
+    author: 'user1',
+    message: faker.random.words(4),
+  },
+  {
+    id: faker.random.number(),
+    author: 'user1',
+    message: faker.random.words(4),
+  },
+  {
+    id: faker.random.number(),
+    author: 'user1',
+    message: faker.random.words(4),
+  },
+  {
+    id: faker.random.number(),
+    author: 'user1',
+    message: faker.random.words(4),
+  },
+  {
+    id: faker.random.number(),
+    author: 'Nerubain',
+    message: faker.random.words(4),
+  },
+  {
+    id: faker.random.number(),
+    author: 'Nerubain',
+    message: faker.random.words(4),
+  },
+  {
+    id: faker.random.number(),
+    author: 'user1',
+    message: faker.random.words(4),
+  },
+];
+
+export default function SelectedChat({ user }) {
+  const [msgs, setMsgs] = useState(messages);
+
+  const newMessage = (message) => setMsgs((prev) => [message, ...prev]);
+
   return (
     <>
-      <h1>{id}</h1>
+      <MessagesList messages={msgs} />
+      <EmojiInput style={style} to={user} add={newMessage} />
     </>
   );
 }

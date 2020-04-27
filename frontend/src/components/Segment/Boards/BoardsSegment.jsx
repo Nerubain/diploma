@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useContext } from 'react';
 import { useStoreon } from 'storeon/react';
-import { Input } from 'semantic-ui-react';
+import { Input, Icon } from 'semantic-ui-react';
 
 import { SegmentContext } from '@context/segment.context';
 import { ModalContext } from '@context/modal.context';
@@ -11,6 +11,10 @@ import {
   ContextContainer,
   ButtonsContainer,
   AddBoardButton,
+  MobileSegmentListWrapper,
+  SegmentHeader,
+  CloseButton,
+  SegmentTitle,
 } from '../style';
 
 export default function BoardsSegment() {
@@ -18,6 +22,7 @@ export default function BoardsSegment() {
   const { boardsRef, close, searchHandler, search } = useContext(SegmentContext);
   const { selectModal } = useContext(ModalContext);
   const input = useRef();
+  const showHeader = window.innerWidth <= 600;
 
   const filteredBoards = boards.boards.filter((board) => {
     return board.content.name.toLowerCase().indexOf(search.trim().toLowerCase()) !== -1;
@@ -41,6 +46,14 @@ export default function BoardsSegment() {
     <ContextSegment ref={boardsRef}>
       <ContainerSegment>
         <ContextContainer>
+          {showHeader && (
+            <SegmentHeader>
+              <SegmentTitle>Доски</SegmentTitle>
+              <CloseButton onClick={close}>
+                <Icon name="close" />
+              </CloseButton>
+            </SegmentHeader>
+          )}
           <Input
             icon="search"
             placeholder="Поиск по названию.."
@@ -48,24 +61,26 @@ export default function BoardsSegment() {
             value={search}
             onChange={searchHandler}
           />
-          {boards.categories.map((category) => {
-            const boardsList = category.boardsIds
-              .map((id) => filteredBoards.find((board) => board.id === id))
-              .filter((id) => id);
-            const activeStatus = openMenus.find((item) => item === category.id);
+          <MobileSegmentListWrapper>
+            {boards.categories.map((category) => {
+              const boardsList = category.boardsIds
+                .map((id) => filteredBoards.find((board) => board.id === id))
+                .filter((id) => id);
+              const activeStatus = openMenus.find((item) => item === category.id);
 
-            return (
-              <BoardsList
-                key={category.id}
-                category={category}
-                boards={boardsList}
-                add={addToActive}
-                remove={removeFromActive}
-                status={!!activeStatus}
-                search={search}
-              />
-            );
-          })}
+              return (
+                <BoardsList
+                  key={category.id}
+                  category={category}
+                  boards={boardsList}
+                  add={addToActive}
+                  remove={removeFromActive}
+                  status={!!activeStatus}
+                  search={search}
+                />
+              );
+            })}
+          </MobileSegmentListWrapper>
           <ButtonsContainer>
             <AddBoardButton onClick={modalHandler}>{label}</AddBoardButton>
           </ButtonsContainer>

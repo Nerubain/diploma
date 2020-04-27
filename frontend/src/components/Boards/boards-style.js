@@ -118,9 +118,11 @@ export const PreviewTitle = styled.div`
   z-index: 100;
 `;
 
-export const IconWrapper = styled.div`
+export const PreviewTeamTitlte = styled.div``;
+
+export const PreviewBottom = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   width: 100%;
   color: white;
   overflow: hidden;

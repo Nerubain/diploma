@@ -35,6 +35,8 @@ export const ChatHeader = styled.div`
   background-color: #00b5ad;
   cursor: move;
   padding: 0 7px 0 8px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
 `;
 
 export const ChatTitle = styled.div`
@@ -54,11 +56,11 @@ export const ChatTitle = styled.div`
 export const HeaderIcons = styled.div`
   height: 100%;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   & > i {
     color: #b6c8dc;
     cursor: pointer;
-    height: 100%;
+    height: 22px;
     margin: 0 !important;
     &:first-child {
       margin-right: 5px !important;
@@ -70,9 +72,11 @@ export const HeaderIcons = styled.div`
 `;
 
 export const ActiveChatsContainer = styled.div`
+  position: relative;
   height: 305px;
   overflow-y: auto;
   overflow-x: hidden;
+  /* margin-bottom: 5px; */
 `;
 
 export const FriendBlock = styled(Link)`

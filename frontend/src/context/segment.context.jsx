@@ -11,17 +11,18 @@ export const SegmentProvider = ({ children }) => {
 
   const close = useCallback(() => {
     setSearch('');
-    return setSegment({ type: null, ref: null });
+    document.body.style = '';
+    setSegment({ type: null, ref: null });
   }, []);
 
   const searchHandler = (e, { value }) => setSearch(value);
 
-  const show = (name, ref) =>
+  const show = (name, ref) => {
     setSegment((prevSt) => (prevSt.ref === ref ? { type: null, ref: null } : { type: name, ref }));
+  };
 
   const closeOutSide = useCallback(
-    (e) =>
-      !e.target.slot && segment.ref && !segment.ref.current.contains(e.target) ? close() : null,
+    (e) => (!e.target.slot && !segment?.ref?.current?.contains(e.target) ? close() : null),
     [segment, close]
   );
 

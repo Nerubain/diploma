@@ -37,7 +37,7 @@ export default function BoardsItem({ content, id, favourite, forwardRef, opacity
       </BoardTitle>
       <IconContainer favourite={favourite} onClick={disebleAction}>
         <IconButton onClick={actionHandler}>
-          <Icon name="star outline" />
+          <Icon name="star outline" data-icon="icon" />
         </IconButton>
       </IconContainer>
     </ItemLink>
