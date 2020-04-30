@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import Auth from '@pages/Auth';
 import Boards from '@pages/Boards';
+import Chat from '@pages/Chat';
 import Errors from '@pages/Error';
 
 import ChatWidget from '@components/Chat/Widget/Widget';
@@ -13,6 +14,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Auth} />
         <Route path={['/:user/boards', '/team/:team/boards']} component={Boards} />
+        <Route path="/chat/:id" component={Chat} />
         <Route component={Errors} exact />
       </Switch>
       <Route path={['/:user/boards', '/team/:team/boards']} component={ChatWidget} />

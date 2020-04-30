@@ -5,7 +5,6 @@ export default (store) => {
     return { chat: { ...chat, selectedChat: { show, user } } };
   });
   store.on('chat/new_message', ({ chat }, message) => {
-    console.log(message);
     const newList = chat.messages[message.to.id] || [];
     const newMessages = {
       ...chat.messages,

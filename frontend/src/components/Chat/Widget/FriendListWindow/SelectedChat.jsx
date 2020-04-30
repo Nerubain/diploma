@@ -52,7 +52,10 @@ const messages = [
 export default function SelectedChat({ user }) {
   const [msgs, setMsgs] = useState(messages);
 
-  const newMessage = (message) => setMsgs((prev) => [message, ...prev]);
+  const newMessage = (message) => {
+    if (!message.message) return null;
+    return setMsgs((prev) => [message, ...prev]);
+  };
 
   return (
     <>

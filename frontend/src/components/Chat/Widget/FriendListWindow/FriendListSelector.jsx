@@ -1,16 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Input } from 'semantic-ui-react';
 
+import useSearch from '@hooks/useSearch';
 import List from './List';
 
 export default function FriendListSelector({ list }) {
-  const [search, setSearch] = useState('');
+  const { search, onChange, filteredList } = useSearch(list, ['name']);
   const searchRef = useRef(null);
-
-  const searchHandler = (e, { value }) => setSearch(value);
-  const filteredList = list.filter((user) => {
-    return user.name.toLowerCase().indexOf(search.trim().toLowerCase()) !== -1;
-  });
 
   useEffect(() => {
     if (searchRef.current) searchRef.current.focus();
@@ -22,7 +18,7 @@ export default function FriendListSelector({ list }) {
       <Input
         fluid
         value={search}
-        onChange={searchHandler}
+        onChange={onChange}
         placeholder="Начните вводить имя.."
         icon="search"
         iconPosition="left"

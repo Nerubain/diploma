@@ -4,6 +4,7 @@ import { Input, Icon } from 'semantic-ui-react';
 
 import { SegmentContext } from '@context/segment.context';
 import { ModalContext } from '@context/modal.context';
+import useSearch from '@hooks/useSearch';
 import BoardsList from './BoardsList';
 import {
   ContainerSegment,
@@ -19,14 +20,15 @@ import {
 
 export default function BoardsSegment() {
   const { dispatch, boards, openMenus } = useStoreon('boards', 'openMenus');
-  const { boardsRef, close, searchHandler, search } = useContext(SegmentContext);
+  const { search, onChange, filteredList } = useSearch(boards.boards, ['content', 'name']);
+  const { boardsRef, close } = useContext(SegmentContext);
   const { selectModal } = useContext(ModalContext);
   const input = useRef();
   const showHeader = window.innerWidth <= 600;
 
-  const filteredBoards = boards.boards.filter((board) => {
-    return board.content.name.toLowerCase().indexOf(search.trim().toLowerCase()) !== -1;
-  });
+  // const filteredBoards = boards.boards.filter((board) => {
+  //   return board.content.name.toLowerCase().indexOf(search.trim().toLowerCase()) !== -1;
+  // });
 
   const label = search ? `Создать доску с именем "${search}"` : 'Создать доску...';
 
@@ -59,12 +61,12 @@ export default function BoardsSegment() {
             placeholder="Поиск по названию.."
             ref={input}
             value={search}
-            onChange={searchHandler}
+            onChange={onChange}
           />
           <MobileSegmentListWrapper>
             {boards.categories.map((category) => {
               const boardsList = category.boardsIds
-                .map((id) => filteredBoards.find((board) => board.id === id))
+                .map((id) => filteredList.find((board) => board.id === id))
                 .filter((id) => id);
               const activeStatus = openMenus.find((item) => item === category.id);
 

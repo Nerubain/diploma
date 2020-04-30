@@ -6,7 +6,6 @@ import 'normalize.css';
 import { DndProvider } from 'react-dnd';
 import back from 'react-dnd-html5-backend';
 import 'semantic-ui-css/semantic.min.css';
-import 'emoji-mart/css/emoji-mart.css';
 
 import App from './App';
 import store from './store/index';

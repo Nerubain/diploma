@@ -32,15 +32,15 @@ const Container = styled.div`
   background-color: #fafbfc;
 `;
 
-const MobileBottom = styled.div`
-  width: 100%;
-  height: 50px;
-  display: none;
-  box-shadow: 0 -2px 6px 2px rgba(0, 0, 0, 0.06);
-  background: white;
-  z-index: 9999;
+// const MobileBottom = styled.div`
+//   width: 100%;
+//   height: 50px;
+//   display: none;
+//   box-shadow: 0 -2px 6px 2px rgba(0, 0, 0, 0.06);
+//   background: white;
+//   z-index: 9999;
 
-  @media (max-width: 600px) {
-    display: flex;
-  }
-`;
+//   @media (max-width: 600px) {
+//     display: flex;
+//   }
+// `;

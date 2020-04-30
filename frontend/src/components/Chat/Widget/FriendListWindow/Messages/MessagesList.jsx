@@ -22,7 +22,7 @@ export default function MessagesList({ messages }) {
         {messages.map((message, index) => {
           const right = message.author === 'Nerubain';
           const last = messages[index].author !== messages[index - 1]?.author;
-          return <Message right={right} last={last} message={message.message} />;
+          return <Message key={message.id} right={right} last={last} message={message.message} />;
         })}
       </Messages>
     </MessagesContainer>
