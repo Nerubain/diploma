@@ -1,38 +1,24 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { useStoreon } from 'storeon/react';
-import faker from 'faker';
+import React, { useState, useCallback, useEffect, useContext } from 'react';
 
 import preloadImages from '@utils/functions/preloadImages';
+import { ChatContext } from '@context/chat.context';
 import ActiveChatsListWidget from './ActiveChatsListWidget';
 import DragWindow from './FriendListWindow/DragWindow';
 import ActionButton from './ActionButton';
 import { WidgetContainer } from './style';
 
-const list = [
-  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
-  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
-  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
-  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
-  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
-  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
-  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
-  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
-  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
-  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
-  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
-  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
-  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
-  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
-];
-
 export default function Widget() {
-  const { chat } = useStoreon('chat');
+  const { filteredList, select } = useContext(ChatContext);
   const [loading, setLoading] = useState(true);
+  const [show, setShow] = useState(false);
+
+  const open = () => setShow(true);
+  const close = () => setShow(false);
 
   const preloadData = useCallback(async () => {
     setLoading(true);
     try {
-      await Promise.all(list.map(preloadImages));
+      await Promise.all(filteredList.map(preloadImages));
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -47,10 +33,10 @@ export default function Widget() {
   return (
     <>
       <WidgetContainer>
-        <ActiveChatsListWidget list={list} />
-        <ActionButton onlineCount={list.length} />
+        <ActiveChatsListWidget chats={filteredList} open={open} />
+        <ActionButton onlineCount={filteredList.length} open={open} select={select} />
       </WidgetContainer>
-      {chat.selectedChat.show && <DragWindow list={list} />}
+      {show && <DragWindow chats={filteredList} open={open} close={close} show={show} />}
     </>
   );
 }

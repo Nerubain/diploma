@@ -1,11 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
 import { Input } from 'semantic-ui-react';
 
-import useSearch from '@hooks/useSearch';
+import { ChatContext } from '@context/chat.context';
 import List from './List';
 
-export default function FriendListSelector({ list }) {
-  const { search, onChange, filteredList } = useSearch(list, ['name']);
+export default function FriendListSelector({ chats, open }) {
+  const { search, onChange } = useContext(ChatContext);
   const searchRef = useRef(null);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ export default function FriendListSelector({ list }) {
 
   return (
     <>
-      <List list={filteredList} />
+      <List chats={chats} open={open} />
       <Input
         fluid
         value={search}

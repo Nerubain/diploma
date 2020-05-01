@@ -1,20 +1,22 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
+import { ChatContext } from '@context/chat.context';
 import FriendItem from './FriendItem';
 import { FriendListContainer, FriendListWrapper } from './style';
 
-export default function FriendList({ onClick, chats, selected }) {
+export default function FriendList() {
+  const { filteredList, selected, select } = useContext(ChatContext);
   return (
     <FriendListContainer>
       <FriendListWrapper>
-        {chats.map((chat, index) => (
+        {filteredList.map((chat, index) => (
           <FriendItem
             user={chat.user}
             id={chat.id}
             selected={selected}
-            onClick={onClick}
             index={index}
             key={chat.id}
+            onClick={select}
           />
         ))}
       </FriendListWrapper>

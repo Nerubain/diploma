@@ -1,16 +1,15 @@
 import React from 'react';
-import { useStoreon } from 'storeon/react';
 import { Icon } from 'semantic-ui-react';
 
 import { ShowChatsButton, ButtonRow, FriendsCount } from './style';
 
-export default function ActionButton({ onlineCount }) {
-  const { dispatch } = useStoreon();
-
-  const widgetHandler = () => dispatch('chat_widget/show-friends', { show: true });
-
+export default function ActionButton({ onlineCount, open, select }) {
+  const openHandler = () => {
+    select();
+    open();
+  };
   return (
-    <ShowChatsButton onClick={widgetHandler}>
+    <ShowChatsButton onClick={openHandler}>
       <ButtonRow>
         <FriendsCount>{`${onlineCount}`}</FriendsCount>
         <Icon name="user" />

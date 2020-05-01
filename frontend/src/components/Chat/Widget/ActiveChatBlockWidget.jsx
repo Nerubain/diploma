@@ -1,20 +1,25 @@
-import React from 'react';
-import { useStoreon } from 'storeon/react';
+import React, { useContext } from 'react';
 
+import { ChatContext } from '@context/chat.context';
 import { FriendContainer, FriendAvatar, OnlineStatus } from './style';
 
-export default function ActiveChatBlockWidget({ friend }) {
-  const { id, image, name } = friend;
-  const { dispatch } = useStoreon();
-
-  const chatHandler = (e) => {
+export default function ActiveChatBlockWidget({ chat, chatId, open }) {
+  const { select } = useContext(ChatContext);
+  const { id, image, name } = chat;
+  const selectChat = (e) => {
     e.preventDefault();
-    dispatch('chat_widget/show-friends', { show: true, user: friend });
+    open();
+    select(e);
   };
 
   return (
-    <FriendContainer data-tip data-for={`${id}_${name}`} onClick={chatHandler} to={`/govno/${id}`}>
-      <FriendAvatar src={image} />
+    <FriendContainer
+      data-id={chatId}
+      data-for={`${id}_${name}`}
+      onClick={selectChat}
+      to={`/govno/${id}`}
+    >
+      <FriendAvatar src={image} data-id={chatId} />
       <OnlineStatus />
     </FriendContainer>
   );

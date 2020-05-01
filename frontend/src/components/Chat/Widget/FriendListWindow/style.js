@@ -79,7 +79,7 @@ export const ActiveChatsContainer = styled.div`
   /* margin-bottom: 5px; */
 `;
 
-export const FriendBlock = styled(Link)`
+export const FriendBlock = styled.div`
   display: flex;
   align-items: center;
   width: 100%;

@@ -1,26 +1,27 @@
-import React from 'react';
-import { useStoreon } from 'storeon/react';
+import React, { useContext } from 'react';
 import { Icon } from 'semantic-ui-react';
 import { useHistory } from 'react-router-dom';
 
+import { ChatContext } from '@context/chat.context';
 import { FriendBlock, Avatar, UserName } from './style';
 
-export default function FriendItem({ friend }) {
-  const { dispatch } = useStoreon();
+export default function FriendItem({ chat, open, id }) {
+  const { select } = useContext(ChatContext);
   const history = useHistory();
 
   const chatHandler = (e) => {
     e.preventDefault();
-    dispatch('chat_widget/show-friends', { show: true, user: friend });
+    open();
+    select(e);
   };
 
-  const toChatHandler = () => history.push(`/chat/${friend.id}`);
+  const toChatHandler = () => history.push(`/chat`);
 
   return (
-    <FriendBlock to={`/govno/${friend.id}`} onClick={chatHandler}>
-      <Avatar src={friend.image} />
-      <UserName>{friend.name}</UserName>
-      <Icon name="chat" onClick={toChatHandler} />
+    <FriendBlock onClick={chatHandler} data-id={id}>
+      <Avatar src={chat.user.image} data-id={id} />
+      <UserName data-id={id}>{chat.user.name}</UserName>
+      <Icon name="chat" onClick={toChatHandler} data-id={id} />
     </FriendBlock>
   );
 }

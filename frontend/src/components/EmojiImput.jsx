@@ -3,7 +3,7 @@ import { useStoreon } from 'storeon/react';
 import { Input, Button } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-export default function EmojiPicker({ style, to, add }) {
+export default function EmojiPicker() {
   const [message, setMessage] = useState('');
   const { user } = useStoreon('user');
   const ref = useRef(null);
@@ -12,8 +12,6 @@ export default function EmojiPicker({ style, to, add }) {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    add({ message, author: user.name, id: message });
-    setMessage('');
   };
 
   useEffect(() => {

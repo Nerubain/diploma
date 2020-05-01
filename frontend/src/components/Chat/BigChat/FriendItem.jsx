@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import {
   FriendBlock,
@@ -10,11 +11,11 @@ import {
   LastMessage,
 } from './style';
 
-export default function FriendItem({ index, user, onClick, selected, id }) {
+export default function FriendItem({ user, selected, id, onClick }) {
   return (
-    <FriendBlock selected={id === selected} onClick={onClick} data-id={id}>
+    <FriendBlock selected={id === selected} data-id={id} onClick={onClick}>
       <Avatar data-id={id}>
-        <img src={user.avatar} alt="lol" />
+        <img src={user.image} alt="lol" />
       </Avatar>
       <UserDataBlock data-id={id}>
         <UserDataHeader data-id={id}>

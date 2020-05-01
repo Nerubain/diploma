@@ -5,11 +5,12 @@ import { ActiveChatsContainer, EmptyBlock } from './style';
 
 const emptyLabel = 'Не найдено пользователей с таким именем';
 
-export default function List({ list }) {
+export default function List({ chats, open }) {
   return (
-    <ActiveChatsContainer empty={!list.length}>
-      {!list.length && <EmptyBlock>{emptyLabel}</EmptyBlock>}
-      {!!list.length && list.map((item) => <FriendItem friend={item} key={item.id} />)}
+    <ActiveChatsContainer empty={!chats.length}>
+      {!chats.length && <EmptyBlock>{emptyLabel}</EmptyBlock>}
+      {!!chats.length &&
+        chats.map((chat) => <FriendItem chat={chat} key={chat.id} open={open} id={chat.id} />)}
     </ActiveChatsContainer>
   );
 }

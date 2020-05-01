@@ -1,7 +1,7 @@
-export default ({ image }) =>
+export default ({ image, user }) =>
   new Promise((res) => {
     const img = new Image();
-    img.onload = () => res({ path: image, status: 'ok' });
-    img.onerror = () => res({ path: image, status: 'error' });
-    img.src = image;
+    img.onload = () => res({ path: user ? user.image : image, status: 'ok' });
+    img.onerror = () => res({ path: user ? user.image : image, status: 'error' });
+    img.src = user ? user.image : image;
   });

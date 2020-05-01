@@ -1,28 +1,22 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { Icon } from 'semantic-ui-react';
-import { useStoreon } from 'storeon/react';
 import { useHistory } from 'react-router-dom';
 
+import { ChatContext } from '@context/chat.context';
 import FriendListSelector from './FriendListSelector';
 import SelectedChat from './SelectedChat';
 import { DraggableContainer, ChatWrapper, ChatHeader, HeaderIcons, ChatTitle } from './style';
 
-export default function ChatList({ list }) {
-  const { dispatch, chat } = useStoreon('chat');
+export default function ChatList({ chats, open, close, show }) {
   const [drag, setDrag] = useState(false);
+  const { selected, selectedChat } = useContext(ChatContext);
   const history = useHistory();
   const windowRef = useRef(null);
 
   let shiftX;
   let shiftY;
-  const activeCount = list.length;
-  const windowLabel = chat.selectedChat.user
-    ? chat.selectedChat.user.name
-    : `${activeCount} активных чатов`;
-
-  const widgetHandler = useCallback(() => dispatch('chat_widget/show-friends', { show: false }), [
-    dispatch,
-  ]);
+  const activeCount = chats.length;
+  const windowLabel = selected ? selectedChat.user.name : `${activeCount} активных чатов`;
 
   const initialiseDrag = (event) => {
     shiftX = event.clientX - windowRef.current.getBoundingClientRect().left;
@@ -53,7 +47,7 @@ export default function ChatList({ list }) {
     setDrag(false);
   };
 
-  const toChatHandler = () => history.push(`/chat/${chat.selectedChat.user.id}`);
+  const toChatHandler = () => history.push(`/chat`);
 
   return (
     <DraggableContainer drag={drag}>
@@ -61,12 +55,12 @@ export default function ChatList({ list }) {
         <ChatHeader onMouseDown={initialiseDrag} onMouseUp={null}>
           <ChatTitle>{windowLabel}</ChatTitle>
           <HeaderIcons>
-            {!!chat.selectedChat.user && <Icon name="square outline" onClick={toChatHandler} />}
-            <Icon name="close" onClick={widgetHandler} />
+            {!!selected && <Icon name="square outline" onClick={toChatHandler} />}
+            <Icon name="close" onClick={close} />
           </HeaderIcons>
         </ChatHeader>
-        {!chat.selectedChat.user && <FriendListSelector list={list} />}
-        {!!chat.selectedChat.user && <SelectedChat user={chat.selectedChat.user} />}
+        {show && !selected && <FriendListSelector chats={chats} open={open} />}
+        {show && !!selected && <SelectedChat messages={selectedChat} />}
       </ChatWrapper>
     </DraggableContainer>
   );

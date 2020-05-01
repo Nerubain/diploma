@@ -7,7 +7,7 @@ export default function MessageItem({ right, last, message }) {
     <Message right={right} last={last}>
       <MessageText>
         <MessageContent>
-          {message}
+          {message.text}
           <MessageTime right={right}>55:55</MessageTime>
         </MessageContent>
       </MessageText>

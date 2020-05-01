@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Input } from 'semantic-ui-react';
 
-import useSearch from '@hooks/useSearch';
+import { ChatContext } from '@context/chat.context';
 import FriendList from './FriendList';
 import { LeftContainer, SearchWrapper, Reset } from './style';
 
-export default function Left({ onSelect, selected, chats }) {
+export default function Left() {
   const [width, setWidth] = useState(273);
   const [minWidth, setMinWidth] = useState(273);
   const [maxWidth, setMaxWidth] = useState(window.innerWidth - 380);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const { search, onChange, filteredList, resetSearch } = useSearch(chats, ['user', 'name']);
+  const { resetSearch, search, onChange, selectedChat } = useContext(ChatContext);
 
   const resize = (e, dir, ref, d) => setWidth(width + d.width);
   const resizeWindow = () => setWindowWidth(window.innerWidth);
@@ -39,7 +39,7 @@ export default function Left({ onSelect, selected, chats }) {
       minWidth={minWidth}
       maxWidth={maxWidth}
       onResizeStop={resize}
-      show={selected}
+      show={selectedChat}
     >
       <SearchWrapper>
         <Input placeholder="Введите имя" fluid icon={!!search.length}>
@@ -47,7 +47,7 @@ export default function Left({ onSelect, selected, chats }) {
           {!!search.length && <Reset name="close" onClick={resetSearch} />}
         </Input>
       </SearchWrapper>
-      <FriendList onClick={onSelect} selected={selected} chats={filteredList} />
+      <FriendList />
     </LeftContainer>
   );
 }

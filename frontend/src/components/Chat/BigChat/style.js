@@ -110,6 +110,10 @@ export const RightContainer = styled.div`
   height: 100%;
   overflow: hidden;
   min-width: 379px;
+  background: url('https://i.pinimg.com/originals/6f/2d/34/6f2d34fe6c8746c56c14fbc55308ef99.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 
   @media (max-width: 690px) {
     display: ${({ show }) => (show ? 'block' : 'none')};
@@ -153,15 +157,10 @@ export const UserLastSeen = styled.div`
 export const MessagesWrapper = styled.div`
   max-height: calc(100% - ${({ height }) => height}px);
   height: calc(100% - ${({ height }) => height}px);
-  background: url('https://i.pinimg.com/originals/6f/2d/34/6f2d34fe6c8746c56c14fbc55308ef99.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   overflow: auto;
 `;
 
 export const Messages = styled.div`
-  /* height: 100%; */
   overflow: hidden;
 `;
 
@@ -170,7 +169,7 @@ export const MessagesListContainer = styled.div`
   flex-direction: column-reverse;
   width: 100%;
   flex-flow: column-reverse nowrap;
-  padding: 5px 10px;
+  padding: 5px 20px;
 `;
 
 export const MessageContainer = styled.div`
