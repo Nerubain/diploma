@@ -38,7 +38,7 @@ export default function Modals() {
             <AddBoard subMenu={subMenu} subMenuHandler={subMenuHandler} />
           </AddBoardProvider>
         )}
-        {modal.name === 'create_team' && <AddTeam />}
+        {modal.name === 'create_team' && <AddTeam close={closeModalHandler} />}
       </Modal>
     </BackgroundsProvider>
   );
