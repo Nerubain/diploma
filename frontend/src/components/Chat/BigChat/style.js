@@ -129,8 +129,17 @@ export const UserTitleWrapper = styled.div`
   width: 100%;
   padding: 10px;
   background: white;
-
+  display: flex;
+  align-items: center;
   border: 1px solid rgba(34, 36, 38, 0.15);
+  & > i {
+    display: none;
+  }
+  @media (max-width: 690px) {
+    & > i {
+      display: block;
+    }
+  }
 `;
 
 export const ChatInfo = styled.div`

@@ -23,7 +23,7 @@ export default function Widget() {
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [filteredList]);
 
   useEffect(() => {
     preloadData();

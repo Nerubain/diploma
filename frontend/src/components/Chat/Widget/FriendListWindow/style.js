@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
 export const DraggableContainer = styled.div`
   position: ${({ drag }) => (drag ? 'absolute' : 'initial')};

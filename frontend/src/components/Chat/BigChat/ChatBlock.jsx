@@ -7,6 +7,7 @@ import MessageInput from './MessageInput';
 export default function ChatBlock({ onSelect, selectedChat, messages }) {
   const [value, setValue] = useState('');
   const [listHeight, setListHeight] = useState(103);
+
   const messagesRef = useRef(null);
 
   const onChange = (e) => setValue(e.target.value);
@@ -23,7 +24,7 @@ export default function ChatBlock({ onSelect, selectedChat, messages }) {
   }, [selectedChat]);
   return (
     <>
-      <UserTitle />
+      <UserTitle user={selectedChat.user} />
       <MessagesList height={listHeight} forwardRef={messagesRef} messages={messages} />
       <MessageInput onChange={onChange} value={value} onHeightChange={onHeightChange} />
     </>
