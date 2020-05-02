@@ -48,14 +48,9 @@ export default function Segments() {
       handlerParams: [`/${user.name}/profile`],
     },
     {
-      label: 'Настройки',
-      icon: 'cog',
-      handlerParams: [`/${user.name}/settings`],
-    },
-    {
       label: 'Чат ',
       icon: 'chat',
-      handlerParams: [`/${user.name}/settings`],
+      handlerParams: [`/chat`],
     },
     {
       label: 'Выход ',

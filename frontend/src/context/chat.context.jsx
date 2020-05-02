@@ -14,8 +14,6 @@ export const ChatProvider = ({ children, messages, chats }) => {
 
   const select = (e) => setSelected(e ? e.target.dataset.id : null);
 
-  console.log(params);
-
   useEffect(() => {
     if (params.id) {
       setSelected(params.id);
@@ -32,6 +30,7 @@ export const ChatProvider = ({ children, messages, chats }) => {
         onChange,
         filteredList,
         resetSearch,
+        chats,
       }}
     >
       {children}

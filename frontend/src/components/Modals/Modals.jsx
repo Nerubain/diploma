@@ -4,6 +4,7 @@ import { Modal } from 'semantic-ui-react';
 import { AddBoardProvider } from '@context/addmodal.context';
 import { BackgroundsProvider } from '@context/backgrounds.context';
 import { ModalContext } from '@context/modal.context';
+import AddToTeam from './AddToTeam/AddToTeam';
 import AddBoard from './AddBoard/Addboard';
 import AddTeam from './AddTeam/AddTeam';
 import { StyledModal } from './AddBoard/style';
@@ -16,7 +17,7 @@ export default function Modals() {
   const { modal, closeModal } = useContext(ModalContext);
   const [subMenu, setSubMenu] = useState(false);
 
-  const subMenuHandler = useCallback((value) => setSubMenu((prev) => value), []);
+  const subMenuHandler = useCallback((value) => setSubMenu(value), []);
 
   const closeModalHandler = useCallback(() => {
     return subMenu ? subMenuHandler(false) : closeModal();
@@ -39,6 +40,7 @@ export default function Modals() {
           </AddBoardProvider>
         )}
         {modal.name === 'create_team' && <AddTeam close={closeModalHandler} />}
+        {modal.name === 'add_to_team' && <AddToTeam close={closeModalHandler} />}
       </Modal>
     </BackgroundsProvider>
   );

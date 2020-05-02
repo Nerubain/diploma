@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+// eslint-disable-next-line react-hooks/exhaustive-deps
 import React, { useState, useCallback, useEffect, useContext } from 'react';
 
 import preloadImages from '@utils/functions/preloadImages';
@@ -8,7 +10,7 @@ import ActionButton from './ActionButton';
 import { WidgetContainer } from './style';
 
 export default function Widget() {
-  const { filteredList, select } = useContext(ChatContext);
+  const { filteredList, select, chats } = useContext(ChatContext);
   const [loading, setLoading] = useState(true);
   const [show, setShow] = useState(false);
 
@@ -23,7 +25,7 @@ export default function Widget() {
     } catch (error) {
       console.log(error);
     }
-  }, [filteredList]);
+  }, []);
 
   useEffect(() => {
     preloadData();
@@ -33,8 +35,8 @@ export default function Widget() {
   return (
     <>
       <WidgetContainer>
-        <ActiveChatsListWidget chats={filteredList} open={open} />
-        <ActionButton onlineCount={filteredList.length} open={open} select={select} />
+        <ActiveChatsListWidget chats={chats} open={open} />
+        <ActionButton onlineCount={chats.length} open={open} select={select} />
       </WidgetContainer>
       {show && <DragWindow chats={filteredList} open={open} close={close} show={show} />}
     </>

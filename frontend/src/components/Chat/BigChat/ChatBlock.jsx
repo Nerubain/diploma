@@ -12,7 +12,7 @@ export default function ChatBlock({ onSelect, selectedChat, messages }) {
 
   const onChange = (e) => setValue(e.target.value);
 
-  const onHeightChange = (height) => setListHeight(86 + height);
+  const onHeightChange = (height) => setListHeight(95 + height);
 
   const scrollToBottom = () => {
     messagesRef.current.scrollTop = messagesRef.current.scrollHeight + 100;

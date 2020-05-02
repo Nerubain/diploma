@@ -8,6 +8,7 @@ export const SegmentProvider = ({ children }) => {
   const boardsRef = useRef(null);
   const addRef = useRef(null);
   const userMenuRef = useRef(null);
+  const addToTeamRef = useRef(null);
 
   const close = useCallback(() => {
     setSearch('');
@@ -44,7 +45,17 @@ export const SegmentProvider = ({ children }) => {
 
   return (
     <SegmentContext.Provider
-      value={{ segment, boardsRef, addRef, userMenuRef, show, close, searchHandler, search }}
+      value={{
+        addToTeamRef,
+        segment,
+        boardsRef,
+        addRef,
+        userMenuRef,
+        show,
+        close,
+        searchHandler,
+        search,
+      }}
     >
       {children}
     </SegmentContext.Provider>

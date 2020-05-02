@@ -5,6 +5,7 @@ import Auth from '@pages/Auth';
 import Boards from '@pages/Boards';
 import Chat from '@pages/Chat';
 import Errors from '@pages/Error';
+import Board from '@pages/Board';
 import ChatWidget from '@components/Chat/Widget/Widget';
 import { ChatProvider } from '@context/chat.context';
 import { chats, messages } from '@utils/objects/chats';
@@ -16,6 +17,7 @@ function App() {
         <Switch>
           <Route exact path="/" component={Auth} />
           <Route path={['/:user/boards', '/team/:team/boards']} component={Boards} />
+          <Route path="/board/:boardId" component={Board} />
           <Route path={['/chat']} component={Chat} />
           <Route component={Errors} exact />
         </Switch>

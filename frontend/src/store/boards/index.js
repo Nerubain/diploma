@@ -74,4 +74,9 @@ export default (store) => {
 
     return { boards: newState };
   });
+
+  store.on('boards/create_category', ({ boards }, category) => {
+    const newCategory = [...boards.categories, category];
+    return { boards: { ...boards, categories: newCategory } };
+  });
 };
