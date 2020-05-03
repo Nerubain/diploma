@@ -10,7 +10,7 @@ export default function BigList({ list, title, type, crop, menuType, menuHandler
   const { imageRef, loading } = useContext(BackgroundsContext);
   const newList = crop ? list.slice(0, 6) : [...list];
   const createRef = (index, length) => length === index + 1 && type === 'image' && isRequest;
-  const key = (item) => item.replaced || item;
+  const key = (item) => item.image || item;
 
   return (
     <MenuSection>

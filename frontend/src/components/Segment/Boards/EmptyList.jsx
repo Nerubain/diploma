@@ -1,11 +1,17 @@
 import React from 'react';
 
-import { EmptyListContainer } from '../style';
+import ListHeader from './ListHeader';
+import { EmptyListContainer, ListContainer } from '../style';
 
-export default function EmptyList() {
+export default function EmptyList({ category, status, handler, icon }) {
   return (
-    <EmptyListContainer>
-      Добавляйте в избранное наиболее важные доски, чтобы они всегда были под рукой.
-    </EmptyListContainer>
+    <ListContainer>
+      <ListHeader category={category} status={icon} handler={handler} />
+      {status && (
+        <EmptyListContainer>
+          Добавляйте в избранное наиболее важные доски, чтобы они всегда были под рукой.
+        </EmptyListContainer>
+      )}
+    </ListContainer>
   );
 }

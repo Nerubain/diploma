@@ -8,39 +8,34 @@ import { ListContainer, ListWrapper } from '../style';
 
 export default function BoardsList({ category, boards, add, remove, status, search }) {
   const showHandler = () => (status ? remove(category.id) : add(category.id));
-  const displayList = !!category.boardsIds.length;
 
   const statusIcon = status ? 'minus' : 'plus';
   if (category.favourite && search) return null;
+  if (!boards.length && category.favourite)
+    return (
+      <EmptyList category={category} status={status} icon={statusIcon} handler={showHandler} />
+    );
   return (
-    <ListContainer>
-      {!search && <ListHeader category={category} status={statusIcon} handler={showHandler} />}
-      <ListWrapper show={status || (!status && search)}>
-        {displayList ? (
-          boards.map((board, index) =>
+    !!boards.length && (
+      <ListContainer>
+        {!search && <ListHeader category={category} status={statusIcon} handler={showHandler} />}
+        <ListWrapper show={status || (!status && search)}>
+          {boards.map((board, index) =>
             category.favourite ? (
               <BoardItemWrapper key={board.id} index={index} id={board.id} type="segment">
-                <BoardsItem
-                  board={board.id}
-                  content={board.content}
-                  favourite={board.favourite}
-                  dragStatus={category.favourite}
-                />
+                <BoardsItem id={board.id} content={board.content} favourite={board.favourite} />
               </BoardItemWrapper>
             ) : (
               <BoardsItem
                 key={board.id}
-                board={board.id}
+                id={board.id}
                 content={board.content}
                 favourite={board.favourite}
-                dragStatus={category.favourite}
               />
             )
-          )
-        ) : (
-          <EmptyList />
-        )}
-      </ListWrapper>
-    </ListContainer>
+          )}
+        </ListWrapper>
+      </ListContainer>
+    )
   );
 }

@@ -1,5 +1,9 @@
 import styled from 'styled-components';
-import { Input, Dropdown, Button, MenuItem } from 'semantic-ui-react';
+import { Input, Dropdown, Button, MenuItem, Menu } from 'semantic-ui-react';
+
+export const Navigator = styled(Menu)`
+  ${({ isborder }) => (isborder ? 'background-color:rgba(0,0,0,.09) !important;' : '')};
+`;
 
 export const StyledItem = styled(MenuItem)`
   @media (max-width: 550px) {

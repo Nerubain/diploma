@@ -6,19 +6,18 @@ import { ModalProvider } from '@context/modal.context';
 import Navigation from './Navigation/Navigation';
 import Segments from './Segment/Segments';
 import Modals from './Modals/Modals';
-import ChatWidget from './Chat/Widget/Widget';
 
-export default function Layout({ children }) {
+export default function Layout({ children, isborder }) {
   return (
-    <Container>
+    <Container isborder={isborder}>
       <ModalProvider>
         <SegmentProvider>
           <Modals />
           <Segments />
-          <Navigation />
+          <Navigation isborder={isborder} />
         </SegmentProvider>
         {children}
-        <ChatWidget />
+        {/* <MobileBottom /> */}
       </ModalProvider>
     </Container>
   );
@@ -30,5 +29,23 @@ const Container = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  background-color: #fafbfc;
+  background: ${({ isborder }) =>
+    isborder
+      ? 'url(https://trello-backgrounds.s3.amazonaws.com/SharedBackground/1280x1920/339535d43a2ebf70cf7a4d16fe476b5d/photo-1582450080665-d9cacb253531.jpg)'
+      : '#fafbfc'};
+  background-size: cover;
+  background-position: 50%;
 `;
+
+// const MobileBottom = styled.div`
+//   width: 100%;
+//   height: 50px;
+//   display: none;
+//   box-shadow: 0 -2px 6px 2px rgba(0, 0, 0, 0.06);
+//   background: white;
+//   z-index: 9999;
+
+//   @media (max-width: 600px) {
+//     display: flex;
+//   }
+// `;

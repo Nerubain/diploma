@@ -1,9 +1,10 @@
-import React, { useRef, useEffect, useContext, useState } from 'react';
+import React, { useRef, useEffect, useContext } from 'react';
 import { useStoreon } from 'storeon/react';
-import { Input } from 'semantic-ui-react';
+import { Input, Icon } from 'semantic-ui-react';
 
 import { SegmentContext } from '@context/segment.context';
 import { ModalContext } from '@context/modal.context';
+import useSearch from '@hooks/useSearch';
 import BoardsList from './BoardsList';
 import {
   ContainerSegment,
@@ -11,71 +12,65 @@ import {
   ContextContainer,
   ButtonsContainer,
   AddBoardButton,
+  MobileSegmentListWrapper,
+  SegmentHeader,
+  CloseButton,
+  SegmentTitle,
 } from '../style';
 
 export default function BoardsSegment() {
-  const [activeList, setActive] = useState([]);
-  const { boards } = useStoreon('boards');
-  const { segment, boardsRef, close, searchHandler, search } = useContext(SegmentContext);
+  const { dispatch, boards, openMenus } = useStoreon('boards', 'openMenus');
+  const { search, onChange, filteredList } = useSearch(boards.boards, ['content', 'name']);
+  const { boardsRef, close } = useContext(SegmentContext);
   const { selectModal } = useContext(ModalContext);
   const input = useRef();
+  const showHeader = window.innerWidth <= 600;
 
-  const filteredBoards = boards.boards.filter((board) => {
-    return board.content.name.toLowerCase().indexOf(search.trim().toLowerCase()) !== -1;
-  });
+  // const filteredBoards = boards.boards.filter((board) => {
+  //   return board.content.name.toLowerCase().indexOf(search.trim().toLowerCase()) !== -1;
+  // });
 
   const label = search ? `Создать доску с именем "${search}"` : 'Создать доску...';
-
-  const addToActive = (id) => {
-    const newActive = [...activeList];
-    newActive.push(id);
-    setActive(newActive);
-    localStorage.setItem('active', JSON.stringify({ list: newActive }));
-  };
 
   const modalHandler = () => {
     close();
     selectModal('create_board', 'personal', search);
   };
 
-  const removeFromActive = (id) => {
-    let newActive = [...activeList];
-    newActive = newActive.filter((item) => item !== id);
-    setActive(newActive);
-    localStorage.setItem('active', JSON.stringify({ list: newActive }));
-  };
-
-  useEffect(() => {
-    const activeItems = localStorage.getItem('active');
-    if (activeItems) {
-      const value = JSON.parse(activeItems);
-      setActive(value.list);
-    }
-  }, []);
+  const addToActive = (id) => dispatch('segment/open', id);
+  const removeFromActive = (id) => dispatch('segment/close', id);
 
   useEffect(() => {
     if (input.current) input.current.focus();
-  }, [segment]);
+  }, []);
 
   return (
-    <ContextSegment show={segment.type === 'boards'} ref={boardsRef}>
+    <ContextSegment ref={boardsRef}>
       <ContainerSegment>
         <ContextContainer>
+          {showHeader && (
+            <SegmentHeader>
+              <SegmentTitle>Доски</SegmentTitle>
+              <CloseButton onClick={close}>
+                <Icon name="close" />
+              </CloseButton>
+            </SegmentHeader>
+          )}
           <Input
             icon="search"
             placeholder="Поиск по названию.."
             ref={input}
             value={search}
-            onChange={searchHandler}
+            onChange={onChange}
           />
-          {boards.categories.map((category) => {
-            const boardsList = category.boardsIds
-              .map((id) => filteredBoards.find((board) => board.id === id))
-              .filter((id) => id);
-            const activeStatus = activeList.find((item) => item === category.id);
+          <MobileSegmentListWrapper>
+            {boards.categories.map((category) => {
+              const boardsList = category.boardsIds
+                .map((id) => filteredList.find((board) => board.id === id))
+                .filter((id) => id);
+              const activeStatus = openMenus.find((item) => item === category.id);
 
-            return (
-              !!category.boardsIds.length && (
+              return (
                 <BoardsList
                   key={category.id}
                   category={category}
@@ -85,9 +80,9 @@ export default function BoardsSegment() {
                   status={!!activeStatus}
                   search={search}
                 />
-              )
-            );
-          })}
+              );
+            })}
+          </MobileSegmentListWrapper>
           <ButtonsContainer>
             <AddBoardButton onClick={modalHandler}>{label}</AddBoardButton>
           </ButtonsContainer>

@@ -23,6 +23,18 @@ export const SegmentMenuList = styled.div`
   padding-bottom: 10px;
 `;
 
+export const MobileSegmentListWrapper = styled.div`
+  padding-right: 5px;
+  @media (max-width: 600px) {
+    padding: 8px 9px 0px 8px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 128px);
+  }
+`;
+
 export const SegmentListItem = styled.button`
   position: relative;
   width: 100%;
@@ -106,7 +118,7 @@ export const CloseButton = styled.button`
 
 export const ContextSegment = styled.div`
   position: absolute;
-  display: ${({ show }) => (show ? 'flex' : 'none')};
+  display: flex;
   width: 280px;
   max-height: calc(100% - 53px);
   top: 47px;
@@ -114,22 +126,44 @@ export const ContextSegment = styled.div`
   box-shadow: 0 12px 24px -6px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08);
   border-radius: 3px;
   z-index: 9999;
+
+  @media (max-width: 600px) {
+    max-height: calc(100% - 0px);
+    width: 100%;
+    top: 0;
+  }
 `;
 
 export const ContextContainer = styled.div`
   width: 100%;
   margin: 8px 4px 8px 8px;
+
   overflow-x: hidden;
   overflow-y: auto;
-
   & > * {
     width: 100%;
+  }
+  & > .input {
+    padding-right: 5px !important;
+    padding-left: 5px !important;
+  }
+  @media (max-width: 600px) {
+    overflow: hidden;
+    margin: 0;
   }
 `;
 
 export const ListContainer = styled.div`
-  &:nth-child(2) {
+  &:nth-child(1) {
     padding-top: 8.65px;
+  }
+  @media (max-width: 600px) {
+    &:nth-child(2) {
+      padding-top: 0;
+    }
+    &:nth-child(1) {
+      padding-top: 8.65px;
+    }
   }
 `;
 
@@ -140,6 +174,9 @@ export const ListLabelWrapper = styled.div`
   color: #5e6c84;
   margin-bottom: 5px;
   padding-left: 10px;
+  & > button {
+    margin-right: 0 !important;
+  }
 `;
 
 export const ListLabelText = styled.div`
@@ -221,6 +258,7 @@ export const ItemBackground = styled.div`
 
 export const ItemLink = styled(Link)`
   width: 100%;
+  max-width: 268px;
   height: 36px;
   position: relative;
   display: flex;
@@ -248,6 +286,9 @@ export const ItemLink = styled(Link)`
   }
   &:hover > ${ItemBackground} {
     opacity: 0.68;
+  }
+  @media (max-width: 600px) {
+    max-width: 100%;
   }
 `;
 
@@ -283,6 +324,7 @@ export const TeamTitle = styled.div`
   color: rgba(0, 0, 0, 0.4);
   font-weight: 400;
   line-height: 12px;
+  max-width: 190px;
 `;
 
 export const IconButton = styled.div`

@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
 import { useState, useCallback, useEffect } from 'react';
 
-import photosApi from '@assets/api/images';
-import preloadImages from '@functions/preloadImages';
+import photosApi from '@utils/api/images';
+import preloadImages from '@utils/functions/preloadImages';
 
 const size = '/400/500';
 
@@ -26,17 +26,27 @@ export default function useImageSearch(page) {
       const response = await photosApi.getPhotos(page);
       const newImages = response.data.map(replaceImage);
       await Promise.all(newImages.map(preloadImages));
-      setImages((prev) => [...prev, ...newImages]);
-      setLoading(false);
-      setHasMore(response.data.length > 0);
+      return { response, newImages };
     } catch (error) {
       setLoadError(error);
     }
   }, [page]);
 
   useEffect(() => {
-    getImages();
-  }, [getImages, page]);
+    let isSubscribe = true;
+    const preload = async () => {
+      const result = await getImages();
+      if (isSubscribe) {
+        setImages((prev) => [...prev, ...result.newImages]);
+        setLoading(false);
+        setHasMore(result.response.data.length > 0);
+      }
+    };
+    preload();
+    return () => {
+      isSubscribe = false;
+    };
+  }, [getImages]);
 
   return { images, loading, loadError, hasMore };
 }

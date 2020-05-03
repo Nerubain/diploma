@@ -1,48 +1,38 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import faker from 'faker';
-import { Icon } from 'semantic-ui-react';
-// import { storeon } from 'storeon/react';
+/* eslint-disable react-hooks/exhaustive-deps */
+// eslint-disable-next-line react-hooks/exhaustive-deps
+import React, { useState, useEffect, useContext } from 'react';
 
-import preloadImages from '@functions/preloadImages';
-import FriendList from './FriendList';
-import { WidgetContainer, ShowChatsButton, ButtonRow, FriendsCount } from './style';
-
-const list = [
-  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
-  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
-  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
-  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
-  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
-  { id: faker.random.number(), name: faker.name.firstName(), image: faker.image.avatar() },
-];
+import preloadImages from '@utils/functions/preloadImages';
+import { ChatContext } from '@context/chat.context';
+import ActiveChatsListWidget from './ActiveChatsListWidget';
+import DragWindow from './FriendListWindow/DragWindow';
+import ActionButton from './ActionButton';
+import { WidgetContainer } from './style';
 
 export default function Widget() {
+  const { filteredList, select, chats } = useContext(ChatContext);
   const [loading, setLoading] = useState(true);
-  console.log(list);
-  const preloadData = useCallback(async () => {
-    setLoading(true);
-    try {
-      await Promise.all(list.map(preloadImages));
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
+  const [show, setShow] = useState(false);
+
+  const open = () => setShow(true);
+  const close = () => setShow(false);
 
   useEffect(() => {
-    preloadData();
-  }, [preloadData]);
+    let isSubscribed = true;
+    Promise.all(filteredList.map(preloadImages)).then(() => isSubscribed && setLoading(false));
+    return () => {
+      isSubscribed = false;
+    };
+  }, []);
 
   if (loading) return null;
   return (
-    <WidgetContainer>
-      <FriendList list={list} />
-      <ShowChatsButton>
-        <ButtonRow>
-          <FriendsCount>{`${list.length}`}</FriendsCount>
-          <Icon name="user" />
-        </ButtonRow>
-      </ShowChatsButton>
-    </WidgetContainer>
+    <>
+      <WidgetContainer>
+        <ActiveChatsListWidget chats={chats} open={open} />
+        <ActionButton onlineCount={chats.length} open={open} select={select} />
+      </WidgetContainer>
+      {show && <DragWindow chats={filteredList} open={open} close={close} show={show} />}
+    </>
   );
 }

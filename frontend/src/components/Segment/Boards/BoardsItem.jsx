@@ -8,17 +8,18 @@ import {
   SmallImage,
   BoardTitle,
   Title,
+  TeamTitle,
   IconContainer,
   IconButton,
 } from '../style';
 
-export default function BoardsItem({ content, board, favourite, forwardRef, opacity, dragStatus }) {
+export default function BoardsItem({ content, id, favourite, forwardRef, opacity, wrapped }) {
   const { dispatch } = useStoreon();
-  const disebleDrag = (e) => e.preventDefault();
+  const { image, color, name, category } = content;
 
-  const addHandler = () => dispatch('boards/toFavourite', board);
-  const removeHandler = () => dispatch('boards/removeFavourite', board);
-  const preventDefault = (e) => e.preventDefault();
+  const disebleAction = (e) => e.preventDefault();
+  const addHandler = () => dispatch('boards/toFavourite', id);
+  const removeHandler = () => dispatch('boards/removeFavourite', id);
   const actionHandler = () => (favourite ? removeHandler() : addHandler());
 
   return (
@@ -26,16 +27,17 @@ export default function BoardsItem({ content, board, favourite, forwardRef, opac
       to="/nerub/asdsada"
       ref={forwardRef}
       style={{ opacity }}
-      onDragStart={!dragStatus ? disebleDrag : null}
+      onDragStart={!wrapped ? disebleAction : null}
     >
-      <ItemBackground image={content.image} color={content.color} />
-      <SmallImage image={content.image} />
+      <ItemBackground image={image} color={color} />
+      <SmallImage image={image} />
       <BoardTitle>
-        <Title>{content.name}</Title>
+        <Title>{name}</Title>
+        {wrapped && <TeamTitle>{category}</TeamTitle>}
       </BoardTitle>
-      <IconContainer favourite={favourite} onClick={preventDefault}>
+      <IconContainer favourite={favourite} onClick={disebleAction}>
         <IconButton onClick={actionHandler}>
-          <Icon name="star outline" />
+          <Icon name="star outline" data-icon="icon" />
         </IconButton>
       </IconContainer>
     </ItemLink>

@@ -115,12 +115,14 @@ export const PreviewTitle = styled.div`
   text-overflow: ellipsis;
   color: white;
   user-select: none;
-  z-index: 1000;
+  z-index: 100;
 `;
 
-export const IconWrapper = styled.div`
+export const PreviewTeamTitlte = styled.div``;
+
+export const PreviewBottom = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   width: 100%;
   color: white;
   overflow: hidden;
@@ -170,7 +172,7 @@ export const AddButton = styled.div`
 `;
 
 export const LabelLinks = styled.div`
-  display: ${({ show }) => (show ? 'flex' : 'none')};
+  display: flex;
   @media (max-width: 730px) {
     flex-wrap: wrap;
     width: 100%;

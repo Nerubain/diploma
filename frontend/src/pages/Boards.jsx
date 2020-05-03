@@ -49,37 +49,38 @@ export default function Boards() {
       setShow(true);
     }
   }, [match, boards]);
-
   return (
     <Layout>
-      {!loading && (
-        <Container>
-          <LeftBarMenu />
-          <RightContainer>
-            {selectedTeam.categories &&
-              selectedTeam.categories.map((category) => {
-                const boardsList = category.boardsIds.map((id) =>
-                  selectedTeam.boards.find((board) => board.id === id)
-                );
-                if (category.type === 'favourite') {
-                  return category.boardsIds.length ? (
-                    <BoardsListWrapper key={category.id}>
-                      <BoardsPreviewList category={category} boards={boardsList} />
-                    </BoardsListWrapper>
-                  ) : null;
-                }
-                return (
-                  <BoardsPreviewList
-                    key={category.id}
-                    category={category}
-                    boards={boardsList}
-                    showNavigation={!category.type && show}
-                  />
-                );
-              })}
-          </RightContainer>
-        </Container>
-      )}
+      <Container>
+        {!loading && (
+          <>
+            <LeftBarMenu />
+            <RightContainer>
+              {selectedTeam.categories &&
+                selectedTeam.categories.map((category) => {
+                  const boardsList = category.boardsIds.map((id) =>
+                    selectedTeam.boards.find((board) => board.id === id)
+                  );
+                  if (category.type === 'favourite') {
+                    return category.boardsIds.length ? (
+                      <BoardsListWrapper key={category.id}>
+                        <BoardsPreviewList category={category} boards={boardsList} />
+                      </BoardsListWrapper>
+                    ) : null;
+                  }
+                  return (
+                    <BoardsPreviewList
+                      key={category.id}
+                      category={category}
+                      boards={boardsList}
+                      showNavigation={!category.type && show}
+                    />
+                  );
+                })}
+            </RightContainer>
+          </>
+        )}
+      </Container>
     </Layout>
   );
 }

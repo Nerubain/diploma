@@ -5,7 +5,7 @@ import { LabelLinks, LabelLink } from './boards-style';
 
 export default function BoardsNavigation({ show }) {
   return (
-    <LabelLinks show={show}>
+    <LabelLinks>
       <LabelLink to="/nerub/board">
         <Icon name="table" />
         <span>Доски</span>

@@ -12,7 +12,7 @@ export default function Segments() {
   const { user } = useStoreon('user');
   const history = useHistory();
   const { selectModal } = useContext(ModalContext);
-  const { addRef, userMenuRef, close } = useContext(SegmentContext);
+  const { addRef, userMenuRef, close, segment } = useContext(SegmentContext);
 
   const modalHandler = (name, team, value) => {
     close();
@@ -48,14 +48,9 @@ export default function Segments() {
       handlerParams: [`/${user.name}/profile`],
     },
     {
-      label: 'Настройки',
-      icon: 'cog',
-      handlerParams: [`/${user.name}/settings`],
-    },
-    {
       label: 'Чат ',
       icon: 'chat',
-      handlerParams: [`/${user.name}/settings`],
+      handlerParams: [`/chat`],
     },
     {
       label: 'Выход ',
@@ -66,13 +61,17 @@ export default function Segments() {
 
   return (
     <>
-      <BoadardsSegment />
-      <MenuSegment name="add" label="Создать" customRef={addRef}>
-        <SegmentList menu={actionMenu} handler={modalHandler} />
-      </MenuSegment>
-      <MenuSegment name="user" label={user.name} customRef={userMenuRef}>
-        <SegmentList menu={userMenu} handler={toLinkHanlder} />
-      </MenuSegment>
+      {segment.type === 'boards' && <BoadardsSegment />}
+      {segment.type === 'add' && (
+        <MenuSegment label="Создать" customRef={addRef}>
+          <SegmentList menu={actionMenu} handler={modalHandler} />
+        </MenuSegment>
+      )}
+      {segment.type === 'user' && (
+        <MenuSegment label={user.name} customRef={userMenuRef}>
+          <SegmentList menu={userMenu} handler={toLinkHanlder} />
+        </MenuSegment>
+      )}
     </>
   );
 }

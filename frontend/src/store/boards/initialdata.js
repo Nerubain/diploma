@@ -1,3 +1,5 @@
+import faker from 'faker';
+
 const image =
   'https://trello-backgrounds.s3.amazonaws.com/SharedBackground/480x294/64da2a2ec6a7dd4080b7c800b2593b87/photo-1577800929753-bb4723761a0d.jpg';
 
@@ -8,7 +10,7 @@ export default {
       favourite: true,
       content: {
         name: 'Доска №1',
-        url: '/b/bId/bName',
+        url: `/board/${faker.random.uuid()}`,
         image,
       },
     },
@@ -17,7 +19,7 @@ export default {
       favourite: true,
       content: {
         name: 'Доска №2',
-        url: '/b/bId/bName',
+        url: `/board/${faker.random.uuid()}`,
         image,
       },
     },
@@ -26,7 +28,7 @@ export default {
       favourite: true,
       content: {
         name: 'Доска №3',
-        url: '/b/bId/bName',
+        url: `/board/${faker.random.uuid()}`,
         image,
       },
     },
@@ -35,7 +37,8 @@ export default {
       favourite: false,
       content: {
         name: 'Доска №4',
-        url: '/b/bId/bName',
+        url: `/board/${faker.random.uuid()}`,
+        category: 'Дипломная работа',
         image,
       },
     },
@@ -44,7 +47,8 @@ export default {
       favourite: false,
       content: {
         name: 'Доска №5',
-        url: '/b/bId/bName',
+        url: `/board/${faker.random.uuid()}`,
+        category: 'Дипломная работа',
         image,
       },
     },
@@ -53,7 +57,8 @@ export default {
       favourite: false,
       content: {
         name: 'Доска №6',
-        url: '/b/bId/bName',
+        url: `/board/${faker.random.uuid()}`,
+        category: 'Дипломная работа',
         image,
       },
     },
@@ -77,14 +82,12 @@ export default {
     {
       id: 'diploma',
       label: 'Дипломная работа',
-      // url: '/diploma',
       icon: 'group',
       boardsIds: ['board-4', 'board-5', 'board-6'],
     },
     {
       id: 'timurFront',
       label: 'Фронтенд Тимура',
-      // url: '/diploma',
       icon: 'group',
       boardsIds: [],
     },

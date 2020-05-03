@@ -57,7 +57,7 @@ export const AddBoardProvider = ({ children, closeModal, team, name }) => {
     listHandler();
     setInitialImage();
   }, [listHandler, setInitialImage]);
-  console.log(newBoard);
+
   return (
     <AddBoardContext.Provider
       value={{
