@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // eslint-disable-next-line react-hooks/exhaustive-deps
-import React, { useState, useCallback, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import preloadImages from '@utils/functions/preloadImages';
 import { ChatContext } from '@context/chat.context';
@@ -17,19 +17,13 @@ export default function Widget() {
   const open = () => setShow(true);
   const close = () => setShow(false);
 
-  const preloadData = useCallback(async () => {
-    setLoading(true);
-    try {
-      await Promise.all(filteredList.map(preloadImages));
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
-
   useEffect(() => {
-    preloadData();
-  }, [preloadData]);
+    let isSubscribed = true;
+    Promise.all(filteredList.map(preloadImages)).then(() => isSubscribed && setLoading(false));
+    return () => {
+      isSubscribed = false;
+    };
+  }, []);
 
   if (loading) return null;
   return (
