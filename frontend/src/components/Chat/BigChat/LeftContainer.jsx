@@ -15,7 +15,6 @@ export default function Left() {
   const resize = (e, dir, ref, d) => setWidth(width + d.width);
   const resizeWindow = () => setWindowWidth(window.innerWidth);
   const onEscape = (e) => (e.keyCode === 27 ? resetSearch() : null);
-  console.log(selectedChat);
 
   useEffect(() => {
     if (windowWidth > 690) {

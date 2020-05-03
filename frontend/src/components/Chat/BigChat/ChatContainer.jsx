@@ -5,7 +5,6 @@ import Right from './RightContainer';
 import { ChatWrapper } from './style';
 
 export default function ChatConatiner() {
-  console.log('asd');
   return (
     <ChatWrapper>
       <Left />

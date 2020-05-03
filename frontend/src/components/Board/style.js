@@ -102,12 +102,13 @@ export const BoardContent = styled.div`
 export const ColumnContainer = styled.div`
   display: inline-block;
   vertical-align: top;
-  position: absolute;
+  /* position: absolute; */
   border-radius: 3px;
   height: max-content;
   min-height: 32px;
-  padding: 4px;
-  margin-top: 4px;
+  padding: 4px 4px 4px 4px;
+  margin-right: 5px;
+  margin-top: -4px;
 
   background-color: ${({ select }) => (select ? '#ebecf0' : 'transparent')};
   transition: all 85ms ease-in, opacity 40ms ease-in, border-color 85ms ease-in;

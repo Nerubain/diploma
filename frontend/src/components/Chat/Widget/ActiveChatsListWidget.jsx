@@ -5,7 +5,6 @@ import ActiveChatBlockWidget from './ActiveChatBlockWidget';
 import { ActiveChatsListContainer, FriendName } from './style';
 
 export default function ActiveChatsListWidget({ chats, open }) {
-  console.log(chats);
   return (
     <ActiveChatsListContainer>
       {chats.map((chat) => (
