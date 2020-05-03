@@ -1,17 +1,17 @@
-import { useState, useCallback, useEffect, cloneElement } from 'react';
+import { useState, useCallback, useEffect, useRef, cloneElement } from 'react';
 
 export default function ScrollContext({ children }) {
   const [dragStart, setDragStart] = useState(false);
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
-  const container = document.getElementById('container');
+  const container = useRef(null);
 
   const scrollStart = useCallback(
     (e) => {
       setDragStart(true);
-      if (container) {
-        setStartX(e.pageX - container.offsetLeft);
-        setScrollLeft(container.scrollLeft);
+      if (container.current) {
+        setStartX(e.pageX - container.current.offsetLeft);
+        setScrollLeft(container.current.scrollLeft);
       }
     },
     [container]
@@ -21,10 +21,11 @@ export default function ScrollContext({ children }) {
   const scrollPage = useCallback(
     (e) => {
       e.preventDefault();
-      if (!dragStart) return null;
-      const x = e.pageX - container.offsetLeft;
-      const walk = x - startX;
-      container.scrollLeft = scrollLeft - walk;
+      if (!dragStart || !container.current) return null;
+      const x = e.pageX - container.current.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      container.current.scrollLeft = scrollLeft - walk;
+      return 0;
     },
     [scrollLeft, dragStart, startX, container]
   );
@@ -42,5 +43,5 @@ export default function ScrollContext({ children }) {
     };
   }, [scrollStart, scrollStop, scrollPage]);
 
-  return cloneElement(children, { scrollStop });
+  return cloneElement(children, { scrollStop, container });
 }
