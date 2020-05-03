@@ -12,7 +12,10 @@ export default function FocusWrapper({ children, selectText }) {
   }, []);
 
   const onKeyDown = (e) => {
-    if (e.keyCode === 27 || e.keyCode === 13) close();
+    if (e.keyCode === 27 || e.keyCode === 13) {
+      input.current.blur();
+      close();
+    }
   };
 
   const clickOutSide = useCallback(
@@ -35,13 +38,15 @@ export default function FocusWrapper({ children, selectText }) {
 
   return (
     <>
-      {cloneElement(children, {
-        inputRef: input,
-        containerRef: container,
-        selectOnChange,
-        onKeyDown,
-        select,
-      })}
+      {React.Children.map(children, (child) =>
+        cloneElement(child, {
+          inputRef: input,
+          containerRef: container,
+          selectOnChange,
+          onKeyDown,
+          select,
+        })
+      )}
     </>
   );
 }
