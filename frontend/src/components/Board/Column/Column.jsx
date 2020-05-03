@@ -4,7 +4,8 @@ import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 import FocusWrapper from '../FocusWrapper';
 import ColumnHead from './ColumnHeader';
-import Task from '../Task/Task';
+import Tasks from '../Task/Tasks';
+import Bottom from './ColumnBottom';
 import { ColumnWrapper, ColumnContent, TasksList } from './style';
 
 export default function Column({ column, tasks, index }) {
@@ -21,12 +22,13 @@ export default function Column({ column, tasks, index }) {
                     handler={{ ...draggbleProvided.dragHandleProps }}
                   />
                 </FocusWrapper>
-                <TasksList ref={provided.innerRef} {...provided.droppableProps}>
-                  {tasks.map((task, indx) => (
-                    <Task task={task} key={task.id} index={indx} />
-                  ))}
-                  {provided.placeholder}
-                </TasksList>
+                <FocusWrapper>
+                  <TasksList ref={provided.innerRef} {...provided.droppableProps}>
+                    <Tasks tasks={tasks} />
+                    {provided.placeholder}
+                  </TasksList>
+                  <Bottom />
+                </FocusWrapper>
               </ColumnContent>
             )}
           </Droppable>
