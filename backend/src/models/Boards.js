@@ -22,6 +22,7 @@ const BoardSchema = new Schema(
     title: { type: String, required: true },
     columns: [ColumnSchema],
     columnsOrder: { type: Array, required: true, default: [] },
+    owner: { type: String },
     members: { type: Array, required: true, default: [] },
     background: { type: BackgroundSchema, required: true },
     favourite: { type: Boolean, required: true, default: false },

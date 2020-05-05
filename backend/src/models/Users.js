@@ -12,9 +12,11 @@ const User = new Schema(
     userName: { type: String, required: true },
     login: { type: String, required: true },
     password: { type: String, required: true },
-    lastOnline: { type: Date, required: true },
+    lastOnline: { type: Date },
     avatar: { type: String, required: true },
-    teams: { type: Array, required: true },
+    favourites: { type: Array, required: true, default: [] },
+    personal: { type: Array, required: true, default: [] },
+    teams: { type: Array, required: true, default: [] },
   },
   { collection: 'users' },
 );
