@@ -14,5 +14,20 @@
     "es6": true,
     "node": true,
     "jest": true
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          ["@actions", "./src/actions"],
+          ["@models", "./src/models"],
+          ["@modules", "./src/modules"],
+          ["@routes", "./src/routes"],
+          ["@controllers", "./src/controllers"],
+          ["@functions", "./src/functions"]
+        ],
+        "extensions": [".js"]
+      }
+    }
   }
 }

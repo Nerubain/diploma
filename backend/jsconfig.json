@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "module": "esnext",
+    "target": "esnext",
+    "paths": {
+      "@actions": ["actions/index.js"],
+      "@modules": ["modules/index.js"],
+      "@models": ["models/index.js"],
+      "@routes": ["routes/index.js"],
+      "@controllers": ["controllers/index.js"],
+      "@functions":["functions/index.js"]
+    }
+  },
+  "exclude": ["node_modules"]
+}
