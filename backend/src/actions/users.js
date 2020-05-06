@@ -1,12 +1,28 @@
 import { Users } from '@models';
 import { hashPassword } from '@modules';
+import { nanoid } from 'nanoid';
+import { addInitialTeams } from './teams';
 
 export const addUser = user => {
-  const { userName, lastOnline, avatar, favourites, personal, teams } = user;
-  const newUser = new Users({ ...user, password: hashPassword(user.password) });
-  const responseUser = { userName, lastOnline, avatar, favourites, personal, teams };
+  const id = nanoid();
+  const { userName, lastOnline, avatar, favourites, personal } = user;
+  const teams = addInitialTeams(id);
+  const newUser = new Users({
+    ...user,
+    _id: id,
+    password: hashPassword(user.password),
+    teams: teams.ids,
+  });
+  const responseUser = {
+    id,
+    userName,
+    lastOnline,
+    avatar,
+    favourites,
+    personal,
+    teams: teams.datas,
+  };
   newUser.save();
-  console.log(newUser);
   return responseUser;
 };
 

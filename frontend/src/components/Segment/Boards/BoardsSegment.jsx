@@ -19,22 +19,18 @@ import {
 } from '../style';
 
 export default function BoardsSegment() {
-  const { dispatch, boards, openMenus } = useStoreon('boards', 'openMenus');
+  const { dispatch, boards, openMenus, user } = useStoreon('boards', 'openMenus', 'user');
   const { search, onChange, filteredList } = useSearch(boards.boards, ['content', 'name']);
   const { boardsRef, close } = useContext(SegmentContext);
   const { selectModal } = useContext(ModalContext);
   const input = useRef();
   const showHeader = window.innerWidth <= 600;
 
-  // const filteredBoards = boards.boards.filter((board) => {
-  //   return board.content.name.toLowerCase().indexOf(search.trim().toLowerCase()) !== -1;
-  // });
-
   const label = search ? `Создать доску с именем "${search}"` : 'Создать доску...';
 
   const modalHandler = () => {
     close();
-    selectModal('create_board', 'personal', search);
+    selectModal('create_board', user.teams[1].id, search);
   };
 
   const addToActive = (id) => dispatch('segment/open', id);

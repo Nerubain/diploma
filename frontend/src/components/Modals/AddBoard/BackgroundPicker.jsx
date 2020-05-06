@@ -6,12 +6,24 @@ import SmallList from './Lists/SmallList';
 import { BackGrounds, BackgroundButton } from './style';
 
 export default function BackgroundPicker({ background, changeShow }) {
-  const { newBoardHandler, colors } = useContext(AddBoardContext);
+  const { newBackgroundHandler, colors } = useContext(AddBoardContext);
   const { images } = useContext(BackgroundsContext);
   return (
     <BackGrounds>
-      <SmallList list={images} type="image" background={background} onClick={newBoardHandler} />
-      <SmallList list={colors} type="color" background={background} onClick={newBoardHandler} />
+      <SmallList
+        list={images}
+        type="image"
+        clear="color"
+        background={background}
+        onClick={newBackgroundHandler}
+      />
+      <SmallList
+        list={colors}
+        type="color"
+        clear="image"
+        background={background}
+        onClick={newBackgroundHandler}
+      />
       <BackgroundButton color="white" onClick={changeShow}>
         <span>...</span>
       </BackgroundButton>

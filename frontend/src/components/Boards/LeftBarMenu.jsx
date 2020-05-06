@@ -24,7 +24,7 @@ export default function LeftBarMenu() {
     {
       icon: 'table',
       label: 'Доски',
-      href: `/${user.name}/boards`,
+      href: `/${user.userName}/boards`,
     },
   ];
 
@@ -45,12 +45,12 @@ export default function LeftBarMenu() {
         <Label>
           <span>Команды</span> <AddButton icon="plus" size="tiny" onClick={modalHandler} />
         </Label>
-        {user.teams.map(({ label, url }) => (
-          <ListItem key={`${url}-${label}`} active={checkActive(url)} to={url}>
+        {user.teams.slice(2).map(({ title, url }) => (
+          <ListItem key={`${url}-${title}`} active={checkActive(url)} to={url}>
             <ItemMargin>
               <Icon name="group" />
             </ItemMargin>
-            {label}
+            {title}
           </ListItem>
         ))}
       </LeftBarContainer>

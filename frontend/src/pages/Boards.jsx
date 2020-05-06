@@ -9,46 +9,47 @@ import BoardsPreviewList from '@components/Boards/BoardsPreviewList';
 import BoardsListWrapper from '@components/Dnd/BoardsListWrapper';
 
 export default function Boards() {
-  const { boards } = useStoreon('boards');
+  const { user } = useStoreon('user');
   const [selectedTeam, setTeam] = useState({});
   const [loading, setLoading] = useState(true);
-  const [initialBoards] = useState(boards.boards);
+  const [initialTeams] = useState(user.teams);
   const [show, setShow] = useState(null);
   const match = useRouteMatch();
 
-  const checkImage = ({ content }) => {
-    return new Promise((res) => {
-      const img = new Image();
-      img.src = content.image;
-      img.onload = () => res({ result: content.image });
-      img.onerror = () => res({ errorImg: content.image, text: 'asdsad' });
-    });
+  const checkImage = async (team) => {
+    await Promise.all(
+      team.boards.map(async (board) => {
+        const image = new Image();
+        image.src = board?.image;
+        return image;
+      })
+    );
   };
 
   const resolveImages = useCallback(async () => {
     setLoading(true);
-    await Promise.all(initialBoards.map(checkImage));
+    await Promise.all(initialTeams.map(checkImage));
     setLoading(false);
-  }, [initialBoards]);
+  }, [initialTeams]);
 
   useEffect(() => {
     resolveImages();
   }, [resolveImages]);
 
-  useEffect(() => {
-    const urlParams = Object.keys(match.params);
-    if (urlParams[0] === 'team') {
-      const newState = {
-        ...boards,
-        categories: boards.categories.filter((ctg) => ctg.id === match.params.team),
-      };
-      setTeam(newState);
-      setShow(false);
-    } else {
-      setTeam(boards);
-      setShow(true);
-    }
-  }, [match, boards]);
+  // useEffect(() => {
+  //   const urlParams = Object.keys(match.params);
+  //   if (urlParams[0] === 'team') {
+  //     const newState = {
+  //       ...boards,
+  //       categories: boards.categories.filter((ctg) => ctg.id === match.params.team),
+  //     };
+  //     setTeam(newState);
+  //     setShow(false);
+  //   } else {
+  //     setTeam(boards);
+  //     setShow(true);
+  //   }
+  // }, [match, user]);
   return (
     <Layout>
       <Container>
@@ -56,27 +57,22 @@ export default function Boards() {
           <>
             <LeftBarMenu />
             <RightContainer>
-              {selectedTeam.categories &&
-                selectedTeam.categories.map((category) => {
-                  const boardsList = category.boardsIds.map((id) =>
-                    selectedTeam.boards.find((board) => board.id === id)
-                  );
-                  if (category.type === 'favourite') {
-                    return category.boardsIds.length ? (
-                      <BoardsListWrapper key={category.id}>
-                        <BoardsPreviewList category={category} boards={boardsList} />
-                      </BoardsListWrapper>
-                    ) : null;
-                  }
-                  return (
-                    <BoardsPreviewList
-                      key={category.id}
-                      category={category}
-                      boards={boardsList}
-                      showNavigation={!category.type && show}
-                    />
-                  );
-                })}
+              {user.teams.map((team) => {
+                if (team.type === 'favourite') {
+                  return team.boards.length ? (
+                    <BoardsListWrapper key={team.id}>
+                      <BoardsPreviewList team={team} />
+                    </BoardsListWrapper>
+                  ) : null;
+                }
+                return (
+                  <BoardsPreviewList
+                    key={team.id}
+                    team={team}
+                    showNavigation={!team.type && show}
+                  />
+                );
+              })}
             </RightContainer>
           </>
         )}

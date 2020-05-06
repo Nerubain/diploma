@@ -1,71 +1,94 @@
-import React, { useState, useCallback } from 'react';
-import { Segment, Form, Header } from 'semantic-ui-react';
-import { useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 
-import CustomInput from '../CustomInput';
-import { FormWrapper } from './style';
+import useValidateForm from '@hooks/useFormValidate';
+import CustomFormField from './FormField';
+import { LinkButton } from './style';
 
-const LoginForm = () => {
-  const [login, setLogin] = useState('1');
-  const [password, setPassword] = useState('1');
-  const [errors, setErrors] = useState({});
-  const history = useHistory();
+const LoginForm = ({ changeRoute, login }) => {
+  const { errors, changeErrors, clearError } = useValidateForm();
+  const [formState, setFormState] = useState({ login: 'nerub', password: '12345' });
 
-  const hanlder = useCallback((value, func, field) => {
-    setErrors((prevState) => ({ ...prevState, [field]: [] }));
-    func(value);
-  }, []);
-
-  const checkValid = () => {
-    setErrors({
-      login: !login ? ['Это поле не может быть пустым'] : [],
-      password: !password ? ['Это поле не может быть пустым'] : [],
-    });
-    return login && password;
+  const onChangeHandler = (_, { value, name }) => {
+    clearError(name);
+    setFormState((prev) => ({ ...prev, [name]: value }));
   };
-
-  const logIn = async () => {
-    if (checkValid()) {
-      try {
-        history.push('/nerub/boards');
-      } catch (error) {
-        setErrors(error);
-      }
-    }
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (changeErrors(formState)) return null;
+    return login(formState);
   };
 
   return (
-    <FormWrapper>
-      <Segment>
-        <Header as="h3" textAlign="center">
-          Authorisation
+    <Grid textAlign="center" style={{ height: '100vh' }} verticalAlign="middle">
+      <Grid.Column style={{ maxWidth: 450 }}>
+        <Header as="h2" color="teal" textAlign="center">
+          Авторизоваться
         </Header>
-        <Form onSubmit={logIn}>
-          <CustomInput
-            label="Login"
-            type="text"
-            name="login"
-            errors={errors.login}
-            placeholder="User"
-            value={login}
-            onChange={(e, { value }) => hanlder(value, setLogin, 'login')}
-          />
-          <CustomInput
-            label="Password"
-            type="password"
-            name="password"
-            errors={errors.password}
-            value={password}
-            onChange={(e, { value }) => hanlder(value, setPassword, 'password')}
-            placeholder="*********"
-          />
-          <Form.Button fluid color="green" type="submit">
-            Login
-          </Form.Button>
+        <Form size="large" onSubmit={onSubmit}>
+          <Segment stacked>
+            <CustomFormField
+              icon="user"
+              placeholder="simpleLogin ..."
+              name="login"
+              value={formState.login}
+              onChange={onChangeHandler}
+              errors={errors}
+            />
+            <CustomFormField
+              icon="lock"
+              placeholder="Пароль"
+              type="password"
+              name="password"
+              value={formState.password}
+              onChange={onChangeHandler}
+              errors={errors}
+            />
+            <Button color="teal" fluid size="large">
+              авторизация
+            </Button>
+          </Segment>
         </Form>
-      </Segment>
-    </FormWrapper>
+        <Message>
+          Нет аккаунта?{' '}
+          <LinkButton name="join" onClick={changeRoute}>
+            Регистрация
+          </LinkButton>
+        </Message>
+      </Grid.Column>
+    </Grid>
   );
 };
 
 export default LoginForm;
+
+/* <FormWrapper>
+<Segment>
+  <Header as="h3" textAlign="center">
+    Authorisation
+  </Header>
+  <Form onSubmit={logIn}>
+    <CustomInput
+      label="Login"
+      type="text"
+      name="login"
+      errors={errors.login}
+      placeholder="User"
+      value={login}
+      onChange={(e, { value }) => hanlder(value, setLogin, 'login')}
+    />
+    <CustomInput
+      label="Password"
+      type="password"
+      name="password"
+      errors={errors.password}
+      value={password}
+      onChange={(e, { value }) => hanlder(value, setPassword, 'password')}
+      placeholder="*********"
+    />
+    <Form.Button fluid color="green" type="submit">
+      Login
+    </Form.Button>
+  </Form>
+</Segment>
+</FormWrapper> */

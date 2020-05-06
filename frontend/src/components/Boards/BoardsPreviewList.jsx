@@ -13,28 +13,34 @@ import {
   ContentContainer,
 } from './boards-style';
 
-export default function BoardsPreviewList({ category, boards, showNavigation }) {
+const icons = {
+  favourite: 'favourite',
+  personal: 'user',
+  default: 'users',
+};
+
+export default function BoardsPreviewList({ team, showNavigation }) {
   const { selectModal } = useContext(ModalContext);
-  const modalHandler = () => selectModal('create_board', category.id, '');
+  const modalHandler = () => selectModal('create_board', team.id, '');
   return (
     <ListContainer>
       <BoardListLabel>
-        <Icon name={category.icon} size="large" />
-        <BoardLabelTitle>{category.label}</BoardLabelTitle>
+        <Icon name={icons[team.type]} size="large" />
+        <BoardLabelTitle>{team.title}</BoardLabelTitle>
         {showNavigation && <Navigation />}
       </BoardListLabel>
       <ContentContainer>
-        {boards.map((item, index) =>
-          category.favourite ? (
-            <BoardItemWrapper key={item.id} id={item.id} index={index} type="preview">
-              <PreviewItem item={item} index={index} dragStatus />
+        {team.boards.map((board, index) =>
+          team.type === 'favourite' ? (
+            <BoardItemWrapper key={board._id} id={board._id} index={index} type="preview">
+              <PreviewItem board={board} index={index} dragStatus />
             </BoardItemWrapper>
           ) : (
-            <PreviewItem key={item.id} item={item} />
+            <PreviewItem key={board._id} board={board} />
           )
         )}
 
-        {!category.favourite && <AddButton onClick={modalHandler}>Создать доску</AddButton>}
+        {team.type !== 'favourite' && <AddButton onClick={modalHandler}>Создать доску</AddButton>}
       </ContentContainer>
     </ListContainer>
   );

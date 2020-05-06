@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { Menu, Icon, Image } from 'semantic-ui-react';
+import { useStoreon } from 'storeon/react';
 import { useHistory } from 'react-router-dom';
 
 import { SegmentContext } from '@context/segment.context';
@@ -9,6 +10,7 @@ const style = { margin: 0, height: 45, minHeight: 45, zIndex: 100 };
 
 const Navigation = ({ isborder }) => {
   const history = useHistory();
+  const { user } = useStoreon('user');
   const { show, boardsRef, addRef, userMenuRef } = useContext(SegmentContext);
 
   const boardsHandler = () => show('boards', boardsRef);
@@ -35,11 +37,7 @@ const Navigation = ({ isborder }) => {
           <Icon name="plus" size="large" slot="segment" />
         </Menu.Item>
         <Menu.Item onClick={userHandler} slot="segment">
-          <Image
-            avatar
-            src="https://react.semantic-ui.com/images/wireframe/square-image.png"
-            slot="segment"
-          />
+          <Image avatar src={user.avatar} slot="segment" />
         </Menu.Item>
       </Menu.Menu>
     </Navigator>

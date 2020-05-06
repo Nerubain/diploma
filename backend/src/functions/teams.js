@@ -1,5 +1,4 @@
 import { FindOneBoard } from '@actions';
-import { teamsRouter } from '@routes';
 
 export const findBoardsForTeam = async team => {
   const boards = await Promise.all(
@@ -8,7 +7,13 @@ export const findBoardsForTeam = async team => {
       return board;
     }),
   );
-  const promisedTeam = { id: team._id, members: team.members, boards, title: team.title };
+  const promisedTeam = {
+    id: team._id,
+    members: team.members,
+    boards,
+    title: team.title,
+    type: team.type,
+  };
   return promisedTeam;
 };
 

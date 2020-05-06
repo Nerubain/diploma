@@ -29,7 +29,7 @@ export default function Addboard({ subMenu, subMenuHandler }) {
 
   return (
     <>
-      <ModalContent color={newBoard.color} img={newBoard.image}>
+      <ModalContent color={newBoard.color} img={newBoard?.image?.image}>
         <ModalForm onSubmit={createBoardHandler}>
           <ModalInput
             placeholder="Добавить заголовок доски"
@@ -47,7 +47,10 @@ export default function Addboard({ subMenu, subMenuHandler }) {
           />
         </ModalForm>
       </ModalContent>
-      <BackgroundPicker background={newBoard.color || newBoard.image} changeShow={subMenuHandler} />
+      <BackgroundPicker
+        background={newBoard.color || newBoard?.image?.image}
+        changeShow={subMenuHandler}
+      />
       {subMenu && <PickerMenu close={() => subMenuHandler(false)} />}
       <Button
         size="small"

@@ -3,7 +3,7 @@ import { Icon } from 'semantic-ui-react';
 
 import { BackgroundButton } from '../style';
 
-export default function SmallList({ list, type, background, onClick }) {
+export default function SmallList({ list, type, background, onClick, clear }) {
   return (
     <>
       {list.slice(0, 4).map((item) => {
@@ -14,7 +14,7 @@ export default function SmallList({ list, type, background, onClick }) {
             color={item.image ? '' : item}
             key={selector}
             name={type}
-            onClick={onClick}
+            onClick={() => onClick(type, clear, item)}
             value={selector}
           >
             {background === selector && <Icon name="check" />}

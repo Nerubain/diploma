@@ -12,21 +12,21 @@ import {
 } from './boards-style';
 
 export default function BoardsPreviewItem(props) {
-  const { item, forwardRef, dragStatus, opacity, onDragEnd, index, wrapped } = props;
-  const { url, image, color, name, category } = item.content;
+  const { board, forwardRef, dragStatus, opacity, onDragEnd, index, wrapped } = props;
+  const { _id, background, color, title, category } = board;
   const { dispatch } = useStoreon();
 
-  const addHandler = () => dispatch('boards/toFavourite', item.id);
-  const removeHandler = () => dispatch('boards/removeFavourite', item.id);
-  const actionHandler = () => (item.favourite ? removeHandler() : addHandler());
+  const addHandler = () => dispatch('boards/toFavourite', board.id);
+  const removeHandler = () => dispatch('boards/removeFavourite', board.id);
+  const actionHandler = () => (board.favourite ? removeHandler() : addHandler());
 
   const test = () => onDragEnd(index);
 
   const stopAction = (e) => e.preventDefault();
   return (
     <StyledLink
-      to={url}
-      image={image}
+      to={`/board/${_id}`}
+      image={background.image}
       color={color}
       onDragStart={!dragStatus ? stopAction : null}
       style={{ opacity }}
@@ -35,8 +35,8 @@ export default function BoardsPreviewItem(props) {
     >
       <Fade />
       <PreviewBlock>
-        <PreviewTitle>{name}</PreviewTitle>
-        <PreviewBottom favourite={item.favourite} onClick={stopAction}>
+        <PreviewTitle>{title}</PreviewTitle>
+        <PreviewBottom favourite={board.favourite} onClick={stopAction}>
           <PreviewTeamTitlte>{wrapped && category}</PreviewTeamTitlte>
           <Icon name="star outline" onClick={actionHandler} />
         </PreviewBottom>

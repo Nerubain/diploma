@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import aliases from 'module-alias/register';
 
-import { authRouter, teamsRouter } from '@routes';
+import { joinUser, loginUser, addBoard } from '@controllers';
 import mongooseConnection from './mongoose';
 
 const app = express();
@@ -17,8 +17,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors({ credentials: true, origin: 'http://localhost:4000' }));
 
-app.use('/', authRouter);
-app.use('/', teamsRouter);
+// app.use('/', authRouter);
+// app.use('/', teamsRouter);
 
 app.get('/', (req, res) => res.send('Hello World!'));
 
@@ -29,15 +29,9 @@ server.listen(port, () => {
 
 const users = {};
 
-io.on('connection', client => {
-  client.on('click', user => {
-    client.user = user;
-    console.log(client.user);
-  });
-  client.on('disconnect', () => {
-    // console.log(`user: ${client.user.name} disconnected`);
-  });
-  // console.log('asd');
-  // socket.emit('create_id', 'id');
-  // socket.join('room1');
+io.on('connection', socket => {
+  socket.on('login', async data => await loginUser(data, socket));
+  socket.on('join', async data => await joinUser(data, socket));
+  socket.on('create_board', async data => await addBoard(data, socket));
+  // socket.on('image', data => uploadImage(data));
 });
