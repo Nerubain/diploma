@@ -5,11 +5,11 @@ import FriendItem from './FriendItem';
 import { FriendListContainer, FriendListWrapper } from './style';
 
 export default function FriendList() {
-  const { filteredList, selected, select } = useContext(ChatContext);
+  // const { filteredList, selected, select } = useContext(ChatContext);
   return (
     <FriendListContainer>
       <FriendListWrapper>
-        {filteredList.map((chat, index) => (
+        {/* {filteredList.map((chat, index) => (
           <FriendItem
             user={chat.user}
             id={chat.id}
@@ -18,7 +18,7 @@ export default function FriendList() {
             key={chat.id}
             onClick={select}
           />
-        ))}
+        ))} */}
       </FriendListWrapper>
     </FriendListContainer>
   );

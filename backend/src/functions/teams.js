@@ -8,12 +8,13 @@ export const findBoardsForTeam = async team => {
     }),
   );
   const promisedTeam = {
-    id: team._id,
+    _id: team._id,
     members: team.members,
     boards,
     title: team.title,
     type: team.type,
   };
+
   return promisedTeam;
 };
 

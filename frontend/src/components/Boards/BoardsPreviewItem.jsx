@@ -1,24 +1,22 @@
-import React from 'react';
-import { useStoreon } from 'storeon/react';
+import React, { useContext } from 'react';
 import { Icon } from 'semantic-ui-react';
 
+import { SocketContext } from '@context/socket.context';
 import {
+  Fade,
   StyledLink,
   PreviewBlock,
   PreviewTitle,
-  Fade,
   PreviewBottom,
   PreviewTeamTitlte,
 } from './boards-style';
 
-export default function BoardsPreviewItem(props) {
-  const { board, forwardRef, dragStatus, opacity, onDragEnd, index, wrapped } = props;
-  const { _id, background, color, title, category } = board;
-  const { dispatch } = useStoreon();
-
-  const addHandler = () => dispatch('boards/toFavourite', board.id);
-  const removeHandler = () => dispatch('boards/removeFavourite', board.id);
-  const actionHandler = () => (board.favourite ? removeHandler() : addHandler());
+export default function PreviewDnd(props) {
+  const { updateFavourite } = useContext(SocketContext);
+  const { board, wrapped, dragStatus, forwardRef, opacity, onDragEnd, index, favouriteId } = props;
+  const { _id, background, color, title, favourite } = board;
+  const actionHandler = () =>
+    updateFavourite({ boardId: _id, teamId: favouriteId, remove: favourite });
 
   const test = () => onDragEnd(index);
 
@@ -36,8 +34,8 @@ export default function BoardsPreviewItem(props) {
       <Fade />
       <PreviewBlock>
         <PreviewTitle>{title}</PreviewTitle>
-        <PreviewBottom favourite={board.favourite} onClick={stopAction}>
-          <PreviewTeamTitlte>{wrapped && category}</PreviewTeamTitlte>
+        <PreviewBottom favourite={favourite} onClick={stopAction}>
+          <PreviewTeamTitlte>{wrapped && ''}</PreviewTeamTitlte>
           <Icon name="star outline" onClick={actionHandler} />
         </PreviewBottom>
       </PreviewBlock>

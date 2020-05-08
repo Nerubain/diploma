@@ -4,7 +4,7 @@ import { Input, Icon } from 'semantic-ui-react';
 
 import { SegmentContext } from '@context/segment.context';
 import { ModalContext } from '@context/modal.context';
-import useSearch from '@hooks/useSearch';
+import useSearch from '@hooks/useSearchBoards';
 import BoardsList from './BoardsList';
 import {
   ContainerSegment,
@@ -19,18 +19,18 @@ import {
 } from '../style';
 
 export default function BoardsSegment() {
-  const { dispatch, boards, openMenus, user } = useStoreon('boards', 'openMenus', 'user');
-  const { search, onChange, filteredList } = useSearch(boards.boards, ['content', 'name']);
+  const { dispatch, openMenus, user } = useStoreon('openMenus', 'user');
+  const { search, onChange, filteredTeams } = useSearch(user.teams);
   const { boardsRef, close } = useContext(SegmentContext);
   const { selectModal } = useContext(ModalContext);
   const input = useRef();
   const showHeader = window.innerWidth <= 600;
-
+  // console.log(f);
   const label = search ? `Создать доску с именем "${search}"` : 'Создать доску...';
 
   const modalHandler = () => {
     close();
-    selectModal('create_board', user.teams[1].id, search);
+    selectModal('create_board', user.teams[1]._id, search);
   };
 
   const addToActive = (id) => dispatch('segment/open', id);
@@ -60,17 +60,12 @@ export default function BoardsSegment() {
             onChange={onChange}
           />
           <MobileSegmentListWrapper>
-            {boards.categories.map((category) => {
-              const boardsList = category.boardsIds
-                .map((id) => filteredList.find((board) => board.id === id))
-                .filter((id) => id);
-              const activeStatus = openMenus.find((item) => item === category.id);
-
+            {filteredTeams.map((team) => {
+              const activeStatus = openMenus.find((item) => item === team._id);
               return (
                 <BoardsList
-                  key={category.id}
-                  category={category}
-                  boards={boardsList}
+                  key={team._id}
+                  team={team}
                   add={addToActive}
                   remove={removeFromActive}
                   status={!!activeStatus}

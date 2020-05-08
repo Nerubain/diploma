@@ -30,7 +30,7 @@ export default function Segments() {
       icon: 'table',
       text:
         'Доска представляет собой совокупность карточек, упорядоченных в списках. Используйте её для управления проектом, отслеживания или организации чего угодно',
-      handlerParams: ['create_board', user.teams[1].id, ''],
+      handlerParams: ['create_board', user.teams[1]._id, ''],
     },
     {
       label: 'Создание команды',

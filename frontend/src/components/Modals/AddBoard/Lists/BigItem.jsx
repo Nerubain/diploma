@@ -4,8 +4,10 @@ import { Icon } from 'semantic-ui-react';
 import { AddBoardContext } from '@context/addmodal.context';
 import { MenuItem, MenuItemContent } from '../style';
 
-export default function BigItem({ item, type, customRef }) {
-  const { newBoard, newBoardHandler } = useContext(AddBoardContext);
+export default function BigItem({ item, type, customRef, clear }) {
+  const { newBoard, newBackgroundHandler } = useContext(AddBoardContext);
+  const onClick = () => newBackgroundHandler(type, clear, item);
+
   const selector = item.image || item;
   return (
     <MenuItem key={selector} ref={customRef}>
@@ -16,9 +18,9 @@ export default function BigItem({ item, type, customRef }) {
         key={selector}
         name={type}
         selected={newBoard[type] === selector}
-        onClick={newBoardHandler}
+        onClick={onClick}
       >
-        {newBoard[type] === selector && <Icon name="check" />}
+        {newBoard[type]?.image === selector && <Icon name="check" />}
       </MenuItemContent>
     </MenuItem>
   );

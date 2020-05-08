@@ -57,8 +57,8 @@ export default function PickerMenu({ close }) {
         <ControllIcon name="close" right="right" onClick={close} />
       </PickerMenuHeader>
       {menu === 'initial' && <InitialMenu menuHandler={menuHandler} />}
-      {menu === 'colors' && <SubMenu list={colors} type="color" />}
-      {menu === 'images' && <SubMenu list={images} type="image" menu={menu} />}
+      {menu === 'colors' && <SubMenu list={colors} type="color" clear="image" />}
+      {menu === 'images' && <SubMenu list={images} type="image" clear="color" menu={menu} />}
     </PickerMenuContainer>
   );
 }

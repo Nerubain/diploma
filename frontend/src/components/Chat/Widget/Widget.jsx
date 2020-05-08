@@ -19,7 +19,7 @@ export default function Widget() {
 
   useEffect(() => {
     let isSubscribed = true;
-    Promise.all(filteredList.map(preloadImages)).then(() => isSubscribed && setLoading(false));
+    // Promise.all(filteredList.map(preloadImages)).then(() => isSubscribed && setLoading(false));
     return () => {
       isSubscribed = false;
     };
@@ -28,11 +28,11 @@ export default function Widget() {
   if (loading) return null;
   return (
     <>
-      <WidgetContainer>
+      {/* <WidgetContainer>
         <ActiveChatsListWidget chats={chats} open={open} />
         <ActionButton onlineCount={chats.length} open={open} select={select} />
       </WidgetContainer>
-      {show && <DragWindow chats={filteredList} open={open} close={close} show={show} />}
+      {show && <DragWindow chats={filteredList} open={open} close={close} show={show} />} */}
     </>
   );
 }

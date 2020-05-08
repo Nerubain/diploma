@@ -2,17 +2,15 @@ import { useState, useRef, cloneElement, memo } from 'react';
 import { useStoreon } from 'storeon/react';
 import { useDrag, useDrop } from 'react-dnd';
 
-const BoardItemWrapper = memo(({ children, id, index, type }) => {
-  const [position, setPosition] = useState(index);
+const BoardItemWrapper = ({ children, id, index, type }) => {
   const { dispatch } = useStoreon();
-  const ref = useRef();
+  const [position, setPosition] = useState(index);
+  const ref = useRef(null);
 
   const onDragEnd = (nextPosition) => {
-    if (position === nextPosition) {
-      return console.log('nothing');
-    }
+    if (position === nextPosition) return console.log('nothing');
     console.log('yes');
-    return setPosition(nextPosition);
+    setPosition(nextPosition);
   };
 
   const [{ isDragging }, connectDrag] = useDrag({
@@ -29,7 +27,7 @@ const BoardItemWrapper = memo(({ children, id, index, type }) => {
       const hoverIndex = index;
       if (dragIndex === hoverIndex) return;
 
-      dispatch('boards/dragEnd', { dragIndex, hoverIndex });
+      dispatch('user/boardsDragEnd', { dragIndex, hoverIndex });
       newItem.index = hoverIndex;
     },
   });
@@ -39,6 +37,6 @@ const BoardItemWrapper = memo(({ children, id, index, type }) => {
   connectDrop(ref);
 
   return cloneElement(children, { forwardRef: ref, opacity, onDragEnd, wrapped: true }, null);
-});
+};
 
 export default BoardItemWrapper;

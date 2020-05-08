@@ -17,16 +17,15 @@ export const joinUser = async (data, socket) => {
 export const loginUser = async (data, socket) => {
   try {
     const existedUser = await findOneUser({ login: data.login });
-    if (!existedUser) return socket.emmit('error', { error: 'Неверный логин или пароль' });
+    if (!existedUser) return socket.emit('error', { error: 'Неверный логин или пароль' });
 
     const checkPasswords = comparePasswords(data.password, existedUser.password);
-    if (!checkPasswords) return socket.emmit('error', { error: 'Неверный логин или пароль' });
+    if (!checkPasswords) return socket.emit('error', { error: 'Неверный логин или пароль' });
 
     const teams = await FindTeams({
-      $or: [{ members: existedUser._id.toString() }, { owner: existedUser._id.toString() }],
+      $or: [{ owner: existedUser._id.toString() }, { members: existedUser._id.toString() }],
     });
     const teamsWithBoards = await Promise.all(teams.map(findBoardsForTeam));
-
     const responseUser = {
       id: existedUser._id,
       userName: existedUser.userName,
@@ -34,6 +33,7 @@ export const loginUser = async (data, socket) => {
       lastOnline: existedUser.lastOnline,
       teams: teamsWithBoards,
     };
+
     return socket.emit('login', responseUser);
   } catch (error) {
     return console.log(error);

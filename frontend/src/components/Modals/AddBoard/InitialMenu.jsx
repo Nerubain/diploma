@@ -15,6 +15,7 @@ export default function InitialMenu({ menuHandler }) {
       <BigList
         list={images}
         type="image"
+        clear="color"
         title="Фотографии"
         menuHandler={menuHandler}
         menuType="images"
@@ -23,6 +24,7 @@ export default function InitialMenu({ menuHandler }) {
       <BigList
         list={colors}
         type="color"
+        clear="image"
         title="Цвета"
         menuHandler={menuHandler}
         menuType="colors"

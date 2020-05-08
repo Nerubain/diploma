@@ -1,11 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { useStoreon } from 'storeon/react';
-import faker from 'faker';
 import { Segment, Header, Input, Button, Form } from 'semantic-ui-react';
 
+import { SocketContext } from '@context/socket.context';
+
 export default function AddTeam({ close }) {
+  const { createTeamSocket } = useContext(SocketContext);
   const [team, setTeam] = useState('');
-  const { dispatch } = useStoreon();
+  const { user } = useStoreon('user');
   const inputRef = useRef(null);
   const disabled = !team;
 
@@ -13,10 +15,7 @@ export default function AddTeam({ close }) {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const id = faker.random.uuid();
-    const newTeam = { id, label: team, url: `/team/${id}/boards`, boardsIds: [], icon: 'group' };
-    dispatch('user/create_team', newTeam);
-    dispatch('boards/create_category', newTeam);
+    createTeamSocket({ team: { title: team }, userId: user.id });
     setTeam('');
     close();
   };

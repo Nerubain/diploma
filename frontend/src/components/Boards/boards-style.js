@@ -5,7 +5,7 @@ export const ListContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 `;
 
 export const BoardListLabel = styled.div`
@@ -107,6 +107,7 @@ export const PreviewBlock = styled.div`
 
 export const PreviewTitle = styled.div`
   width: 100%;
+  max-width: 170px;
   max-height: 40px;
   font-size: 16px;
   font-weight: 700;

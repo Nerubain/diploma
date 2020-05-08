@@ -8,14 +8,14 @@ export const addTeam = team => {
 };
 
 export const addInitialTeams = id => {
-  const personalTeam = new Teams(initialTeam(id, 'personal', 'Персональные доски'));
   const favouriteTeam = new Teams(initialTeam(id, 'favourite', 'Отмеченные доски'));
-  personalTeam.save();
   favouriteTeam.save();
+  const personalTeam = new Teams(initialTeam(id, 'personal', 'Персональные доски'));
+  personalTeam.save();
   return { ids: [favouriteTeam._id, personalTeam._id], datas: [favouriteTeam, personalTeam] };
 };
 
 export const FindTeams = query => Teams.find(query);
 export const FindOneTeam = query => Teams.findOne(query);
 export const FindOneTeamByIdAndUpdate = (id, params) =>
-  Teams.findByIdAndUpdate({ _id: id }, params);
+  Teams.findByIdAndUpdate({ _id: id }, params, { new: true });

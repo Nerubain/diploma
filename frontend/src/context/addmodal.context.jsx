@@ -25,9 +25,11 @@ export const AddBoardProvider = ({ children, closeModal, team, name }) => {
   const { createBoardSocket } = useContext(SocketContext);
   const [teamList, setList] = useState([]);
   const [newBoard, setBoard] = useState({ name: '', team: '', image: '', color: colors[0] });
-
+  console.log(newBoard);
   const listHandler = useCallback(() => {
-    const teams = user.teams.slice(1).map(({ id, title }) => ({ key: id, text: title, value: id }));
+    const teams = user.teams
+      .slice(1)
+      .map(({ _id, title }) => ({ key: _id, text: title, value: _id }));
     setBoard((prev) => ({ ...prev, team, name }));
     setList(teams);
   }, [user, team, name]);

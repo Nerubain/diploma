@@ -9,11 +9,8 @@ export default function Error() {
   const [data, setUser] = useState(null);
 
   const onChange = ({ target, preventDefault }) => {
-    console.log(target.files[0]);
-
     const reader = new FileReader();
     const file = target.files[0];
-
     reader.onloadend = () => {
       setUser({ image: reader.result, file });
     };

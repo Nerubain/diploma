@@ -45,8 +45,12 @@ export default function LeftBarMenu() {
         <Label>
           <span>Команды</span> <AddButton icon="plus" size="tiny" onClick={modalHandler} />
         </Label>
-        {user.teams.slice(2).map(({ title, url }) => (
-          <ListItem key={`${url}-${title}`} active={checkActive(url)} to={url}>
+        {user.teams.slice(2).map(({ _id, title }) => (
+          <ListItem
+            key={_id}
+            to={`/team/${_id}/boards`}
+            active={checkActive(`/team/${_id}/boards`)}
+          >
             <ItemMargin>
               <Icon name="group" />
             </ItemMargin>

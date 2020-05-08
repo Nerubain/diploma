@@ -44,6 +44,7 @@ export default function Addboard({ subMenu, subMenuHandler }) {
             value={newBoard.team}
             onChange={teamHandler}
             as={StyledDropDown}
+            fluid
           />
         </ModalForm>
       </ModalContent>

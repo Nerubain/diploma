@@ -1,7 +1,7 @@
-import React from 'react';
-import { useStoreon } from 'storeon/react';
+import React, { useContext } from 'react';
 import { Icon } from 'semantic-ui-react';
 
+import { SocketContext } from '@context/socket.context';
 import {
   ItemLink,
   ItemBackground,
@@ -13,27 +13,28 @@ import {
   IconButton,
 } from '../style';
 
-export default function BoardsItem({ content, id, favourite, forwardRef, opacity, wrapped }) {
-  const { dispatch } = useStoreon();
-  const { image, color, name, category } = content;
+export default function BoardsItem(props) {
+  const { updateFavourite } = useContext(SocketContext);
+  const { board, forwardRef, opacity, wrapped, teamTitle, favouriteId } = props;
+  const { background, color, favourite, title, _id } = board;
 
   const disebleAction = (e) => e.preventDefault();
-  const addHandler = () => dispatch('boards/toFavourite', id);
-  const removeHandler = () => dispatch('boards/removeFavourite', id);
-  const actionHandler = () => (favourite ? removeHandler() : addHandler());
+
+  const actionHandler = () =>
+    updateFavourite({ boardId: _id, teamId: favouriteId, remove: favourite });
 
   return (
     <ItemLink
-      to="/nerub/asdsada"
+      to={`/board/${_id}`}
       ref={forwardRef}
       style={{ opacity }}
       onDragStart={!wrapped ? disebleAction : null}
     >
-      <ItemBackground image={image} color={color} />
-      <SmallImage image={image} />
+      <ItemBackground image={background.image} color={color} />
+      <SmallImage image={background.image} />
       <BoardTitle>
-        <Title>{name}</Title>
-        {wrapped && <TeamTitle>{category}</TeamTitle>}
+        <Title>{title}</Title>
+        {wrapped && <TeamTitle>{teamTitle}</TeamTitle>}
       </BoardTitle>
       <IconContainer favourite={favourite} onClick={disebleAction}>
         <IconButton onClick={actionHandler}>
