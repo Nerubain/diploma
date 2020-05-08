@@ -12,7 +12,7 @@ export default function FocusWrapper({ children, selectText }) {
   }, []);
 
   const onKeyDown = (e) => {
-    if (e.keyCode === 27 || e.keyCode === 13) {
+    if (e.keyCode === 27) {
       input.current.blur();
       close();
     }
@@ -45,6 +45,7 @@ export default function FocusWrapper({ children, selectText }) {
           selectOnChange,
           onKeyDown,
           select,
+          close,
         })
       )}
     </>

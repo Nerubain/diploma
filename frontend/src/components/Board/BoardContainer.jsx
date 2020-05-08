@@ -7,7 +7,8 @@ import AddColumnButton from './AddColumnButton';
 import FocusWrapper from './FocusWrapper';
 import { BoardContent } from './style';
 
-export default function BoardContainer({ scrollStop, container }) {
+export default function BoardContainer(props) {
+  const { scrollStop, container, board, newColumn, newTask, updateColumn } = props;
   const setRefs = useCallback(
     (element, provider) => {
       provider.innerRef(element);
@@ -17,14 +18,20 @@ export default function BoardContainer({ scrollStop, container }) {
   );
 
   return (
-    <DragDropContext onDragStart={scrollStop} onDragEnd={() => console.log('ad')}>
+    <DragDropContext onDragStart={scrollStop}>
       <Droppable droppableId="all-columns" direction="horizontal" type="column">
         {(provided) => (
           <div style={{ position: 'relative', flexGrow: 1 }}>
             <BoardContent {...provided.droppableProps} ref={(el) => setRefs(el, provided)}>
-              <Columns />
+              <Columns
+                columns={board.columns}
+                order={board.columnsOrder}
+                tasks={board.tasks}
+                newTask={newTask}
+                updateColumn={updateColumn}
+              />
               <FocusWrapper>
-                <AddColumnButton />
+                <AddColumnButton newColumn={newColumn} />
               </FocusWrapper>
             </BoardContent>
             {provided.placeholder}

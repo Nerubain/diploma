@@ -5,7 +5,7 @@ import AddBoardForm from './AddBoardForm';
 import { ColumnContainer } from './style';
 
 export default function AddColumnButton(props) {
-  const { select, inputRef, selectOnChange, onKeyDown, containerRef } = props;
+  const { select, inputRef, selectOnChange, onKeyDown, containerRef, newColumn, close } = props;
 
   return (
     <ColumnContainer select={select} ref={containerRef}>
@@ -17,7 +17,14 @@ export default function AddColumnButton(props) {
           onClick={selectOnChange}
         />
       )}
-      {select && <AddBoardForm inputRef={inputRef} onKeyDown={onKeyDown} />}
+      {select && (
+        <AddBoardForm
+          inputRef={inputRef}
+          onKeyDown={onKeyDown}
+          newColumn={newColumn}
+          close={close}
+        />
+      )}
     </ColumnContainer>
   );
 }

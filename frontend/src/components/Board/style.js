@@ -70,7 +70,7 @@ export const Button = styled.button`
   height: 32px;
   border: 0;
   border-radius: 3px;
-  color: white !important;
+  color: ${({ favourite }) => (favourite ? '#f2d600' : 'white !important')};
 
   &:hover {
     background-color: hsla(0, 0%, 100%, 0.32);

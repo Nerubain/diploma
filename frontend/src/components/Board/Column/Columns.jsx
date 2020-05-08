@@ -3,13 +3,22 @@ import React from 'react';
 import initialData from '../InitialData';
 import Column from './Column';
 
-export default function Columns() {
+export default function Columns({ columns, order, tasks, newTask, updateColumn }) {
   return (
     <>
-      {initialData.columnsOrder.map((columnId, index) => {
-        const column = initialData.columns.find((col) => col.id === columnId);
-        const tasks = column.taskIds.map((id) => initialData.tasks.find((task) => task.id === id));
-        return <Column column={column} tasks={tasks} key={column.id} index={index} />;
+      {order.map((columnId, index) => {
+        const column = columns.find((col) => col._id === columnId);
+        const tasksList = column.tasks.map((id) => tasks.find((task) => task._id === id));
+        return (
+          <Column
+            column={column}
+            tasks={tasksList}
+            key={column._id}
+            index={index}
+            newTask={newTask}
+            updateColumn={updateColumn}
+          />
+        );
       })}
     </>
   );

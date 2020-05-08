@@ -4,10 +4,23 @@ import React, { useState } from 'react';
 import { ColumnHeader, ColumnTextArea, DragHook } from './style';
 
 export default function ColumnHead(props) {
-  const { inputRef, selectOnChange, onKeyDown, containerRef, select, title, handler } = props;
+  const {
+    inputRef,
+    selectOnChange,
+    onKeyDown,
+    containerRef,
+    select,
+    title,
+    handler,
+    updateColumn,
+    column,
+  } = props;
   const [value, setValue] = useState(title);
 
-  const onChange = ({ target }) => setValue(target.value);
+  const onChange = ({ target }) => {
+    setValue(target.value);
+    updateColumn({ title: target.value, _id: column });
+  };
   return (
     <div style={{ position: 'relative' }} ref={containerRef}>
       <DragHook {...handler} onClick={selectOnChange} show={select} />

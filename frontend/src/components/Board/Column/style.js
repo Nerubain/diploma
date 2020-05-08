@@ -13,6 +13,7 @@ export const ColumnContent = styled.div`
   display: flex;
   flex-direction: column;
   max-height: calc(100% - 10px);
+  max-width: 255px;
   position: relative;
   white-space: normal;
   margin-right: 10px;

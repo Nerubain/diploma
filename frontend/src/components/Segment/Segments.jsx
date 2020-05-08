@@ -45,7 +45,7 @@ export default function Segments() {
     {
       label: 'Профиль',
       icon: 'user',
-      handlerParams: [`/${user.name}/profile`],
+      handlerParams: [`/${user.userName}/profile`],
     },
     {
       label: 'Чат ',
@@ -68,7 +68,7 @@ export default function Segments() {
         </MenuSegment>
       )}
       {segment.type === 'user' && (
-        <MenuSegment label={user.name} customRef={userMenuRef}>
+        <MenuSegment label={user.userName} customRef={userMenuRef}>
           <SegmentList menu={userMenu} handler={toLinkHanlder} />
         </MenuSegment>
       )}

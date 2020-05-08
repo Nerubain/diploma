@@ -5,7 +5,15 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import aliases from 'module-alias/register';
 
-import { joinUser, loginUser, addBoard, createTeam, updateFavourite } from '@controllers';
+import {
+  joinUser,
+  loginUser,
+  addBoard,
+  createTeam,
+  updateFavourite,
+  moveBoard,
+  updateBoard,
+} from '@controllers';
 import mongooseConnection from './mongoose';
 
 const app = express();
@@ -30,4 +38,6 @@ io.on('connection', socket => {
   socket.on('create_board', async data => await addBoard(data, socket));
   socket.on('create_team', async data => await createTeam(data, socket));
   socket.on('updateFavourite', async data => await updateFavourite(data, socket));
+  socket.on('move-board', async data => await moveBoard(data, socket));
+  socket.on('update-board', async data => await updateBoard(data, socket));
 });

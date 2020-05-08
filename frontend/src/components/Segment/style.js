@@ -212,6 +212,7 @@ export const SmallImage = styled.div`
   width: 36px;
   height: 36px;
   background-image: url(${({ image }) => image});
+  color: ${({ color }) => color};
   background-size: cover;
   border-radius: 3px 0 0 3px;
   opacity: 0.6;
@@ -241,6 +242,7 @@ export const ItemBackground = styled.div`
   opacity: 1;
   border-radius: 3px;
   background-image: url(${({ image }) => image});
+  background-color: ${({ color }) => color};
   background-size: cover;
   background-position: 50%;
 

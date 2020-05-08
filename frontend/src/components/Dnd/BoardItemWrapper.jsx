@@ -1,16 +1,18 @@
-import { useState, useRef, cloneElement, memo } from 'react';
+import { useState, useRef, cloneElement, memo, useContext } from 'react';
 import { useStoreon } from 'storeon/react';
 import { useDrag, useDrop } from 'react-dnd';
+import { SocketContext } from '@context/socket.context';
 
-const BoardItemWrapper = ({ children, id, index, type }) => {
+const BoardItemWrapper = ({ children, id, index, type, team }) => {
   const { dispatch } = useStoreon();
+  const { moveBoard } = useContext(SocketContext);
   const [position, setPosition] = useState(index);
   const ref = useRef(null);
 
   const onDragEnd = (nextPosition) => {
-    if (position === nextPosition) return console.log('nothing');
-    console.log('yes');
-    setPosition(nextPosition);
+    if (position === nextPosition) return null;
+    moveBoard(team);
+    return setPosition(nextPosition);
   };
 
   const [{ isDragging }, connectDrag] = useDrag({

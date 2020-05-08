@@ -30,8 +30,8 @@ export default function BoardsItem(props) {
       style={{ opacity }}
       onDragStart={!wrapped ? disebleAction : null}
     >
-      <ItemBackground image={background.image} color={color} />
-      <SmallImage image={background.image} />
+      <ItemBackground image={background?.image} color={color} />
+      <SmallImage image={background?.image} color={color} />
       <BoardTitle>
         <Title>{title}</Title>
         {wrapped && <TeamTitle>{teamTitle}</TeamTitle>}

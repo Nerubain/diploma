@@ -20,7 +20,7 @@ export default function Boards() {
       team.boards.map((board) => {
         return new Promise((res) => {
           const image = new Image();
-          image.src = board.background.image;
+          image.src = board?.background?.image;
           image.onload = () => res({ status: 'loading' });
           return image;
         });
@@ -30,10 +30,9 @@ export default function Boards() {
   };
 
   const resolveImages = useCallback(async () => {
-    setLoading(true);
-    console.log('asd');
-    await Promise.all(initialTeams.map(checkImage));
-    setLoading(false);
+    // setLoading(true);
+    // await Promise.all(initialTeams.map(checkImage));
+    // setLoading(false);
   }, [initialTeams]);
 
   useEffect(() => {
@@ -54,16 +53,21 @@ export default function Boards() {
   return (
     <Layout>
       <Container>
-        {!loading && (
-          <>
-            <LeftBarMenu />
-            <RightContainer>
-              {selectedTeam.map((team) => (
-                <BoardsPreviewList key={team._id} team={team} showNavigation={!team.type && show} />
-              ))}
-            </RightContainer>
-          </>
-        )}
+        {/* {!loading && ( */}
+        <>
+          <LeftBarMenu />
+          <RightContainer>
+            {selectedTeam.map((team) => (
+              <BoardsPreviewList
+                key={team._id}
+                team={team}
+                showNavigation={!team.type && show}
+                favouriteTeam={user.teams[0]}
+              />
+            ))}
+          </RightContainer>
+        </>
+        {/* )} */}
       </Container>
     </Layout>
   );

@@ -8,18 +8,20 @@ import Tasks from '../Task/Tasks';
 import Bottom from './ColumnBottom';
 import { ColumnWrapper, ColumnContent, TasksList } from './style';
 
-export default function Column({ column, tasks, index }) {
+export default function Column({ column, tasks, index, newTask, updateColumn }) {
   return (
-    <Draggable draggableId={column.id} index={index}>
+    <Draggable draggableId={column._id} index={index}>
       {(draggbleProvided) => (
         <ColumnWrapper>
-          <Droppable droppableId={column.id} type="task">
+          <Droppable droppableId={column._id} type="task">
             {(provided) => (
               <ColumnContent ref={draggbleProvided.innerRef} {...draggbleProvided.draggableProps}>
                 <FocusWrapper>
                   <ColumnHead
-                    title={column.label}
+                    title={column.title}
                     handler={{ ...draggbleProvided.dragHandleProps }}
+                    updateColumn={updateColumn}
+                    column={column._id}
                   />
                 </FocusWrapper>
                 <FocusWrapper>
@@ -27,7 +29,7 @@ export default function Column({ column, tasks, index }) {
                     <Tasks tasks={tasks} />
                     {provided.placeholder}
                   </TasksList>
-                  <Bottom />
+                  <Bottom newTask={newTask} column={column._id} />
                 </FocusWrapper>
               </ColumnContent>
             )}

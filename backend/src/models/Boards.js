@@ -1,31 +1,25 @@
 import mongoose from 'mongoose';
+import { nanoid } from 'nanoid';
 
 const { Schema } = mongoose;
 
-const TaskSchema = new Schema({
-  title: { type: String, required: true },
-  members: { type: Array, required: true, default: [] },
-});
-
-const ColumnSchema = new Schema({
-  title: { type: String, required: true },
-  tasks: [TaskSchema],
-});
-
 const BackgroundSchema = new Schema({
-  fullImage: { type: String, required: true },
-  image: { type: String, required: true },
+  fullImage: { type: String },
+  image: { type: String },
 });
 
 const BoardSchema = new Schema(
   {
     title: { type: String, required: true },
-    columns: [ColumnSchema],
     owner: { type: String },
+    team: { type: String, required: true },
     members: { type: Array, required: true, default: [] },
-    background: { type: BackgroundSchema, required: true },
+    columns: { type: Array, required: true, default: [] },
+    tasks: { type: Array, required: true, default: [] },
     columnsOrder: { type: Array, required: true, default: [] },
+    background: { type: BackgroundSchema, default: {} },
     favourite: { type: Boolean, required: true, default: false },
+    color: { type: String, required: true, default: '' },
   },
   { collection: 'boards' },
 );

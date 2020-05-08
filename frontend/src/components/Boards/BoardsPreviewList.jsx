@@ -20,9 +20,8 @@ const icons = {
   default: 'group',
 };
 
-export default function BoardsPreviewList({ team, showNavigation }) {
+export default function BoardsPreviewList({ team, showNavigation, favouriteTeam }) {
   const { selectModal } = useContext(ModalContext);
-  const { user } = useStoreon('user');
   const modalHandler = () => selectModal('create_board', team._id, '');
   return (
     <ListContainer>
@@ -34,12 +33,18 @@ export default function BoardsPreviewList({ team, showNavigation }) {
       <ContentContainer>
         {team.boards.map((board, index) =>
           team.type === 'favourite' ? (
-            <BoardItemWrapper key={board._id} id={board._id} index={index} type="preview">
+            <BoardItemWrapper
+              key={board._id}
+              id={board._id}
+              index={index}
+              team={favouriteTeam}
+              type="preview"
+            >
               <PreviewItem
                 board={board}
                 index={index}
                 team={team.title}
-                favouriteId={user.teams[0]._id}
+                favouriteId={favouriteTeam._id}
                 dragStatus
               />
             </BoardItemWrapper>
@@ -48,7 +53,7 @@ export default function BoardsPreviewList({ team, showNavigation }) {
               key={board._id}
               board={board}
               team={team.title}
-              favouriteId={user.teams[0]._id}
+              favouriteId={favouriteTeam._id}
             />
           )
         )}

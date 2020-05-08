@@ -77,6 +77,9 @@ export default function BoardsSegment() {
           <ButtonsContainer>
             <AddBoardButton onClick={modalHandler}>{label}</AddBoardButton>
           </ButtonsContainer>
+          <ButtonsContainer>
+            <AddBoardButton onClick={modalHandler}>Создать команду</AddBoardButton>
+          </ButtonsContainer>
         </ContextContainer>
       </ContainerSegment>
     </ContextSegment>

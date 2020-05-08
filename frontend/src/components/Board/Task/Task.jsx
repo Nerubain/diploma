@@ -6,7 +6,7 @@ import { TaskWrapper, TaskContainer, TaskTitle } from './style';
 
 export default function Task({ task, index }) {
   return (
-    <Draggable draggableId={task.id} index={index}>
+    <Draggable draggableId={task._id} index={index}>
       {(provided) => (
         <TaskWrapper
           {...provided.draggableProps}
@@ -14,7 +14,7 @@ export default function Task({ task, index }) {
           ref={provided.innerRef}
         >
           <TaskContainer>
-            <TaskTitle>{task.label}</TaskTitle>
+            <TaskTitle>{task.title}</TaskTitle>
           </TaskContainer>
         </TaskWrapper>
       )}

@@ -24,7 +24,7 @@ export default function PreviewDnd(props) {
   return (
     <StyledLink
       to={`/board/${_id}`}
-      image={background.image}
+      image={background?.image}
       color={color}
       onDragStart={!dragStatus ? stopAction : null}
       style={{ opacity }}

@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { TransparentName, TransparentText, Input } from './style';
 
 export default function TransparentInput(props) {
-  const { inputRef, containerRef, selectOnChange, select, onKeyDown } = props;
-  const [value, setValue] = useState('TOP');
+  const { inputRef, containerRef, selectOnChange, select, onKeyDown, boardName, update } = props;
+  const [value, setValue] = useState(boardName);
   const width = 35 + 9.3 * value.length;
 
-  const onChange = (e) => setValue(e.target.value);
+  const onChange = (e) => {
+    setValue(e.target.value);
+    update(e.target.value);
+  };
 
+  useEffect(() => {
+    setValue(boardName);
+  }, [boardName]);
   return (
     <TransparentName ref={containerRef}>
       <TransparentText show={select} onClick={selectOnChange}>
